@@ -1,0 +1,209 @@
+<?php
+
+//require_once __DIR__."/../VO/ProductVO.php";
+
+//require_once __DIR__."/../DAO/PhotoDAO.php";
+//require_once __DIR__."/../DAO/GearTypeDAO.php";
+//require_once __DIR__."/../DAO/SportTypeDAO.php"; 
+//require_once __DIR__."/../DAO/BrandDAO.php";
+
+//require_once dirname(__DIR__)."/../core/autoload.php";
+
+class ProductDAO extends CRUD
+{
+	private $_photoDAO;
+	private $_brandDAO;
+	private $_gearTypeDAO;
+	private $_sportTypeDAO;
+
+	public function __construct()
+	{
+		parent::__construct();
+		$this->_brandDAO = new BrandDAO();
+		$this->_photoDAO = new PhotoDAO();
+
+		$this->_gearTypeDAO = new GearTypeDAO();
+		$this->_sportTypeDAO= new SportTypeDAO();
+	}
+
+	public function getProducts()
+	{
+		$photos     = $this->_photoDAO->getPhotos();
+		$brands     = $this->_brandDAO->getBrands();
+		$gearTypes  = $this->_gearTypeDAO->getGearTypes();
+		$sportTypes = $this->_sportTypeDAO->getSportTypes();
+
+		$rows = $this->select("products");
+
+		$products = array();
+
+		foreach($rows as $row)
+		{
+			$products[$row['id']] = new ProductVO($row['name'], $row['price'], $row['description'], $brands[$row['brandID']], $photos[$row['photoID']], $gearTypes[$row['gearTypeID']], $sportTypes[$row['sportTypeID']], $row['id']);
+		}
+		
+
+		return $products;
+	}
+
+	/*
+	*input: array contains all info about one new product
+	*keys are field names
+	*/
+	public function addProduct($product)
+	{
+		$oldProductID = $this->isExist($product['name']);
+
+		if($oldProductID > 0)
+		{
+			return 0;
+		}
+
+		$newProductID = $this->insert('products', $product);
+
+		return $newProductID;
+	}
+
+	/*
+	*check existense by checking product name
+	*/
+	public function isExist($productName)
+	{
+		$sql = "SELECT *
+				FROM products
+				WHERE name=:name";
+
+		$param = array(':name'=>$productName);
+
+		$rows = $this->executeSQL($sql, $param);
+
+		$productID = 0;
+		if(sizeof($rows) != 0)
+		{
+			$productID = $rows[0]['id'];
+		}
+
+		return $productID;
+	}
+
+	//$data is an array
+	public function getProductBy($data)
+	{
+		$i = 1;
+		$j = sizeof($data);
+		$sql = "SELECT *
+				FROM products
+				WHERE ";
+		$param = array();
+
+		foreach ($data as $key => $value) {
+			$sql .= $key.'=:'.$key;
+
+			$param[":$key"] = $value;
+
+			if($i < $j)
+			{
+				$sql .= ' AND ';
+			}
+			$i++;
+		}
+		//echo $sql."<br>";
+		//print_r($param);
+		//die();
+		$rows = $this->executeSQL($sql, $param);
+
+		$photos     = $this->_photoDAO->getPhotos();
+		$brands     = $this->_brandDAO->getBrands();
+		$gearTypes  = $this->_gearTypeDAO->getGearTypes();
+		$sportTypes = $this->_sportTypeDAO->getSportTypes();
+
+		$products = array();
+
+		foreach($rows as $row)
+		{
+			$products[$row['id']] = new ProductVO($row['name'], $row['price'], $row['description'], $brands[$row['brandID']], $photos[$row['photoID']], $gearTypes[$row['gearTypeID']], $sportTypes[$row['sportTypeID']], $row['id']);
+		}
+		
+
+		return $products;
+
+	}
+
+	public function searchProduct($keyword)
+	{
+		$sql = "SELECT *
+				FROM products
+				WHERE name LIKE :keyword";
+
+		$param = array();
+
+		$param[':keyword'] = "%$keyword%";
+
+		$rows = $this->executeSQL($sql, $param);
+
+		$photos     = $this->_photoDAO->getPhotos();
+		$brands     = $this->_brandDAO->getBrands();
+		$gearTypes  = $this->_gearTypeDAO->getGearTypes();
+		$sportTypes = $this->_sportTypeDAO->getSportTypes();
+
+		$products = array();
+
+		foreach($rows as $row)
+		{
+			$products[$row['id']] = new ProductVO($row['name'], $row['price'], $row['description'], $brands[$row['brandID']], $photos[$row['photoID']], $gearTypes[$row['gearTypeID']], $sportTypes[$row['sportTypeID']], $row['id']);
+		}
+		
+
+		return $products;
+	}
+
+	public function getProductbyId($productID)
+	{
+		$sql = "SELECT *
+				FROM ";
+	}
+	/*
+	*
+	*/
+	public function getProductsByBrand($brandName)
+	{
+
+	}
+
+	public function getProductsByGearType($sportTypeID, $gearTypeID)
+	{
+
+	}
+
+	public function getProductsBySportType($sportTypeID)
+	{
+		$photos     = $this->_photoDAO->getPhotos();
+		$brands     = $this->_brandDAO->getBrands();
+		$gearTypes  = $this->_gearTypeDAO->getGearTypes();
+		$sportTypes = $this->_sportTypeDAO->getSportTypes();
+
+		$sql = "SELECT *
+				FROM products
+				WHERE sportTypeID=:sport";
+
+		$param = array(':sport'=>$sportTypeID);
+
+		$rows = $this->executeSQL($sql, $param);
+
+		$products = array();
+
+		foreach($rows as $row)
+		{
+			$products[$row['id']] = new ProductVO($row['name'], $row['price'], $row['description'], $brands[$row['brandID']], $photos[$row['photoID']], $gearTypes[$row['gearTypeID']], $sportTypes[$row['sportTypeID']], $row['id']);
+		}
+		
+
+		return $products;
+	}
+
+	public function searchProductsByKeyword($keyword)
+	{
+
+	}
+
+}
