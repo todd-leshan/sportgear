@@ -39,9 +39,9 @@
 		</ul>
 
 		<ul class="float-right">
-			<li><a href="#">Join us</a></li>
+			<li><a href="<?php echo ROOT.'user/signUp'; ?>">Join us</a></li>
 			<li><a href="<?php echo ROOT.'user'; ?>">Sign In</a></li>
-			<li id="shoppingcart"><a href="#">Shoppig Cart(0)</a></li>
+			<li id="shoppingcart"><a href="">Shoppig Cart(0)</a></li>
 		</ul>
 	</nav>
 </div>

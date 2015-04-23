@@ -136,20 +136,6 @@ function validateField(field)
             }
         break;
 
-        case "contact_email":
-            var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            var is_email=re.test(field.val());
-            if(is_email)
-            {
-                valid(field);
-            }
-            else
-            {
-                invalid(field);
-                return false;
-            }
-        break;
-
         case "contact_message":
             //console.log(message);
             if(field.val().length < 10)
@@ -162,60 +148,89 @@ function validateField(field)
             {
                 valid(field);
             }
-
-        case "signin-username":
-            if(field.val().length < 3)
-            {
-                invalid(field);
-                displayError(field, "Username must be at least 3 characters!");
-                return false;
-            }
-            else
-            {
-                valid(field);
-            }
-
-            var regex = /^[a-zA-Z0-9_-]*$/;
-            if(!regex.test(field.val()))
-            {
-                invalid(field);
-                displayError(field, "Username can only contain \"a-zA-Z0-9_-\"!");
-                return false;
-            }
-            else
-            {
-                valid(field);
-            }
-        break;
-
-        case "signin-password":
-            if(field.val().length < 8)
-            {
-                invalid(field);
-                displayError(field, "Password must be at least 8 characters!");
-                return false;
-            }
-            else
-            {
-                valid(field);
-            }
-
-            var regex = /^[a-zA-Z0-9_-]*$/;
-            if(!regex.test(field.val()))
-            {
-                invalid(field);
-                displayError(field, "Password can only contain \"a-zA-Z0-9_-\"!");
-                return false;
-            }
-            else
-            {
-                valid(field);
-            }
-        break;
-
     }
 
     return true;
+}
+
+function validateUsername(field)
+{
+    if(field.val().length < 3)
+    {
+        invalid(field);
+        displayError(field, "Username must be at least 3 characters!");
+        return false;
+    }
+    else
+    {
+        valid(field);
+    }
+
+    var regex = /^[a-zA-Z0-9_-]*$/;
+    if(!regex.test(field.val()))
+    {
+        invalid(field);
+        displayError(field, "Username can only contain \"a-zA-Z0-9_-\"!");
+        return false;
+    }
+    else
+    {
+        valid(field);
+    }
+}
+
+function validateEmail(field)
+{
+    var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    var is_email=re.test(field.val());
+    if(is_email)
+    {
+        valid(field);
+    }
+    else
+    {
+        invalid(field);
+        return false;
+    }
+}
+
+function validatePassword(field)
+{
+    if(field.val().length < 8)
+    {
+        invalid(field);
+        displayError(field, "Password must be at least 8 characters!");
+        return false;
+    }
+    else
+    {
+        valid(field);
+    }
+
+    var regex = /^[a-zA-Z0-9_-]*$/;
+    if(!regex.test(field.val()))
+    {
+        invalid(field);
+        displayError(field, "Password can only contain \"a-zA-Z0-9_-\"!");
+        return false;
+    }
+    else
+    {
+        valid(field);
+    }
+}
+
+//if two fields are matched, return true
+function isMatch(field1, field2)
+{
+    if(field1.val() == field2.val())
+    {   
+        valid(field2);
+        return true;
+    }
+    invalid(field2);
+    displayError(field2, "Passwords must be the same!");
+    return false;
 }
 
 $(document).ready(function(){
@@ -224,6 +239,12 @@ $(document).ready(function(){
     $('#contact_firstname, #contact_lastname, #contact_phone, #contact_email').on('keyup', function() 
     {
         validateField($(this));
+
+    });
+
+    $('#contact_email').on('keyup', function() 
+    {
+        validateEmail($(this));
 
     });
 
@@ -265,10 +286,15 @@ $(document).ready(function(){
 $(document).ready(function(){
 
     //check firstname
-    $('#signin-username, #signin-password').on('keyup', function() 
+    $('#signin-username').on('keyup', function() 
     {
-        validateField($(this));
+        validateUsername($(this));
 
+    });
+
+    $('#signin-password').on('keyup', function()
+    {
+        validatePassword($(this));
     });
 
     //<!-- After Form Submitted Validation-->
@@ -279,6 +305,64 @@ $(document).ready(function(){
     for (var input in form_data)
     {
         var element=$("#signin-"+form_data[input]['name']);
+        var valid=element.hasClass("valid");
+        var error_element=$("span", element.parent());
+        if (!valid)
+        {
+            error_element.removeClass("error").addClass("error_show"); 
+            error_free=false;
+        }
+        else
+        {
+            error_element.removeClass("error_show").addClass("error");
+        }
+    }
+    if (!error_free){
+        event.preventDefault();
+    }
+    else{
+        return true;
+    }
+    });
+});
+
+//sign up form validation
+$(document).ready(function(){
+
+    //check firstname
+    $('#signup-username').on('keyup', function() 
+    {
+        validateUsername($(this));
+
+    });
+
+    $('#signup-password1').on('keyup', function()
+    {
+        validatePassword($(this));
+    });
+
+    $('#signup-password2').on('focusout', function()
+    {
+        //pass1 = document.getElementById('signup-password1');
+        //pass2 = document.getElementById('signup-password2');
+        pass1 = $('#signup-password1');
+        pass2 = $('#signup-password2');
+        isMatch(pass1, pass2);
+    });
+
+    $('#signup-email').on('keyup', function()
+    {
+        validateEmail($(this));
+    });
+
+    //<!-- After Form Submitted Validation-->
+    $("#signupButton").click(function(event){
+    //$("#contact").submit(function(event){
+    var form_data=$("#signup").serializeArray();
+    var error_free=true;
+    for (var input in form_data)
+    {
+        var element=$("#signup-"+form_data[input]['name']);
         var valid=element.hasClass("valid");
         var error_element=$("span", element.parent());
         if (!valid)
