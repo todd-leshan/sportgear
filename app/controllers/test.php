@@ -79,4 +79,15 @@ class Test extends Controller
 	{
 		$sql = "SELECT * FROM products WHERE sportTypeID=:sportTypeID= AND gearTypeID=:gearTypeID=";
 	}
+
+	public function total()
+	{
+		$product = $this->model("ProductDAO");
+
+		$table = 'products';
+
+		$total = $product->total($table);
+
+		var_dump($total);
+	}
 }

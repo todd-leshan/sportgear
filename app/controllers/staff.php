@@ -85,6 +85,7 @@ class Staff extends Controller
 
 			//log in check, return staff object
 			$staff  = $this->_staffDAO->signInCheck($username, $password);
+			
 			if($staff->getId() != 0)
 			{
 				//to staff  profile

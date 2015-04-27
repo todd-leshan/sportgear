@@ -35,7 +35,7 @@ $sportTypeName= $sportType->getName();
 			<form class="addProduct">
 				<p>
 					<label for="qty">Qty:</label>
-					<input type="number" name="qty" id="qty" required maxlength="2" value="1">
+					<input type="number" name="qty" id="qty" required value="1">
 					<span class="error">Please enter a valid quantity from 1 to 99!</span>
 				</p>
 				<p>
@@ -45,4 +45,5 @@ $sportTypeName= $sportType->getName();
 		</div>
 	</article>
 	<p id="product-description"><?php echo str_replace("\n", "<br>", $description); ?></p>
+
 </div>

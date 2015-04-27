@@ -10,7 +10,7 @@ add sth later
 
 <section id="products-container" class="float-left clearFix">
 <?php 
-if(sizeof($products) > 0){
+if(sizeof($products) > 0):
 	foreach ($products as $product) :
 		$productID    = $product->getId();
 		$name         = $product->getName();
@@ -36,16 +36,17 @@ if(sizeof($products) > 0){
 				<img src="/sportsgear/public/images/product/<?php echo $gearTypeName.'/'.$photoName; ?>" alt="<?php echo $photoAlt;?>" width="180" height="240">
 			</div>
 			<h4><?php echo $name; ?></h4>
-			<p>$<?php echo $price; ?></p></p>
+			<p>$<?php echo $price; ?></p>
 			<p><a href="<?php echo ROOT.'product/product/'.$productID; ?>">More Info</a></p>
 		</article>
 	<?php
 	endforeach;
-}
-else
-{
+	paginationLinks($pagination);
+
+else:
+
 	echo "No products found! Try again!";
-}
+endif;
 ?>
 
 </section>

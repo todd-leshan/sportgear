@@ -24,7 +24,8 @@ class StaffDAO extends CRUD
 			':password'=>$password
 			);
 
-		$staffs = $this->select('staffs', $data);
+		$staffs = $this->executeSQl($sql, $data);
+
 
 		if(sizeof($staffs) == 1)
 		{

@@ -24,6 +24,7 @@ body
 {
 	font-family: Arial, sans-serif;
 	font-weight: normal;
+	background-color: #f4f4f4;
 }
 
 .clearFix:after
@@ -682,6 +683,12 @@ table img
 		margin: 0 5px;
 	}
 
+#products-container article img
+{
+	width: auto;
+	height: 240px;
+}
+
 /*****************************************************/
 /*single product page*/
 #product-page-category-menu
@@ -709,6 +716,12 @@ table img
 	#product-detail .product-detail
 	{
 		width: 480px;
+	}
+
+	#product-detail .product-image img
+	{
+		width: auto;
+		height: 320px;
 	}
 
 	form.addProduct p

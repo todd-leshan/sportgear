@@ -16,6 +16,8 @@ class ProductDAO extends CRUD
 	private $_gearTypeDAO;
 	private $_sportTypeDAO;
 
+	private $_totalRocords;
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -28,6 +30,7 @@ class ProductDAO extends CRUD
 
 	public function getProducts()
 	{
+		/*
 		$photos     = $this->_photoDAO->getPhotos();
 		$brands     = $this->_brandDAO->getBrands();
 		$gearTypes  = $this->_gearTypeDAO->getGearTypes();
@@ -44,6 +47,33 @@ class ProductDAO extends CRUD
 		
 
 		return $products;
+		*/
+		$sql = "SELECT * FROM products";
+
+		return $products = $this->get($sql);
+	}
+
+	/*pagination*/
+	public function paginator($page = 1, $limit = 6)
+	{
+		$sql = "SELECT * FROM products LIMIT ".(($page-1)*$limit).", $limit";
+
+		$param = array(
+			':pass' => ( ( $page - 1 ) * $limit ),
+			':num'  => $limit
+			);
+
+
+		//$products = $this->get($sql, $param); 
+		$products = $this->get($sql);
+
+		$pagination         = new stdClass();
+	    $pagination->page   = $page;
+	    $pagination->limit  = $limit;
+	    //$pagination->total  = $this->_totalRocords;
+	    $pagination->products   = $products;
+	 
+	    return $pagination;
 	}
 
 	/*
@@ -106,26 +136,9 @@ class ProductDAO extends CRUD
 				$sql .= ' AND ';
 			}
 			$i++;
-		}
-		//echo $sql."<br>";
-		//print_r($param);
-		//die();
-		$rows = $this->executeSQL($sql, $param);
+		}	
 
-		$photos     = $this->_photoDAO->getPhotos();
-		$brands     = $this->_brandDAO->getBrands();
-		$gearTypes  = $this->_gearTypeDAO->getGearTypes();
-		$sportTypes = $this->_sportTypeDAO->getSportTypes();
-
-		$products = array();
-
-		foreach($rows as $row)
-		{
-			$products[$row['id']] = new ProductVO($row['name'], $row['price'], $row['description'], $brands[$row['brandID']], $photos[$row['photoID']], $gearTypes[$row['gearTypeID']], $sportTypes[$row['sportTypeID']], $row['id']);
-		}
-		
-
-		return $products;
+		return $products = $this->get($sql, $param);
 
 	}
 
@@ -139,22 +152,7 @@ class ProductDAO extends CRUD
 
 		$param[':keyword'] = "%$keyword%";
 
-		$rows = $this->executeSQL($sql, $param);
-
-		$photos     = $this->_photoDAO->getPhotos();
-		$brands     = $this->_brandDAO->getBrands();
-		$gearTypes  = $this->_gearTypeDAO->getGearTypes();
-		$sportTypes = $this->_sportTypeDAO->getSportTypes();
-
-		$products = array();
-
-		foreach($rows as $row)
-		{
-			$products[$row['id']] = new ProductVO($row['name'], $row['price'], $row['description'], $brands[$row['brandID']], $photos[$row['photoID']], $gearTypes[$row['gearTypeID']], $sportTypes[$row['sportTypeID']], $row['id']);
-		}
-		
-
-		return $products;
+		return $products = $this->get($sql, $param);
 	}
 
 	public function getProductbyId($productID)
@@ -177,16 +175,22 @@ class ProductDAO extends CRUD
 
 	public function getProductsBySportType($sportTypeID)
 	{
-		$photos     = $this->_photoDAO->getPhotos();
-		$brands     = $this->_brandDAO->getBrands();
-		$gearTypes  = $this->_gearTypeDAO->getGearTypes();
-		$sportTypes = $this->_sportTypeDAO->getSportTypes();
-
 		$sql = "SELECT *
 				FROM products
 				WHERE sportTypeID=:sport";
 
 		$param = array(':sport'=>$sportTypeID);
+
+		return $products = $this->get($sql, $param);
+	
+	}
+
+	public function get($sql, $param = [])
+	{
+		$photos     = $this->_photoDAO->getPhotos();
+		$brands     = $this->_brandDAO->getBrands();
+		$gearTypes  = $this->_gearTypeDAO->getGearTypes();
+		$sportTypes = $this->_sportTypeDAO->getSportTypes();
 
 		$rows = $this->executeSQL($sql, $param);
 
@@ -196,14 +200,8 @@ class ProductDAO extends CRUD
 		{
 			$products[$row['id']] = new ProductVO($row['name'], $row['price'], $row['description'], $brands[$row['brandID']], $photos[$row['photoID']], $gearTypes[$row['gearTypeID']], $sportTypes[$row['sportTypeID']], $row['id']);
 		}
-		
 
 		return $products;
-	}
-
-	public function searchProductsByKeyword($keyword)
-	{
-
 	}
 
 }
