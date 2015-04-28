@@ -29,10 +29,13 @@ class Staff extends Controller
 		if(!isset($_SESSION['staff']))
 		{
  			$data = array(
-				'title'   => "SportGear-Staff Sign In",
-				'mainView'=> 'signIn',
-				'user'    => 'staff',
-				'info'    => null
+				'title'     => "SportGear-Staff Sign In",
+				'mainView'  => 'signIn',
+				'brands'    => $this->_brands,
+				'sportTypes'=> $this->_sports,
+				'gearTypes' => $this->_gears,
+				'user'      => 'staff',
+				'info'      => null
 				);
 			$this->view('page', $data);
 
@@ -50,10 +53,13 @@ class Staff extends Controller
 		if(!isset($_SESSION['staff']))
 		{
 			$data = array(
-				'title'   => "SportGear-Staff Sign In",
-				'mainView'=> 'signIn',
-				'user'    => 'staff',
-				'info'    => null
+				'title'     => "SportGear-Staff Sign In",
+				'mainView'  => 'signIn',
+				'brands'    => $this->_brands,
+				'sportTypes'=> $this->_sports,
+				'gearTypes' => $this->_gears,
+				'user'      => 'staff',
+				'info'      => null
 				);
 			$this->view('page', $data);
 
@@ -122,10 +128,13 @@ class Staff extends Controller
 	public function signInFail($user)
 	{
 		$data = array(
-			'title'   => "SportGear-Sign In",
-			'mainView'=> 'signIn',
-			'user'    => 'staff',
-			'info'    => 'Please enter valid username and password to sign in!'
+			'title'     => "SportGear-Sign In",
+			'mainView'  => 'signIn',
+			'brands'    => $this->_brands,
+			'sportTypes'=> $this->_sports,
+			'gearTypes' => $this->_gears,
+			'user'      => 'staff',
+			'info'      => 'Please enter valid username and password to sign in!'
 			);
 
 		$this->view('page', $data);
@@ -152,10 +161,13 @@ class Staff extends Controller
 			$this->index();
 		}
 		$data = array(
-			'title'   => "SportGear-user info",
-			'mainView'=> 'staff',
-			'user'    => 'staff',
-			'username'=> $username
+			'title'     => "SportGear-user info",
+			'mainView'  => 'staff',
+			'brands'    => $this->_brands,
+			'sportTypes'=> $this->_sports,
+			'gearTypes' => $this->_gears,
+			'user'      => 'staff',
+			'username'  => $username
 			);
 
 		$this->view('page', $data);
@@ -241,9 +253,9 @@ class Staff extends Controller
 			$data = array(
 				'title'   => "SportGear-Add new products",
 				'mainView'=> 'addNewProduct',
-				'brands'  => $brands,
-				'gearTypes'=>$gearTypes,
-				'sportTypes'=>$sportTypes,
+				'brands'    => $this->_brands,
+				'sportTypes'=> $this->_sports,
+				'gearTypes' => $this->_gears,
 				'message'  =>$this->message
 			);
 
@@ -335,6 +347,9 @@ class Staff extends Controller
 			$data = array(
 				'title'    => "SportGear-manage products",
 				'mainView' => 'manageProducts',
+				'brands'    => $this->_brands,
+				'sportTypes'=> $this->_sports,
+				'gearTypes' => $this->_gears,
 				'products' => $products,
 				'message'  => $this->message
 			);

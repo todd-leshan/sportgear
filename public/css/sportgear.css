@@ -685,6 +685,7 @@ table img
 	#products-container article
 	{
 		width: 240px;
+		min-height: 320px;
 		margin: 0 5px;
 	}
 

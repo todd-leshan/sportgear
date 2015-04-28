@@ -12,11 +12,9 @@
 		<article id="brands">
 			<h3>Brands</h3>
 			<ul>
-				<li>WILSON</li>
-				<li>HEAD</li>
-				<li>BABOLAT</li>
-				<li>YONEX</li>
-				<li>PRINCES</lI>
+				<?php foreach($brands as $brand): ?>
+				<li><?php echo strtoupper($brand->getName()); ?></li>
+				<?php endforeach; ?>
 			</ul>
 		</article>
 		<article id="information">

@@ -1,7 +1,9 @@
 <div id="wrapper" class="clearFix">
 
 <h4 id="product-page-category-menu">
+<?php if($sport != 'search'): ?>
 	<a href="<?php echo ROOT; ?>">home</a> &gt; <a href="<?php echo ROOT.'product/'.$sport; ?>"><?php echo $sport; ?></a> 
+<?php endif; ?>
 </h4>
 
 <section id="filter" class="float-left">

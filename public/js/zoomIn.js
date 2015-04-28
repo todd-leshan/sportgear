@@ -9,7 +9,6 @@
 					enableHandler = true,
 					settings = $.extend({
 						description: false,
-						message: 'default message',
 						transition: {
 							time: '0.1s',
 							type: 'ease-out'
@@ -104,6 +103,6 @@
 
 $(function(){
 	$('#product-detail img').zoomIn({
-		'description':true
+
 	});
 });

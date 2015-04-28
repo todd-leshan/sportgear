@@ -80,7 +80,7 @@ class ProductDAO extends CRUD
 
 		//$products = $this->get($sql, $param); 
 		$products = $this->get($sql, $param);
-
+/*
 		$pagination         = new stdClass();
 	    $pagination->page   = $page;
 	    $pagination->limit  = $limit;
@@ -88,6 +88,8 @@ class ProductDAO extends CRUD
 	    $pagination->products   = $products;
 	 
 	    return $pagination;
+*/
+	    return $products;
 	}
 
 	/*
@@ -156,9 +158,22 @@ class ProductDAO extends CRUD
 
 	}
 
-	public function searchProduct($keyword)
+	public function searchProduct($keyword, $page=1, $limit=6)
 	{
 		$sql = "SELECT *
+				FROM products
+				WHERE name LIKE :keyword LIMIT ".(($page-1)*$limit).", $limit";
+
+		$param = array();
+
+		$param[':keyword'] = "%$keyword%";
+
+		return $products = $this->get($sql, $param);
+	}
+
+	public function searchProductTotal($keyword)
+	{
+		$sql = "SELECT COUNT(*)
 				FROM products
 				WHERE name LIKE :keyword";
 
@@ -166,7 +181,9 @@ class ProductDAO extends CRUD
 
 		$param[':keyword'] = "%$keyword%";
 
-		return $products = $this->get($sql, $param);
+		$total = $this->executeSQL($sql, $param);
+
+		return (int)$total[0][0];
 	}
 
 	public function getProductbyId($productID)

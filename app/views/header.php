@@ -16,6 +16,7 @@
 	<nav id="top-menu">
 		<ul>
 			<li><a href="<?php echo ROOT; ?>">Welcome to SportGear!</a></li>
+			<!--
 			<li>
 				<a href="<?php echo ROOT.'product/tennis'; ?>">TENNIS</a>
 				<ul  class="drop-down-menu">
@@ -36,6 +37,21 @@
 					<li><a href="<?php echo ROOT.'product/badminton/accessory'; ?>">Accessory</a></li>
 				</ul>
 			</li>
+			-->
+			<?php foreach($sportTypes as $sportType): ?>
+			<li>
+				<a href="<?php echo ROOT.'product/'.$sportType->getName(); ?>">
+					<?php echo strtoupper($sportType->getName()); ?>
+				</a>
+				<ul>
+				<?php foreach($gearTypes as $gear): ?>
+					<li><a href="<?php echo ROOT.'product/'.$sportType->getName().'/'.$gear->getName(); ?>">
+						<?php echo  strtoupper($gear->getName()); ?>
+					</li></a>
+				<?php endforeach; ?>
+				</ul>
+			</li>
+		<?php endforeach; ?>
 		</ul>
 
 		<ul class="float-right">

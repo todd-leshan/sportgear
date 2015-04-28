@@ -16,10 +16,13 @@ class User extends Controller
 		if(!isset($_SESSION['user']))
 		{
  			$data = array(
-				'title'   => "SportGear-User Sign In",
-				'mainView'=> 'signIn',
-				'user'    => 'user',
-				'info'    => null
+				'title'     => "SportGear-User Sign In",
+				'mainView'  => 'signIn',
+				'brands'    => $this->_brands,
+				'sportTypes'=> $this->_sports,
+				'gearTypes' => $this->_gears,
+				'user'      => 'user',
+				'info'      => null
 				);
 			$this->view('page', $data);
 
@@ -33,10 +36,13 @@ class User extends Controller
 	public function signUp($info = null)
 	{
 		$data = array(
-				'title'   => "SportGear-User Sign Up",
-				'mainView'=> 'signUp',
-				'user'    => 'user',
-				'info'    => $info
+				'title'     => "SportGear-User Sign Up",
+				'mainView'  => 'signUp',
+				'brands'    => $this->_brands,
+				'sportTypes'=> $this->_sports,
+				'gearTypes' => $this->_gears,
+				'user'      => 'user',
+				'info'      => $info
 				);
 		$this->view('page', $data);
 	}

@@ -2,10 +2,23 @@
 //announce access methods like view and model  to load models and render views
 class Controller
 {
+	protected $_brands;
+	protected $_gears;
+	protected $_sports;
+
 	public function __construct()
 	{
 		session_start();
 		define("BASE","http://localhost/sportsgear/");
+
+		$brandDAO    = $this->model('BrandDAO');
+		$gearTypeDAO = $this->model('gearTypeDAO');
+		$sportTypeDAO= $this->model('sportTypeDAO');
+
+		$this->_brands = $brandDAO->getBrands();
+		$this->_gears  = $gearTypeDAO->getGearTypes();
+		$this->_sports = $sportTypeDAO->getSportTypes();
+
 	}
 
 	protected $message = null;
