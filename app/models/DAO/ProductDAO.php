@@ -54,18 +54,32 @@ class ProductDAO extends CRUD
 	}
 
 	/*pagination*/
-	public function paginator($page = 1, $limit = 6)
+	public function paginator($page = 1, $limit = 6, $data)
 	{
-		$sql = "SELECT * FROM products LIMIT ".(($page-1)*$limit).", $limit";
+		$i = 1;
+		$j = sizeof($data);
+		$sql = "SELECT *
+				FROM products
+				WHERE ";
+		$param = array();
 
-		$param = array(
-			':pass' => ( ( $page - 1 ) * $limit ),
-			':num'  => $limit
-			);
+		foreach ($data as $key => $value) {
+			$sql .= $key.'=:'.$key;
 
+			$param[":$key"] = $value;
+
+			if($i < $j)
+			{
+				$sql .= ' AND ';
+			}
+			$i++;
+		}	
+
+		//$sql = "SELECT * FROM products LIMIT ".(($page-1)*$limit).", $limit";
+		$sql .= " LIMIT ".(($page-1)*$limit).", $limit";
 
 		//$products = $this->get($sql, $param); 
-		$products = $this->get($sql);
+		$products = $this->get($sql, $param);
 
 		$pagination         = new stdClass();
 	    $pagination->page   = $page;

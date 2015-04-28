@@ -14,32 +14,24 @@
     <div class="item active">
       <img src="images/JS1/4.jpg" alt="Chania">
       <div class="carousel-caption">
-        <h3>Chania</h3>
-        <p>The atmosphere in Chania has a touch of Florence and Venice.</p>
-      </div>
-    </div>
-
-    <div class="item">
-      <img src="images/JS1/1.jpg" alt="Chania">
-      <div class="carousel-caption">
-        <h3>Chania</h3>
-        <p>The atmosphere in Chania has a touch of Florence and Venice.</p>
+        <h3>New Head technology</h3>
+        <p>Try our 2015 new season products!!!</p>
       </div>
     </div>
 
     <div class="item">
       <img src="images/JS1/2.jpg" alt="Flower">
       <div class="carousel-caption">
-        <h3>Flowers</h3>
-        <p>Beatiful flowers in Kolymbari, Crete.</p>
+        <h3>Novak Djokovic</h3>
+        <p>Now on sale to celebrate the fourth Australia Open Grand Slam</p>
       </div>
     </div>
 
     <div class="item">
       <img src="images/JS1/3.jpg" alt="Flower">
       <div class="carousel-caption">
-        <h3>Flowers</h3>
-        <p>Beatiful flowers in Kolymbari, Crete.</p>
+        <h3>Babolat</h3>
+        <p>With Tsonga and Rafeal!!!</p>
       </div>
     </div>
   </div>
@@ -106,17 +98,17 @@
     <h4>On Sale Now!</h4>
     <img src="images/product/accessory/xhead-djokovic-dampener-2014-30.jpg"  height="240" alt="asd">
   </div>
-  <div><h4>On Sale Now!</h4><img src="images/cate/racquet.jpg" alt="asd"></div>
-  <div><h4>On Sale Now!</h4><img src="images/cate/ball.jpg" alt="asd"></div>
-  <div><h4>On Sale Now!</h4><img src="images/cate/racquet.jpg" alt="asd"></div>
-  <div><h4>On Sale Now!</h4><img src="images/cate/footwear.jpg" alt="asd"></div>
-  <div><h4>On Sale Now!</h4><img src="images/cate/racquet.jpg" alt="asd"></div>
-  <div><h4>On Sale Now!</h4><img src="images/cate/ball.jpg" alt="asd"></div>
-  <div><h4>On Sale Now!</h4><img src="images/cate/racquet.jpg" alt="asd"></div>
-  <div><h4>On Sale Now!</h4><img src="images/cate/racquet.jpg" alt="asd"></div>
-  <div><h4>On Sale Now!</h4><img src="images/cate/racquet.jpg" alt="asd"></div>
-  <div><h4>On Sale Now!</h4><img src="images/cate/racquet.jpg" alt="asd"></div>
-  <div><h4>On Sale Now!</h4><img src="images/cate/ball.jpg" alt="asd"></div>
+  <div><h4>Up to 25% OFF!</h4><img src="images/product/racquet/babolat-e-sense-open-4-3-8.jpg" alt="asd"></div>
+  <div><h4>Up to 25% OFF!</h4><img src="images/product/racquet/babolat-play-aeropro-drive.jpg" alt="asd"></div>
+  <div><h4>Buy two get one FREE!</h4><img src="images/product/ball/433338-zoom.jpg" alt="asd"></div>
+  <div><h4>Buy two get one FREE!</h4><img src="images/product/ball/xhead-championship-4-ball-can.jpg" alt="asd"></div>
+  <div><h4>Buy two get one FREE!</h4><img src="images/product/ball/xwilson-australian-open-4-ball-can-30.jpg" alt="asd"></div>
+  <div><h4>On Sale Now!</h4><img src="images/product/clothing/37467301-zoom.jpg" alt="asd"></div>
+  <div><h4>On Sale Now!</h4><img src="images/product/clothing/adidas_women_skort1.jpg" alt="asd"></div>
+  <div><h4>On Sale Now!</h4><img src="images/product/clothing/46013801-zoom.jpg" alt="asd"></div>
+  <div><h4>Clearance!</h4><img src="images/product/accessory/wilson_racquet_bag.jpg" alt="asd"></div>
+  <div><h4>On Sale Now!</h4><img src="images/product/accessory/xhead-djokovic-dampener-2014-30.jpg" alt="asd"></div>
+  <div><h4>On Sale Now!</h4><img src="images/product/racquet/yonex-arcsaber-11-badminton-racquet-30.jpg" alt="asd"></div>
 
 </section>
 

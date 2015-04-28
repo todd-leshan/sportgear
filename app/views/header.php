@@ -27,13 +27,13 @@
 				</ul>
 			</li>
 			<li>
-				<a href="#">BADMINTON</a>
+				<a href="<?php echo ROOT.'product/badminton'; ?>">BADMINTON</a>
 				<ul class="drop-down-menu">
-					<li><a href="">Racquet</a></li>
-					<li><a href="">Ball</a></li>
-					<li><a href="">Footwear</a></li>
-					<li><a href="">Clothing</a></li>
-					<li><a href="">Accessory</a></li>
+					<li><a href="<?php echo ROOT.'product/badminton/racquet'; ?>">Racquet</a></li>
+					<li><a href="<?php echo ROOT.'product/badminton/ball'; ?>">Ball</a></li>
+					<li><a href="<?php echo ROOT.'product/badminton/footwear'; ?>">Footwear</a></li>
+					<li><a href="<?php echo ROOT.'product/badminton/clothing'; ?>">Clothing</a></li>
+					<li><a href="<?php echo ROOT.'product/badminton/accessory'; ?>">Accessory</a></li>
 				</ul>
 			</li>
 		</ul>

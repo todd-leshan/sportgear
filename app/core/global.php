@@ -24,6 +24,9 @@ function paginationLinks($pagination)
 		echo '<li><a href="'.ROOT.'product/'.$sportTypeName.'/'.$gearTypeName.'/'.($currentPage-1).'">&laquo;</a></li>';
 	}
 
+	/*
+	*when we have lots of pages, we will have problem to print all links out
+	*/
 	for($i=1; $i<=$pages; $i++)
 	{
 		if($currentPage == $i)

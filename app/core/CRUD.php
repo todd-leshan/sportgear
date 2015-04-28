@@ -79,11 +79,32 @@ class CRUD
 	/*
 	*return total number of records of a table
 	*/
-	public function total($table)
+	public function total($table, $data = [])
 	{
-		$sql = "SELECT COUNT(*) FROM $table";
+		$i = 1;
+		$j = sizeof($data);
+		$param = array();
+		$sql = "SELECT COUNT(*)
+				FROM $table";
 
-		$total = $this->executeSQL($sql);
+		if($j > 0)
+		{
+			$sql .= " WHERE ";
+
+			foreach ($data as $key => $value) {
+				$sql .= $key.'=:'.$key;
+
+				$param[":$key"] = $value;
+
+				if($i < $j)
+				{
+					$sql .= ' AND ';
+				}
+				$i++;
+			}	
+		}
+
+		$total = $this->executeSQL($sql, $param);
 
 		return (int)$total[0][0];
 	}

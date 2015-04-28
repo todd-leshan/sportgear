@@ -75,7 +75,7 @@ class Product extends Controller
 	//get all products by sport type
 	public function tennis($gearType = null, $page = 1)
 	{
-		//die($gearType);
+		//die('1='.$gearType.'||2='.$page);
 		//var_dump($page);
 		//echo "<hr>";
 		$data = array();
@@ -97,12 +97,12 @@ class Product extends Controller
 			//$products = $this->_productDAO->getProductBy($param);
 			//how to write different sql???	
 		
-
-		$paginator = $this->_productDAO->paginator($page);
-		/*******************/
 		$limit = 6;
+		$paginator = $this->_productDAO->paginator($page, $limit, $param);
+		/*******************/
+		
 
-		$total = $this->_productDAO->total('products');
+		$total = $this->_productDAO->total('products', $param);
 		$pagination = new stdClass();
 		$pagination->total = $total;
 		$pagination->currentPage = $page;
@@ -133,9 +133,61 @@ class Product extends Controller
 		}
 	}
 
-	public function badminton($gearType = null)
+	public function badminton($gearType = null, $page = 1)
 	{
+		$data = array();
+
+		$brands    = $this->_brandDAO->getBrands();
+		$gearTypes = $this->_gearTypeDAO->getGearTypes();
+		$sportTypes= $this->_sportTypeDAO->getSportTypes();
+
+		$sportTypeID = $this->getIdByName($sportTypes, 'badminton');
+
+		$param['sportTypeID'] = $sportTypeID;
 		
+		if($gearType != null && $gearType != 'all')
+		{
+			$gearTypeID = $this->getIdByName($gearTypes, $gearType);
+
+			$param['gearTypeID'] = $gearTypeID;
+		}
+			//$products = $this->_productDAO->getProductBy($param);
+			//how to write different sql???	
+		
+		$limit = 6;
+		$paginator = $this->_productDAO->paginator($page, $limit, $param);
+		/*******************/
+		
+
+		$total = $this->_productDAO->total('products', $param);
+		$pagination = new stdClass();
+		$pagination->total = $total;
+		$pagination->currentPage = $page;
+		$pagination->limit = $limit;
+		$pagination->sport = 'badminton';
+		($gearType==null) ? $pagination->gear='all' : $pagination->gear=$gearType;
+
+		/*******************/
+		$products = $paginator->products;
+
+		if(sizeof($products) > 0) 
+		{
+			$data = array(
+				'title'     => "SportGear-badminton products",
+				'mainView'  => 'products',
+				'products'  => $products,
+				'sport'     => 'badminton',
+				'pagination'=> $pagination,
+				'message'   => $this->message
+			);
+
+			$this->view('page', $data);
+		}
+		else
+		{
+			$this->message = 'Sorry, We don\'t have any products now.';
+			$this->error($this->message);
+		}
 	}
 
 	//display a product

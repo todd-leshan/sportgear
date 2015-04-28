@@ -47,3 +47,4 @@ $sportTypeName= $sportType->getName();
 	<p id="product-description"><?php echo str_replace("\n", "<br>", $description); ?></p>
 
 </div>
+

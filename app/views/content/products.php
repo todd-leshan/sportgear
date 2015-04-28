@@ -30,7 +30,7 @@ if(sizeof($products) > 0):
 		$sportType    = $product->getSportType();
 		$sportTypeName= $sportType->getName();
 	?>	
-		<article class="float-left">
+		<article class="float-left clearFix">
 		<!--need a place to store id-->
 			<div>
 				<img src="/sportsgear/public/images/product/<?php echo $gearTypeName.'/'.$photoName; ?>" alt="<?php echo $photoAlt;?>" width="180" height="240">
