@@ -13,7 +13,7 @@
 			<h3>Brands</h3>
 			<ul>
 				<?php foreach($brands as $brand): ?>
-				<li><?php echo strtoupper($brand->getName()); ?></li>
+				<li><a href="<?php echo ROOT.'product/brand/'.$brand->getName(); ?>"><?php echo strtoupper($brand->getName()); ?></a></li>
 				<?php endforeach; ?>
 			</ul>
 		</article>

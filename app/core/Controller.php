@@ -23,13 +23,7 @@ class Controller
 
 	protected $message = null;
 	//define kinds of error message here, then maybe we can use them again
-	protected $error1 = "";
-	protected $error2 = "";
-	protected $error3 = "";
-	protected $error4 = "";
-	protected $error5 = "";
-
-
+	
 	public function model($model)
 	{
 		require_once __DIR__ . '/../models/DAO/'.$model.'.php';
@@ -55,7 +49,10 @@ class Controller
 		$data = array(
 				'title'   => "SportGear-Error",
 				'mainView'=> 'error',
-				'message' => $message
+				'message' => $message,
+				'brands'    => $this->_brands,
+				'sportTypes'=> $this->_sports,
+				'gearTypes' => $this->_gears,
 			);
 
 		$this->view('page', $data);

@@ -66,27 +66,27 @@
 </section>
 
 <section id="category" class="clearFix">
-  	<a href="" title="racquet">
+  	<a href="<?php echo ROOT.'product/category/racquet'; ?>">
       <article class="category category_racquet">
     		<h2>Racquet</h2>
     	</article>
     </a>
-    <a href="" title="ball">
+    <a href="<?php echo ROOT.'product/category/ball'; ?>">
     	<article class="category category_ball">
     		<h2>Ball</h2>
     	</article>
     </a>
-    <a href="" title="footwear">
+    <a href="<?php echo ROOT.'product/category/footwear'; ?>">
     	<article class="category category_footwear">
     		<h2>Footwear</h2>
     	</article>
     </a>
-    <a href="" title="clothing">
+    <a href="<?php echo ROOT.'product/category/clothing'; ?>">
     	<article class="category category_clothing">
     		<h2>Clothing</h2>
     	</article>
     </a>
-    <a href="" title="accesory">
+    <a href="<?php echo ROOT.'product/category/accesory'; ?>">
     	<article class="category category_accessory">
     		<h2>Accessory</h2>
     	</article>

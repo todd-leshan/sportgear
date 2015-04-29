@@ -1,13 +1,13 @@
 <div id="wrapper" class="clearFix">
 
 <h4 id="product-page-category-menu">
-<?php if($sport != 'search'): ?>
+<?php if($sport == 'tennis' || $sport == 'badminton'): ?>
 	<a href="<?php echo ROOT; ?>">home</a> &gt; <a href="<?php echo ROOT.'product/'.$sport; ?>"><?php echo $sport; ?></a> 
 <?php endif; ?>
 </h4>
 
 <section id="filter" class="float-left">
-add sth later
+
 </section>
 
 <section id="products-container" class="float-left clearFix">
@@ -35,7 +35,9 @@ if(sizeof($products) > 0):
 		<article class="float-left clearFix">
 		<!--need a place to store id-->
 			<div>
-				<img src="/sportsgear/public/images/product/<?php echo $gearTypeName.'/'.$photoName; ?>" alt="<?php echo $photoAlt;?>" width="180" height="240">
+				<a href="<?php echo ROOT.'product/product/'.$productID; ?>">
+					<img src="/sportsgear/public/images/product/<?php echo $gearTypeName.'/'.$photoName; ?>" alt="<?php echo $photoAlt;?>" width="180" height="240">
+				</a>
 			</div>
 			<h4><?php echo $name; ?></h4>
 			<p>$<?php echo $price; ?></p>

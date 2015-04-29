@@ -12,8 +12,8 @@ function paginationLinks($pagination)
 	$num_records = $pagination->total;
 	$currentPage = $pagination->currentPage;
 	$limit       = $pagination->limit;
-	$sportTypeName = $pagination->sport;
-	$gearTypeName  = $pagination->gear;
+	$param1 = $pagination->param1;
+	$param2  = $pagination->param2;
 
 	$pages = ceil($num_records / $limit);
 
@@ -21,7 +21,7 @@ function paginationLinks($pagination)
 
 	if($currentPage != 1)
 	{
-		echo '<li><a href="'.ROOT.'product/'.$sportTypeName.'/'.$gearTypeName.'/'.($currentPage-1).'">&laquo;</a></li>';
+		echo '<li><a href="'.ROOT.'product/'.$param1.'/'.$param2.'/'.($currentPage-1).'">&laquo;</a></li>';
 	}
 
 	/*
@@ -31,11 +31,11 @@ function paginationLinks($pagination)
 	{
 		if($currentPage == $i)
 		{
-			echo '<li class="active"><a href="'.ROOT.'product/'.$sportTypeName.'/'.$gearTypeName.'/'.$i.'">';
+			echo '<li class="active"><a href="'.ROOT.'product/'.$param1.'/'.$param2.'/'.$i.'">';
 		}
 		else
 		{
-			echo '<li><a href="'.ROOT.'product/'.$sportTypeName.'/'.$gearTypeName.'/'.$i.'">';
+			echo '<li><a href="'.ROOT.'product/'.$param1.'/'.$param2.'/'.$i.'">';
 		}
 
 		echo $i.'</a></li>';	
@@ -43,7 +43,7 @@ function paginationLinks($pagination)
 
 	if($currentPage < $pages)
 	{
-		echo '<li><a href="'.ROOT.'product/'.$sportTypeName.'/'.$gearTypeName.'/'.($currentPage+1).'">&raquo;</a></li>';
+		echo '<li><a href="'.ROOT.'product/'.$param1.'/'.$param2.'/'.($currentPage+1).'">&raquo;</a></li>';
 	}
 
 

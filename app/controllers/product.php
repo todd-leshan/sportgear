@@ -17,40 +17,12 @@ class Product extends Controller
 		$this->_sportTypeDAO= $this->model('sportTypeDAO');
 	}
 
-	//load all products...maybe should do sth else with index()
-	/*
 	public function index()
 	{
-		$productModel = $this->model("ProductModel");
-
-		$products = $productModel->getAll('products');
-		$photos   = $productModel->getAll2('photos','photoID', array('name', 'alt'));
-		$brands   = $productModel->getAll2('brands', 'brandID', array('brandName'));
-		$category1= $productModel->getAll2('category1', 'cate1ID', array('cate1'));
-		$category2= $productModel->getAll2('category2', 'cate2ID', array('cate2'));
-
-		if(sizeof($products) > 0) 
-		{
-			$data = array(
-				'title'    => "SportGear-All products",
-				'mainView' => 'products',
-				'products' => $products,
-				'photos'   => $photos,
-				'brands'   => $brands,
-				'category1'=> $category1,
-				'category2'=> $category2,
-				'message'  => $this->message
-			);
-
-			$this->view('page', $data);
-		}
-		else
-		{
-			$this->message = 'Sorry, We don\'t have any products now.';
-			$this->error($this->message);
-		}
+		//need to make changes to paginator function in DAO
+		//alternative
+		$this->tennis();
 	}
-	*/
 
 	/*for product management, check sign in status*/
 	public function isStaff()
@@ -71,54 +43,30 @@ class Product extends Controller
 		}
 	}
 
-	//load products by category1
-
-	//load products by category2
-
-	//load products by searching
-
-	//how to load products by combining limit
-
 	//get all products by sport type
 	public function tennis($gearType = null, $page = 1)
 	{
-		//die('1='.$gearType.'||2='.$page);
-		//var_dump($page);
-		//echo "<hr>";
 		$data = array();
 
-		//$brands    = $this->_brandDAO->getBrands();
-		$gearTypes = $this->_gearTypeDAO->getGearTypes();
-		$sportTypes= $this->_sportTypeDAO->getSportTypes();
-
-		//$sportTypeID = $this->getIdByName($sportTypes, 'tennis');
 		$sportTypeID = $this->getIdByName($this->_sports, 'tennis');
 
 		$param['sportTypeID'] = $sportTypeID;
 		
 		if($gearType != null && $gearType != 'all')
 		{
-			//$gearTypeID = $this->getIdByName($gearTypes, $gearType);
 			$gearTypeID = $this->getIdByName($this->_gears, $gearType);
 			
 			$param['gearTypeID'] = $gearTypeID;
 		}
-			//$products = $this->_productDAO->getProductBy($param);
-			//how to write different sql???	
 		
 		$limit = 6;
 		$products = $this->_productDAO->paginator($page, $limit, $param);
 
 		/*******************/
 		$total = $this->_productDAO->total('products', $param);
-
-		$pagination = new stdClass();
-		$pagination->total = $total;
-		$pagination->currentPage = $page;
-		$pagination->limit = $limit;
-		$pagination->sport = 'tennis';
-		($gearType==null) ? $pagination->gear='all' : $pagination->gear=$gearType;
-
+		($gearType==null) ? $param2='all' : $param2=$gearType;
+		
+		$pagination = $this->generatePagination($total, $page, $limit, 'tennis', $param2);
 		/*******************/
 		//$products = $paginator->products;
 
@@ -149,17 +97,17 @@ class Product extends Controller
 	{
 		$data = array();
 
-		$brands    = $this->_brandDAO->getBrands();
-		$gearTypes = $this->_gearTypeDAO->getGearTypes();
-		$sportTypes= $this->_sportTypeDAO->getSportTypes();
+		//$brands    = $this->_brandDAO->getBrands();
+		//$gearTypes = $this->_gearTypeDAO->getGearTypes();
+		//$sportTypes= $this->_sportTypeDAO->getSportTypes();
 
-		$sportTypeID = $this->getIdByName($sportTypes, 'badminton');
+		$sportTypeID = $this->getIdByName($this->_sports, 'badminton');
 
 		$param['sportTypeID'] = $sportTypeID;
 		
 		if($gearType != null && $gearType != 'all')
 		{
-			$gearTypeID = $this->getIdByName($gearTypes, $gearType);
+			$gearTypeID = $this->getIdByName($this->_gears, $gearType);
 
 			$param['gearTypeID'] = $gearTypeID;
 		}
@@ -170,12 +118,8 @@ class Product extends Controller
 		$products = $this->_productDAO->paginator($page, $limit, $param);
 		/*******************/
 		$total = $this->_productDAO->total('products', $param);
-		$pagination = new stdClass();
-		$pagination->total = $total;
-		$pagination->currentPage = $page;
-		$pagination->limit = $limit;
-		$pagination->sport = 'badminton';
-		($gearType==null) ? $pagination->gear='all' : $pagination->gear=$gearType;
+		($gearType==null) ? $param2='all' : $param2=$gearType;
+		$pagination = $this->generatePagination($total, $page, $limit, 'badminton', $param2);
 		/*******************/
 		//$products = $paginator->products;
 
@@ -239,9 +183,96 @@ class Product extends Controller
 	/*
 	*browse products by brands
 	*/
-	public function brand($brandName)
+	public function brand($brandName, $page = 1)
 	{
+		if($brandName == null)
+		{
+			$this->index(); //load all products
+		}
 
+		$data = array();
+
+		$brandID = $this->getIdByName($this->_brands, $brandName);
+
+		$param['brandID'] = $brandID;
+		
+		$limit = 6;
+		$products = $this->_productDAO->paginator($page, $limit, $param);
+
+		/*******************/
+		$total = $this->_productDAO->total('products', $param);
+
+		$pagination = $this->generatePagination($total, $page, $limit, 'brand', $brandName);
+		/*******************/
+		//$products = $paginator->products;
+
+		if(sizeof($products) > 0) 
+		{
+			$data = array(
+				'title'     => "SportGear-$brandName products",
+				'mainView'  => 'products',
+				'brands'    => $this->_brands,
+				'sportTypes'=> $this->_sports,
+				'gearTypes' => $this->_gears,
+				'products'  => $products,
+				'sport'     => '',
+				'pagination'=> $pagination,
+				'message'   => $this->message
+			);
+
+			$this->view('page', $data);
+		}
+		else
+		{
+			$this->message = 'Sorry, We don\'t have any products now.';
+			$this->error($this->message);
+		}
+	}
+
+	public function category($gearType, $page=1)
+	{
+		if($gearType == null)
+		{
+			$this->index(); //load all products
+		}
+
+		$data = array();
+
+		$gearTypeID = $this->getIdByName($this->_gears, $gearType);
+
+		$param['gearTypeID'] = $gearTypeID;
+		
+		$limit = 6;
+		$products = $this->_productDAO->paginator($page, $limit, $param);
+
+		/*******************/
+		$total = $this->_productDAO->total('products', $param);
+
+		$pagination = $this->generatePagination($total, $page, $limit, 'category', $gearType);
+		/*******************/
+		//$products = $paginator->products;
+
+		if(sizeof($products) > 0) 
+		{
+			$data = array(
+				'title'     => "SportGear-$gearType",
+				'mainView'  => 'products',
+				'brands'    => $this->_brands,
+				'sportTypes'=> $this->_sports,
+				'gearTypes' => $this->_gears,
+				'products'  => $products,
+				'sport'     => '',
+				'pagination'=> $pagination,
+				'message'   => $this->message
+			);
+
+			$this->view('page', $data);
+		}
+		else
+		{
+			$this->message = 'Sorry, We don\'t have any products now.';
+			$this->error($this->message);
+		}
 	}
 
 	/*search by keywords*/
@@ -264,12 +295,8 @@ class Product extends Controller
 		/*******************/
 		//in order to use the same pagination function, this part has some changes
 		$total = $this->_productDAO->searchProductTotal($keyword);
-		$pagination = new stdClass();
-		$pagination->total = $total;
-		$pagination->currentPage = $page;
-		$pagination->limit = $limit;
-		$pagination->sport = 'search';
-		$pagination->gear  = $keyword;
+
+		$pagination = $this->generatePagination($total, $page, $limit, 'search', $keyword);
 		/*******************/
 		if(sizeof($products) > 0) 
 		{
@@ -292,5 +319,17 @@ class Product extends Controller
 			$this->message = 'Sorry, We don\'t have any products now.';
 			$this->error($this->message);
 		}
+	}
+
+	public function generatePagination($total, $currentPage, $limit, $param1, $param2)
+	{
+		$pagination = new stdClass();
+		$pagination->total = $total;
+		$pagination->currentPage = $currentPage;
+		$pagination->limit = $limit;
+		$pagination->param1 = $param1;
+		$pagination->param2  = $param2;
+
+		return $pagination;
 	}
 }

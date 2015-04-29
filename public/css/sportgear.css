@@ -154,7 +154,7 @@ header #clock
 		width: 100%;
 		height: 120px;
 		font-size: 0;
-		background: #fff;
+		background: #f4f4f4;
 		background: url(../images/sportgear.jpg) no-repeat center center;
 	}
 
@@ -671,9 +671,10 @@ table img
 #filter
 {
 	width: 200px;
-	min-height: 400px;
+	min-height: 640px;
 	margin-right: 10px;
 	background-color: #999;
+	background: url(../images/babolat-play-aeropro-drive-33.jpg) no-repeat center center;
 }
 
 #products-container
