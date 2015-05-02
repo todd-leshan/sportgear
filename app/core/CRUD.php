@@ -109,6 +109,90 @@ class CRUD
 		return (int)$total[0][0];
 	}
 
+	public function update($table, $columns, $limits)
+	{
+		$sql = "UPDATE $table
+				SET ";
+
+		$i = 1;
+		$j = sizeof($columns);
+		$param = array();
+
+		if($j > 0)
+		{
+			foreach ($columns as $key => $value) {
+				$sql .= $key.'=:'.$key;
+
+				$param[":$key"] = $value;
+
+				if($i < $j)
+				{
+					$sql .= ' , ';
+				}
+				$i++;
+			}	
+		}
+
+		$i = 1;
+		$j = sizeof($limits);
+
+		if($j > 0)
+		{
+			$sql .= ' WHERE ';
+			foreach ($limits as $key => $value) {
+				$sql .= $key.'=:'.$key;
+
+				$param[":$key"] = $value;
+
+				if($i < $j)
+				{
+					$sql .= ' , ';
+				}
+				$i++;
+			}	
+		}
+
+		$stmt = $this->_conn->prepare($sql);
+
+		$stmt->execute($param);
+
+		$rowAffected = $stmt->rowCount();
+
+		return $rowAffected;
+	}
+
+	/*
+	*match key value pairs
+	*return an object
+	*/
+	public function key_value_pairs($data)
+	{
+		$i = 1;
+		$j = sizeof($data);
+		$param = array();
+		$sql = ' ';
+
+		if($j > 0)
+		{
+			foreach ($data as $key => $value) {
+				$sql .= $key.'=:'.$key;
+
+				$param[":$key"] = $value;
+
+				if($i < $j)
+				{
+					$sql .= ' , ';
+				}
+				$i++;
+			}	
+		}
+		$object = new stdClass();
+
+		$object->sql   = $sql;
+		$object->param = $param;
+
+	}
+
 	/*
 	*check sth's existence
 	*/

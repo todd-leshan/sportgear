@@ -25,7 +25,6 @@ class Staff extends Controller
 
 	public function isStaff()
 	{
-
 		if(!isset($_SESSION['staff']))
 		{
  			$data = array(
@@ -38,9 +37,7 @@ class Staff extends Controller
 				'info'      => null
 				);
 			$this->view('page', $data);
-
 		}
-
 	}
 
 	//load staff sign in view
@@ -145,7 +142,7 @@ class Staff extends Controller
 	*/
 	public function signOut()
 	{
-		session_destroy();
+		$_SESSION['staff'] = null;
 		$this->index();
 	}
 
@@ -183,9 +180,9 @@ class Staff extends Controller
 		$this->isStaff();
 		//check all data passed here
 		//if data detected, load model
-		$brands    = $this->_brandDAO->getBrands();
-		$gearTypes = $this->_gearTypeDAO->getGearTypes();
-		$sportTypes= $this->_sportTypeDAO->getSportTypes();
+		//$brands    = $this->_brandDAO->getBrands();
+		//$gearTypes = $this->_gearTypeDAO->getGearTypes();
+		//$sportTypes= $this->_sportTypeDAO->getSportTypes();
 
 		//photo upload
 		if( 
@@ -248,8 +245,8 @@ class Staff extends Controller
 		//if not, go back to the view; or when error found, go back the view with error
 		//if(1!=1){}
 		//always load the add form
-		if($brands && $gearTypes && $sportTypes)
-		{
+		//if($brands && $gearTypes && $sportTypes)
+		//{
 			$data = array(
 				'title'   => "SportGear-Add new products",
 				'mainView'=> 'addNewProduct',
@@ -260,12 +257,14 @@ class Staff extends Controller
 			);
 
 			$this->view('page', $data);
+			/*
 		}
 		else
 		{
 			$this->message = 'Sorry, We are trying to fix this. Please try again!!!';
 			$this->error($this->message);
 		}
+		*/
 	}
 
 	/*
@@ -335,11 +334,12 @@ class Staff extends Controller
 			}
 	}
 
-	public function manageProducts($params = [])
+	public function manageProducts($param, $page = 1, $limit = 6)
 	{
 		$this->isStaff();
 
 		//use $params directly to get id
+		/*
 		$products = $this->_productDAO->getProducts();
 		
 		if(sizeof($products) > 0) 
@@ -361,6 +361,174 @@ class Staff extends Controller
 			$this->message = 'Sorry, We don\'t have any products now.';
 			$this->error($this->message);
 		}
+		*/
+		/************/
+		$param = array();
+		$products = $this->_productDAO->paginator($page, $limit, $param);
+
+		/*******************/
+		$total = $this->_productDAO->total('products', $param);
+
+		$param1 = 'all';
+
+		$pagination = $this->generatePagination($total, $page, $limit, 'staff','manageProducts', $param1);
+		/*******************/
+		//$products = $paginator->products;
+
+		if(sizeof($products) > 0) 
+		{
+			$data = array(
+				'title'     => "SportGear-manage products",
+				'mainView'  => 'manageProducts',
+				'brands'    => $this->_brands,
+				'sportTypes'=> $this->_sports,
+				'gearTypes' => $this->_gears,
+				'products'  => $products,
+				'pagination'=> $pagination,
+				'message'   => $this->message
+			);
+
+			$this->view('page', $data);
+		}
+		else
+		{
+			$this->message = 'Sorry, We don\'t have any products now.';
+			$this->error($this->message);
+		}
+	}
+
+	public function passwordValidation($password)
+	{
+		$pattern = '/^[a-zA-Z0-9_-]*$/';
+
+		$info = '';
+
+		if(strlen($password) < 8)
+		{
+			$info .= "Password must be at least 8 characters!<br>";
+		}
+
+		if(!preg_match($pattern, $password))
+		{
+			$info .= "Password can only contain \"a-zA-Z0-9_-\"!<br>";
+		}
+
+		return $info;
+	}
+
+	public function changePassword()
+	{
+		$this->isStaff();
+
+		$info = '';
+		if(!isset($_SESSION['staff']))
+		{
+			$this->index();
+		}
+
+		if(!isset($_POST['change-password1']) || !isset($_POST['change-password2']) || !isset($_POST['change-password3']))
+		{
+			$info = "All fields must be filled!";
+			$this->validateFail($info);
+		}
+		else
+		{
+			$password1 = $_POST['change-password1'];
+			$password2 = $_POST['change-password2'];
+			$password3 = $_POST['change-password3'];
+		}
+
+		$info .= $this->passwordValidation($password1);
+		$info .= $this->passwordValidation($password2);
+		$info .= $this->passwordValidation($password3);
+
+		if($info)
+		{
+			$this->validateFail($info);
+		}
+
+		$username = $_SESSION['staff']['username'];
+		$staff  = $this->_staffDAO->signInCheck($username, $password1);
+		
+		if($staff->getId() == 0)
+		{
+			$info = "You have to enter the right password before change!";
+			$this->validateFail($info);
+		}
+
+		if($password1 == $password2)
+		{
+			$info = "You entered the same password as before!";
+			$this->validateFail($info);
+		}
+
+		if($password2 !== $password3)
+		{
+			$info = "Passwords have to be the same to change!";
+			$this->validateFail($info);
+		}
+
+		$param1['password'] = sha1(md5($password2));
+		$param2['username'] = $username;
+
+		$rowAffected = $this->_staffDAO->update('staffs', $param1, $param2);
+
+		if($rowAffected != 1)
+		{
+			$info = "System Error, please try again!";
+			$this->validateFail($info);
+		}
+		else
+		{
+			$info  = "Password changed! You need to log in again!<br>";
+			$info .= "You will be redirected to log in in 5 seconds!";
+			$this->validateFail($info, true);
+		}
+	}
+
+	public function validateFail($info, $redirect = false)
+	{
+		$data = array(
+			'title'     => "SportGear-Staff: change password",
+			'mainView'  => 'changePassword',
+			'brands'    => $this->_brands,
+			'sportTypes'=> $this->_sports,
+			'gearTypes' => $this->_gears,
+			'user'      => 'staff',
+			'redirect'  => $redirect,
+			'info'      => $info
+		);
+
+		$this->view('page', $data);
+	}
+
+	public function editProduct($productID)
+	{
+		$this->isStaff();
+
+		//update here
+		
+		if(!$productID)
+		{
+			$this->manageProducts();
+		}
+
+		$param['id'] = $productID;
+		
+		$rows = $this->_productDAO->getProductBy($param);
+
+		$product = $rows[$productID];
+
+		$data = array(
+			'title'     => "SportGear-Staff: Edit products",
+			'mainView'  => 'editProduct',
+			'brands'    => $this->_brands,
+			'sportTypes'=> $this->_sports,
+			'gearTypes' => $this->_gears,
+			'user'      => 'staff',
+			'info'      => $info
+		);
+
 	}
 
 }

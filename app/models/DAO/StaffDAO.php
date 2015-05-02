@@ -19,12 +19,12 @@ class StaffDAO extends CRUD
 				WHERE username=:username
 				AND password=:password";
 
-		$data = array(
+		$param = array(
 			':username'=>$username,
 			':password'=>$password
 			);
 
-		$staffs = $this->executeSQl($sql, $data);
+		$staffs = $this->executeSQl($sql, $param);
 
 
 		if(sizeof($staffs) == 1)

@@ -16,7 +16,7 @@ class GearTypeDAO extends CRUD
 		$gearTypes = array();
 
 		foreach ($rows as $row) {
-			$gearTypes[$row['id']] = new GearTypeVO($row['id'], $row['name']);
+			$gearTypes[$row['id']] = new GearTypeVO($row['id'], $row['name'], $row['status']);
 		}
 
 		return $gearTypes;

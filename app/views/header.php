@@ -16,39 +16,22 @@
 	<nav id="top-menu">
 		<ul>
 			<li><a href="<?php echo ROOT; ?>">Welcome to SportGear!</a></li>
-			<!--
-			<li>
-				<a href="<?php echo ROOT.'product/tennis'; ?>">TENNIS</a>
-				<ul  class="drop-down-menu">
-					<li><a href="<?php echo ROOT.'product/tennis/racquet'; ?>">Racquet</a></li>
-					<li><a href="<?php echo ROOT.'product/tennis/ball'; ?>">Ball</a></li>
-					<li><a href="<?php echo ROOT.'product/tennis/footwear'; ?>">Footwear</a></li>
-					<li><a href="<?php echo ROOT.'product/tennis/clothing'; ?>">Clothing</a></li>
-					<li><a href="<?php echo ROOT.'product/tennis/accessory'; ?>">Accessory</a></li>
-				</ul>
-			</li>
-			<li>
-				<a href="<?php echo ROOT.'product/badminton'; ?>">BADMINTON</a>
-				<ul class="drop-down-menu">
-					<li><a href="<?php echo ROOT.'product/badminton/racquet'; ?>">Racquet</a></li>
-					<li><a href="<?php echo ROOT.'product/badminton/ball'; ?>">Ball</a></li>
-					<li><a href="<?php echo ROOT.'product/badminton/footwear'; ?>">Footwear</a></li>
-					<li><a href="<?php echo ROOT.'product/badminton/clothing'; ?>">Clothing</a></li>
-					<li><a href="<?php echo ROOT.'product/badminton/accessory'; ?>">Accessory</a></li>
-				</ul>
-			</li>
-			-->
 			<?php foreach($sportTypes as $sportType): ?>
 			<li>
 				<a href="<?php echo ROOT.'product/'.$sportType->getName(); ?>">
 					<?php echo strtoupper($sportType->getName()); ?>
 				</a>
 				<ul>
-				<?php foreach($gearTypes as $gear): ?>
+				<?php foreach($gearTypes as $gear): 
+						if($gear->getStatus()):
+				?>
 					<li><a href="<?php echo ROOT.'product/'.$sportType->getName().'/'.$gear->getName(); ?>">
 						<?php echo  strtoupper($gear->getName()); ?>
 					</li></a>
-				<?php endforeach; ?>
+				<?php 
+						endif;
+					endforeach; 
+				?>
 				</ul>
 			</li>
 		<?php endforeach; ?>

@@ -57,4 +57,17 @@ class Controller
 
 		$this->view('page', $data);
 	}
+
+	public function generatePagination($total, $currentPage, $limit, $controller, $function, $param)
+	{
+		$pagination = new stdClass();
+		$pagination->total       = $total;
+		$pagination->currentPage = $currentPage;
+		$pagination->limit       = $limit;
+		$pagination->controller  = $controller;
+		$pagination->function    = $function;
+		$pagination->param       = $param;
+
+		return $pagination;
+	}
 }

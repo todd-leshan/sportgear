@@ -7,7 +7,7 @@
 <ul>
 	<li><a href="<?php echo ROOT.'staff/manageProducts'; ?>">Browse all products</a></li>
 	<li><a href="<?php echo ROOT.'staff/addProducts'; ?>">Add new products</a></li>
-	<li>Change Password</li>
+	<li><a href="<?php echo ROOT.'staff/changePassword'; ?>">Change Password</a></li>
 	<li>Maintain Categories</li>
 	<li>Customize</li>
 	<li><a href="">Manage promotion lists</a></li>

@@ -66,7 +66,7 @@ class Product extends Controller
 		$total = $this->_productDAO->total('products', $param);
 		($gearType==null) ? $param2='all' : $param2=$gearType;
 		
-		$pagination = $this->generatePagination($total, $page, $limit, 'tennis', $param2);
+		$pagination = $this->generatePagination($total, $page, $limit, 'product','tennis', $param2);
 		/*******************/
 		//$products = $paginator->products;
 
@@ -119,7 +119,7 @@ class Product extends Controller
 		/*******************/
 		$total = $this->_productDAO->total('products', $param);
 		($gearType==null) ? $param2='all' : $param2=$gearType;
-		$pagination = $this->generatePagination($total, $page, $limit, 'badminton', $param2);
+		$pagination = $this->generatePagination($total, $page, $limit, 'product','badminton', $param2);
 		/*******************/
 		//$products = $paginator->products;
 
@@ -202,7 +202,7 @@ class Product extends Controller
 		/*******************/
 		$total = $this->_productDAO->total('products', $param);
 
-		$pagination = $this->generatePagination($total, $page, $limit, 'brand', $brandName);
+		$pagination = $this->generatePagination($total, $page, $limit, 'product','brand', $brandName);
 		/*******************/
 		//$products = $paginator->products;
 
@@ -248,7 +248,7 @@ class Product extends Controller
 		/*******************/
 		$total = $this->_productDAO->total('products', $param);
 
-		$pagination = $this->generatePagination($total, $page, $limit, 'category', $gearType);
+		$pagination = $this->generatePagination($total, $page, $limit, 'product','category', $gearType);
 		/*******************/
 		//$products = $paginator->products;
 
@@ -296,7 +296,7 @@ class Product extends Controller
 		//in order to use the same pagination function, this part has some changes
 		$total = $this->_productDAO->searchProductTotal($keyword);
 
-		$pagination = $this->generatePagination($total, $page, $limit, 'search', $keyword);
+		$pagination = $this->generatePagination($total, $page, $limit, 'product','search', $keyword);
 		/*******************/
 		if(sizeof($products) > 0) 
 		{
@@ -319,17 +319,5 @@ class Product extends Controller
 			$this->message = 'Sorry, We don\'t have any products now.';
 			$this->error($this->message);
 		}
-	}
-
-	public function generatePagination($total, $currentPage, $limit, $param1, $param2)
-	{
-		$pagination = new stdClass();
-		$pagination->total = $total;
-		$pagination->currentPage = $currentPage;
-		$pagination->limit = $limit;
-		$pagination->param1 = $param1;
-		$pagination->param2  = $param2;
-
-		return $pagination;
 	}
 }

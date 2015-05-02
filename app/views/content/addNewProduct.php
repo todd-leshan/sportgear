@@ -49,10 +49,12 @@
 		foreach($gearTypes as $gearType):
 			$gearTypeID   = $gearType->getId();
 			$gearTypeName = $gearType->getName();
+			if($gearType->getStatus()):
 ?>
 			<option value="<?php echo $gearTypeID;?>"><?php echo $gearTypeName;?></option>
 				
 <?php
+			endif;
 		endforeach;
 ?>
 			</select>

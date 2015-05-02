@@ -233,6 +233,19 @@ function isMatch(field1, field2)
     return false;
 }
 
+function isDifferent(field1, field2)
+{
+    if(field1.val() != field2.val())
+    {   
+        valid(field2);
+        return true;
+    }
+    invalid(field2);
+    displayError(field2, "New password can not be the same as the old one");
+    return false;
+}
+//when changing password, the old password can not be the same as the new one
+
 $(document).ready(function(){
 
     //check firstname
@@ -358,11 +371,68 @@ $(document).ready(function(){
     //<!-- After Form Submitted Validation-->
     $("#signupButton").click(function(event){
     //$("#contact").submit(function(event){
-    var form_data=$("#signup").serializeArray();
+    var form_data=$("#signin").serializeArray();
     var error_free=true;
     for (var input in form_data)
     {
         var element=$("#signup-"+form_data[input]['name']);
+        var valid=element.hasClass("valid");
+        var error_element=$("span", element.parent());
+        if (!valid)
+        {
+            error_element.removeClass("error").addClass("error_show"); 
+            error_free=false;
+        }
+        else
+        {
+            error_element.removeClass("error_show").addClass("error");
+        }
+    }
+    if (!error_free){
+        event.preventDefault();
+    }
+    else{
+        return true;
+    }
+    });
+});
+
+/****************************************************************/
+//staff change password form validation
+$(document).ready(function()
+{
+    $('#change-password1').on('keyup', function()
+    {
+        validatePassword($(this));
+    });
+
+    $('#change-password2').on('keyup', function()
+    {
+        validatePassword($(this));
+    });
+
+    $('#change-password2').on('focusout', function()
+    {
+        pass1 = $('#change-password1');
+        pass2 = $('#change-password2');
+        isDifferent(pass1, pass2);
+    });
+
+    $('#change-password3').on('focusout', function()
+    {
+        pass2 = $('#change-password2');
+        pass3 = $('#change-password3');
+        isMatch(pass2, pass3);
+    });
+
+    //<!-- After Form Submitted Validation-->
+    $("#changePasswordButton").click(function(event){
+    //$("#contact").submit(function(event){
+    var form_data=$("#signin").serializeArray();
+    var error_free=true;
+    for (var input in form_data)
+    {
+        var element=$("#"+form_data[input]['name']);
         var valid=element.hasClass("valid");
         var error_element=$("span", element.parent());
         if (!valid)

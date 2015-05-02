@@ -663,7 +663,15 @@ table .productPhoto
 
 table img
 {
-	max-width: 240px;
+	width: auto;
+	height: 240px;
+}
+
+table tr td.productDesc
+{
+	width: auto;
+	max-height: 240px;
+	overflow: scroll;
 }
 
 /******************************************************/

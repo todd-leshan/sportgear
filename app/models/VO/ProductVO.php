@@ -10,19 +10,21 @@ class ProductVO
 	private $_photo;
 	private $_gearType;
 	private $_sportType;
+	private $_status;
 
-	public function __construct($name, $price, $description, $brand, $photo, $gearType, $sportType, $id = 0)
+	public function __construct($name, $price, $description, $brand, $photo, $gearType, $sportType, $status, $id = 0)
 	{
 		//validation
 
-		$this->_name = $name;
-		$this->_price = $price;
+		$this->_name        = $name;
+		$this->_price       = $price;
 		$this->_description = $description;
-		$this->_brand = $brand;
-		$this->_photo = $photo;
-		$this->_gearType = $gearType;
-		$this->_sportType = $sportType;
-		$this->_id = $id;
+		$this->_brand       = $brand;
+		$this->_photo       = $photo;
+		$this->_gearType    = $gearType;
+		$this->_sportType   = $sportType;
+		$this->_status      = $status;
+		$this->_id          = $id;
 	}
 
 	public function getId()
@@ -63,5 +65,10 @@ class ProductVO
 	public function getSportType()
 	{
 		return $this->_sportType;
+	}
+
+	public function getStatus()
+	{
+		return $this->_status;
 	}
 }

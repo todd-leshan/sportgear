@@ -30,24 +30,6 @@ class ProductDAO extends CRUD
 
 	public function getProducts()
 	{
-		/*
-		$photos     = $this->_photoDAO->getPhotos();
-		$brands     = $this->_brandDAO->getBrands();
-		$gearTypes  = $this->_gearTypeDAO->getGearTypes();
-		$sportTypes = $this->_sportTypeDAO->getSportTypes();
-
-		$rows = $this->select("products");
-
-		$products = array();
-
-		foreach($rows as $row)
-		{
-			$products[$row['id']] = new ProductVO($row['name'], $row['price'], $row['description'], $brands[$row['brandID']], $photos[$row['photoID']], $gearTypes[$row['gearTypeID']], $sportTypes[$row['sportTypeID']], $row['id']);
-		}
-		
-
-		return $products;
-		*/
 		$sql = "SELECT * FROM products";
 
 		return $products = $this->get($sql);
@@ -59,22 +41,25 @@ class ProductDAO extends CRUD
 		$i = 1;
 		$j = sizeof($data);
 		$sql = "SELECT *
-				FROM products
-				WHERE ";
+				FROM products";
 		$param = array();
 
-		foreach ($data as $key => $value) {
-			$sql .= $key.'=:'.$key;
-
-			$param[":$key"] = $value;
-
-			if($i < $j)
+		if($j>0)
+		{
+			$sql .= ' WHERE ';
+			foreach ($data as $key => $value) 
 			{
-				$sql .= ' AND ';
-			}
-			$i++;
-		}	
+				$sql .= $key.'=:'.$key;
 
+				$param[":$key"] = $value;
+
+				if($i < $j)
+				{
+					$sql .= ' AND ';
+				}
+				$i++;
+			}	
+		}
 		//$sql = "SELECT * FROM products LIMIT ".(($page-1)*$limit).", $limit";
 		$sql .= " LIMIT ".(($page-1)*$limit).", $limit";
 
@@ -229,7 +214,7 @@ class ProductDAO extends CRUD
 
 		foreach($rows as $row)
 		{
-			$products[$row['id']] = new ProductVO($row['name'], $row['price'], $row['description'], $brands[$row['brandID']], $photos[$row['photoID']], $gearTypes[$row['gearTypeID']], $sportTypes[$row['sportTypeID']], $row['id']);
+			$products[$row['id']] = new ProductVO($row['name'], $row['price'], $row['description'], $brands[$row['brandID']], $photos[$row['photoID']], $gearTypes[$row['gearTypeID']], $sportTypes[$row['sportTypeID']], $row['status'], $row['id']);
 		}
 
 		return $products;

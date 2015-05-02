@@ -31,6 +31,10 @@ if(sizeof($products) > 0):
 		
 		$sportType    = $product->getSportType();
 		$sportTypeName= $sportType->getName();
+
+		$status       = $product->getStatus();
+
+		if($status):
 	?>	
 		<article class="float-left clearFix">
 		<!--need a place to store id-->
@@ -44,6 +48,7 @@ if(sizeof($products) > 0):
 			<p><a href="<?php echo ROOT.'product/product/'.$productID; ?>">More Info</a></p>
 		</article>
 	<?php
+		endif;
 	endforeach;
 	paginationLinks($pagination);
 
