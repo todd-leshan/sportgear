@@ -25,9 +25,11 @@
 				<?php foreach($gearTypes as $gear): 
 						if($gear->getStatus()):
 				?>
-					<li><a href="<?php echo ROOT.'product/'.$sportType->getName().'/'.$gear->getName(); ?>">
+					<li>
+						<a href="<?php echo ROOT.'product/'.$sportType->getName().'/'.$gear->getName(); ?>">
 						<?php echo  strtoupper($gear->getName()); ?>
-					</li></a>
+						</a>
+					</li>
 				<?php 
 						endif;
 					endforeach; 

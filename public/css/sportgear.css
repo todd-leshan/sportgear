@@ -652,27 +652,60 @@ table .productBrand,
 table .prodcutCate1,
 table .productCate2
 {
-	width: 10%;
-}
-
-table .productDesc,
-table .productPhoto
-{
-	max-width: 25%;
+	width: 80px;
 }
 
 table img
 {
 	width: auto;
-	height: 240px;
+	height: 120px;
 }
 
 table tr td.productDesc
 {
 	width: auto;
 	max-height: 240px;
-	overflow: scroll;
 }
+
+	table tr td textarea.change-name
+	{
+		width: 100px;
+		height: 100%;
+		padding: 5px 0 5px 5px;
+	}
+
+	table td input.change-price
+	{
+		width: 80px;
+		border:1px solid #242424;
+		border-radius: 5px;
+	}
+
+	.change-brand
+	{
+		padding: 0;
+		width: 80px;
+	}
+
+	.change-gearType
+	{
+		padding: 0;
+		width: 80px;
+	}
+	
+	table tr td textarea.change-description
+	{
+		width:260px;
+		height: 100%;
+		padding: 5px 0 5px 5px;
+	}
+
+	table button
+	{
+		border: 1px solid #999;
+		border-radius: 5px;
+		margin-bottom: 10px;
+	}
 
 /******************************************************/
 /*tennis products display***********/
@@ -761,4 +794,22 @@ table tr td.productDesc
 	{
 		color: #fff;
 		background-color: #242424;
+	}
+/************************************************************************/
+/*manage categories*/
+#manage-categories
+{
+	text-align: center;
+}
+
+	#manage-categories button
+	{
+		margin: auto;
+		padding: 2px 10px;
+	}
+
+	#manage-categories button:hover
+	{
+		background: #242424;
+		color: #fff;
 	}

@@ -152,6 +152,9 @@ class CRUD
 			}	
 		}
 
+		//die('<hr>'.$sql.'<hr>');
+		
+
 		$stmt = $this->_conn->prepare($sql);
 
 		$stmt->execute($param);

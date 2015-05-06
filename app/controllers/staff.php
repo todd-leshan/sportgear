@@ -334,34 +334,75 @@ class Staff extends Controller
 			}
 	}
 
-	public function manageProducts($param, $page = 1, $limit = 6)
+	public function manageProducts($selector = null, $page = 1, $limit = 6)
 	{
 		$this->isStaff();
 
-		//use $params directly to get id
-		/*
-		$products = $this->_productDAO->getProducts();
-		
-		if(sizeof($products) > 0) 
+		if(isset($_POST['productID']))
 		{
-			$data = array(
-				'title'    => "SportGear-manage products",
-				'mainView' => 'manageProducts',
-				'brands'    => $this->_brands,
-				'sportTypes'=> $this->_sports,
-				'gearTypes' => $this->_gears,
-				'products' => $products,
-				'message'  => $this->message
-			);
+			$productID = $_POST['productID'];
+		}
 
-			$this->view('page', $data);
-		}
-		else
+		if(isset($_POST['change-update']))
 		{
-			$this->message = 'Sorry, We don\'t have any products now.';
-			$this->error($this->message);
+			unset($_POST['change-update']);
+
+			$formValid = true;
+
+			if(!isset($_POST['change-name']) || strlen($_POST['change-name']) < 10)
+			{
+				$this->message .= "Product name must be filled with at least 10 characters!<br>";
+				$formValid = false; 
+			}
+
+			if(!isset($_POST['change-price']))
+			{
+				$this->message .= "Price must be filled!<br>";
+				$formValid = false; 
+			}
+
+			if(!$formValid)
+			{
+				$this->error($this->message);
+			}
+			else
+			{
+				$_POST['change-status']==1 ? $status=true: $status=false;
+
+				$columns = array(
+					'name'        => $_POST['change-name'],
+					'price'       => $_POST['change-price'],
+					'description' => $_POST['change-description'],
+					'brandID'     => $_POST['change-brand'],
+					'gearTypeID'  => $_POST['change-gearType'],
+					'sportTypeID' => $_POST['change-sport'],
+					'status'      => $status
+					);
+
+				$limits  = array(
+					'id' => $productID 
+					);
+
+				$rowAffected = $this->_staffDAO->update('products', $columns, $limits);
+
+				if($rowAffected != 1)
+				{
+					$this->message = 'Sorry, system error, please try again!';
+					$this->error($this->message);
+				}
+				else
+				{
+					$this->manageProducts();
+				}
+			}
+
 		}
-		*/
+
+		if(isset($_POST['change-delete']))
+		{
+			unset($_POST['change-delete']);
+		}
+
 		/************/
 		$param = array();
 		$products = $this->_productDAO->paginator($page, $limit, $param);
@@ -373,7 +414,6 @@ class Staff extends Controller
 
 		$pagination = $this->generatePagination($total, $page, $limit, 'staff','manageProducts', $param1);
 		/*******************/
-		//$products = $paginator->products;
 
 		if(sizeof($products) > 0) 
 		{
@@ -502,26 +542,13 @@ class Staff extends Controller
 		$this->view('page', $data);
 	}
 
-	public function editProduct($productID)
+	public function manageCategories()
 	{
-		$this->isStaff();
-
-		//update here
-		
-		if(!$productID)
-		{
-			$this->manageProducts();
-		}
-
-		$param['id'] = $productID;
-		
-		$rows = $this->_productDAO->getProductBy($param);
-
-		$product = $rows[$productID];
+		$info = '';
 
 		$data = array(
-			'title'     => "SportGear-Staff: Edit products",
-			'mainView'  => 'editProduct',
+			'title'     => "SportGear-Staff: manage Categories",
+			'mainView'  => 'manageCategories',
 			'brands'    => $this->_brands,
 			'sportTypes'=> $this->_sports,
 			'gearTypes' => $this->_gears,
@@ -529,6 +556,7 @@ class Staff extends Controller
 			'info'      => $info
 		);
 
+		$this->view('page', $data);
 	}
 
 }

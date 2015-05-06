@@ -60,20 +60,11 @@ class ProductDAO extends CRUD
 				$i++;
 			}	
 		}
-		//$sql = "SELECT * FROM products LIMIT ".(($page-1)*$limit).", $limit";
+		
 		$sql .= " LIMIT ".(($page-1)*$limit).", $limit";
-
-		//$products = $this->get($sql, $param); 
+		
 		$products = $this->get($sql, $param);
-/*
-		$pagination         = new stdClass();
-	    $pagination->page   = $page;
-	    $pagination->limit  = $limit;
-	    //$pagination->total  = $this->_totalRocords;
-	    $pagination->products   = $products;
-	 
-	    return $pagination;
-*/
+
 	    return $products;
 	}
 

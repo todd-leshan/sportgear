@@ -44,7 +44,18 @@ $sportTypeName= $sportType->getName();
 			</form>
 		</div>
 	</article>
-	<p id="product-description"><?php echo str_replace("\n", "<br>", $description); ?></p>
+	<p id="product-description">
+	<?php  
+		if($description)
+		{
+			echo str_replace("\n", "<br>", $description);
+		}
+		else
+		{
+			echo 'Detailed information will be added later!';
+		}
+	?>
+	</p>
 
 </div>
 
