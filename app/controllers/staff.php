@@ -291,7 +291,7 @@ class Staff extends Controller
 			if(file_exists($target_file))
 			{
 				$this->message .= "Sorry, Image exists!<br>";
-				$uploadOK = 0;
+				//$uploadOK = 0;
 			}
 
 			if($file['size'] > 2000000)//2mb

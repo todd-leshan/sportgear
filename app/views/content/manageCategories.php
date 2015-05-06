@@ -16,7 +16,7 @@ foreach($gearTypes as $gear)
 	$status = $gear->getStatus();
 ?>
 	<tr>
-		<form method="post" class="manage-categories">
+		<form method="post" class="manage-categories" action="<?php ?>">
 		<input type="hidden" name="categoryID" value="<?php echo $id ;?>">
 		<td>
 			<input type="text" name="category-name" required value="<?php echo $name ;?>">
@@ -45,6 +45,21 @@ foreach($gearTypes as $gear)
 ?>
 
 </table>
+
+<form class="mainform">
+	<fieldset>
+		<legend>Add A New Category</legend>
+		<p>
+			<label>Category's Name:</label>
+			<input type="text" name="category-name" required>
+		</p>
+		<p>
+			<button type="submit" name="addCategorySubmit">Add</button>
+		</p>
+		
+
+	</fieldset>
+</form>
 
 <p class="goBack"><a href="<?php echo ROOT.'staff'; ?>">Back to Menu</a></p>
 <p class="logout"><a href="<?php echo ROOT.'staff/signOut'; ?>">Sign Out</a></p>
