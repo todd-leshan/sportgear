@@ -4,7 +4,6 @@ define("ROOT", "http://localhost/sportsgear/");
 
 //define("ROOT", "http://www.example.com/sportsgear/");
 
-define("productRecord", 15);
 
 //have no idea where this function should go
 function paginationLinks($pagination)

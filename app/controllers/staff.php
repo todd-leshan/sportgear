@@ -546,17 +546,171 @@ class Staff extends Controller
 	{
 		$info = '';
 
+		if(isset($_POST["addCategorySubmit"]))
+		{
+			$newCate = $_POST["category-name"];
+			unset($_POST["addCategorySubmit"]);
+
+			$isValid = true;
+
+
+			if(strlen($newCate) < 5)
+			{
+				$info .= 'Category name must have at least 5 characters!<br>';
+				$isValid = false;
+			}
+
+			$pattern = "/^[a-zA-Z0-9_.'-]*$/";
+
+			if(!preg_match($pattern, $newCate))
+			{
+				$info .= "Category name can only contain \"a-zA-Z0-9_ /\.'-\"!<br>";
+				$isValid = false;
+			}
+
+			if(!$isValid)
+			{
+				$this->manageCategoriesLoadView(false, $info);
+			}
+			else
+			{
+				$param = array(
+					'name'   => $newCate,
+					'status' => true
+					);
+
+				$isExist = $this->_gearTypeDAO->isExist('geartypes', $newCate);
+				if($isExist > 0)
+				{
+					$info .= "You've aleady have a category called $newCate.<br>";
+					$this->manageCategoriesLoadView(false, $info);
+					exit();
+				}
+
+				$id = $this->_gearTypeDAO->insert('geartypes', $param);
+
+				if($id > 0)
+				{
+					$info = "You've added a new category - $newCate successfully.";
+					$this->manageCategoriesLoadView(true, $info);
+					exit();
+				}
+			}
+		}
+
+		if(isset($_POST['category-delete']))
+		{
+			$id = $_POST['categoryID'];
+			unset($_POST['category-delete']);
+
+			$param = array(
+				'gearTypeID'=>$id
+				);
+			$products = $this->_productDAO->getProductBy($param);
+			if(sizeof($products) > 0)
+			{
+				$info .= "You can not delete a category with products belong to it!<br>";
+				$this->manageCategoriesLoadView(false, $info);
+				exit();
+			}
+			else
+			{
+				$param = array(
+					'id' => $id
+					);
+				$rowAffected = $this->_gearTypeDAO->delete('geartypes', $param);
+				if($rowAffected == 0)
+				{
+					$info = "Error, please try later!<br>";
+					$this->manageCategoriesLoadView(false, $info);
+					exit();
+				}
+				else
+				{
+					$info = "You've deleted a category - $newCate successfully.";
+					$this->manageCategoriesLoadView(true, $info);
+					exit();
+				}
+			}
+		}
+
+		if(isset($_POST['category-update']))
+		{
+			unset($_POST['category-update']);
+
+			$id     = $_POST['categoryID'];
+			$name   = $_POST['category-name'];
+			$_POST['category-status']==1 ? $status=true : $status=false;
+
+			$isExist = $this->_gearTypeDAO->isExist('geartypes', $name);
+			if($isExist > 0)
+			{
+				$param = array(
+					'name'   => $name,
+					'status' => !$status
+					);
+
+				$isUpdateStatus = $this->_gearTypeDAO->total('geartypes', $param);
+
+				if($isUpdateStatus != 1)
+				{
+					$info .= "You've aleady have a category called $name.<br>";
+					$this->manageCategoriesLoadView(false, $info);
+					exit();
+				}
+
+				
+			}
+
+			$columns = array(
+				'name'   => $name,
+				'status' => $status
+				);
+			$limits  = array(
+				'id'     => $id
+				);
+
+			$rowAffected = $this->_staffDAO->update('geartypes', $columns, $limits);
+
+			if($rowAffected != 1)
+			{
+				$info = 'Failed to update categories!<br>';
+				$this->manageCategoriesLoadView(false, $info);
+				exit();
+			}
+			else
+			{
+				$info = 'Update category successfully!<br>';
+				$this->manageCategoriesLoadView(true, $info);
+				exit();
+			}
+		}
+
+		$this->manageCategoriesLoadView(false, $info);
+	}
+
+	public function manageCategoriesLoadView($loadNewGearTypes, $info = null)
+	{
+		if($loadNewGearTypes)
+		{
+			$gears = $this->_gearTypeDAO->getGearTypes();
+		}
+		else
+		{
+			$gears = $this->_gears;
+		}
+
 		$data = array(
 			'title'     => "SportGear-Staff: manage Categories",
 			'mainView'  => 'manageCategories',
 			'brands'    => $this->_brands,
 			'sportTypes'=> $this->_sports,
-			'gearTypes' => $this->_gears,
+			'gearTypes' => $gears,
 			'user'      => 'staff',
 			'info'      => $info
 		);
 
 		$this->view('page', $data);
 	}
-
 }
+

@@ -9,6 +9,10 @@
 	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.4.1/slick.css"/>
 	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.4.1/slick-theme.css"/>
 	<link rel="stylesheet" type="text/css" href="/sportsgear/public/css/sportgear.css">	
+
+	<!-- staff customize-->
+	<link rel="stylesheet" type="text/css" href="/sportsgear/public/css/staff.css">	
+	<link rel="stylesheet" type="text/css" href="/sportsgear/public/css/lemon.css">	
 </head>
 <?php require_once(__DIR__ . "/../core/global.php"); ?>
 <body>

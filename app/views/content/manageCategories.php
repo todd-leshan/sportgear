@@ -1,57 +1,56 @@
 <div id="wrapper" class="clearFix">
-
-<table id="manage-categories">
+<p class="error_show">
+<?php
+	if($info)
+	{
+		echo $info;
+	} 
+?>
+</p>
+<table>
 	<tr>
-		<th>Name</th>
-		<th>Status</th>
-		<th>Update</th>
-		<th>Delete</th>
+		<th class="category-name">Name</th>
+		<th class="category-status">Status</th>
+		<th class="category-status">Update</th>
+		<th class="category-status">Delete</th>
 	</tr>
-
+</table>
 <?php 
-foreach($gearTypes as $gear)
-{
+foreach($gearTypes as $gear):
 	$id     = $gear->getId();
 	$name   = $gear->getName();
 	$status = $gear->getStatus();
 ?>
-	<tr>
-		<form method="post" class="manage-categories" action="<?php ?>">
-		<input type="hidden" name="categoryID" value="<?php echo $id ;?>">
-		<td>
-			<input type="text" name="category-name" required value="<?php echo $name ;?>">
-		</td>
-		<td>
-			<label for="status-1">
-				<input type="radio" name="category-status" class="status" value="1" <?php if($status == 1): echo 'checked'; endif;?>>
-				active	
-			</label>
-			<label for="status-0">
-				<input type="radio" name="category-status" class="status" value="0" <?php if($status == 0): echo 'checked'; endif;?>>
-				inactive	
-			</label>
-		</td>
-		<td>
-			<button type="submit" name="category-update">Update</button>
-		</td>
-		<td>
-			<button type="submit" name="category-delete">Delete</button>
-		</td>
-		</form>
-	</tr>
+<form method="post" class="manage-categories clearFix" action="<?php echo ROOT.'staff/manageCategories'; ?>">
+	<input type="hidden" name="categoryID" value="<?php echo $id ;?>">
+
+	<input type="text" name="category-name" class="category-name float-left" required value="<?php echo $name ;?>">
+
+	<p class="category-status float-left">
+		<label for="status-1">
+			<input type="radio" name="category-status" value="1" <?php if($status == 1): echo 'checked'; endif;?>>
+			active	
+		</label>
+		<label for="status-0">
+			<input type="radio" name="category-status" value="0" <?php if($status == 0): echo 'checked'; endif;?>>
+			inactive	
+		</label>
+	</p>
+
+	<button type="submit" name="category-update" class="float-left">Update</button>
+	<button type="submit" name="category-delete" class="float-left">Delete</button>
+</form>
 <?php
-}
+endforeach;
 
 ?>
 
-</table>
-
-<form class="mainform">
+<form class="mainform" method="post" action="<?php echo ROOT.'staff/manageCategories'; ?>">
 	<fieldset>
 		<legend>Add A New Category</legend>
 		<p>
 			<label>Category's Name:</label>
-			<input type="text" name="category-name" required>
+			<input type="text" name="category-name" required pattern="[a-zA-Z0-9_ /\.'-]*">
 		</p>
 		<p>
 			<button type="submit" name="addCategorySubmit">Add</button>

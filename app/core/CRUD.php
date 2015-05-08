@@ -194,6 +194,21 @@ class CRUD
 		$object->sql   = $sql;
 		$object->param = $param;
 
+		return $object;
+	}
+
+	public function delete($table, $param)
+	{
+		$sql = "DELETE FROM $table
+				WHERE id=:id";
+
+		$stmt = $this->_conn->prepare($sql);
+
+		$stmt->execute($param);
+
+		$rowAffected = $stmt->rowCount();
+
+		return $rowAffected;
 	}
 
 	/*
@@ -217,6 +232,28 @@ class CRUD
 		$prepare = "SELECT * FROM {$table} WHERE {}";
 	}
 	*/
+
+	/*
+	*check existense by checking name
+	*/
+	public function isExist($table, $name)
+	{
+		$sql = "SELECT *
+				FROM $table
+				WHERE name=:name";
+
+		$param = array(':name'=>$name);
+
+		$rows = $this->executeSQL($sql, $param);
+
+		$productID = 0;
+		if(sizeof($rows) != 0)
+		{
+			$productID = $rows[0]['id'];
+		}
+
+		return $productID;
+	}
 
 	/*
 More functions need to be defined here

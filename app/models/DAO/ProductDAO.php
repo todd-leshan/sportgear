@@ -74,7 +74,7 @@ class ProductDAO extends CRUD
 	*/
 	public function addProduct($product)
 	{
-		$oldProductID = $this->isExist($product['name']);
+		$oldProductID = $this->isExist('products', $product['name']);
 
 		if($oldProductID > 0)
 		{
@@ -84,28 +84,6 @@ class ProductDAO extends CRUD
 		$newProductID = $this->insert('products', $product);
 
 		return $newProductID;
-	}
-
-	/*
-	*check existense by checking product name
-	*/
-	public function isExist($productName)
-	{
-		$sql = "SELECT *
-				FROM products
-				WHERE name=:name";
-
-		$param = array(':name'=>$productName);
-
-		$rows = $this->executeSQL($sql, $param);
-
-		$productID = 0;
-		if(sizeof($rows) != 0)
-		{
-			$productID = $rows[0]['id'];
-		}
-
-		return $productID;
 	}
 
 	//$data is an array

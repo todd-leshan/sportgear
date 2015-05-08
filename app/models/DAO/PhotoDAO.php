@@ -24,37 +24,13 @@ class PhotoDAO extends CRUD
 	}
 
 	/*
-	*check whether a photo with the same name exists in the dababase
-	*return true if not; return false if exists
-	*/
-	//this may be used again, rewrite this in the parent class
-	public function isExist($photoName)
-	{
-		$sql = "SELECT *
-				FROM photos
-				WHERE name=:name";
-
-		$param = array(':name'=>$photoName);
-
-		$rows = $this->executeSQL($sql, $param);
-
-		if(sizeof($rows) != 0)
-		{
-			$photoID = $rows[0]['id'];
-			return $photoID;
-		}
-
-		return $photoID = 0;
-	}
-
-	/*
 	*insert new photo's info into CRUD
 	*if succeed, return id
 	*input:
 	*/
 	public function addPhoto($photo)
 	{
-		$photoID = $this->isExist($photo['name']);
+		$photoID = $this->isExist('photos', $photo['name']);
 
 		if($photoID > 0)
 		{
