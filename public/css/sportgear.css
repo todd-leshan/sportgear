@@ -47,6 +47,11 @@ body
 	float: right;
 }
 
+form
+{
+	background: #f4f4f4;
+}
+
 /******************************************************************************/
 /*general setting starts*/
 #top-menu,
@@ -663,7 +668,7 @@ form.manage-products
 	.sport-radio,
 	.status-radio
 	{
-		width: 100px;
+		width: 90px;
 		height: 180px;
 	}
 
@@ -791,7 +796,7 @@ th
 
 .category-name
 {
-	width: 478px;
+	width: 438px;
 }
 
 .category-status

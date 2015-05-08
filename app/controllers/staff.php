@@ -248,12 +248,13 @@ class Staff extends Controller
 		//if($brands && $gearTypes && $sportTypes)
 		//{
 			$data = array(
-				'title'   => "SportGear-Add new products",
-				'mainView'=> 'addNewProduct',
+				'title'     => "SportGear-Add new products",
+				'mainView'  => 'addNewProduct',
 				'brands'    => $this->_brands,
 				'sportTypes'=> $this->_sports,
 				'gearTypes' => $this->_gears,
-				'message'  =>$this->message
+				'user'      => 'staff', 
+				'message'   =>$this->message
 			);
 
 			$this->view('page', $data);
@@ -425,6 +426,7 @@ class Staff extends Controller
 				'gearTypes' => $this->_gears,
 				'products'  => $products,
 				'pagination'=> $pagination,
+				'user'      => 'staff',
 				'message'   => $this->message
 			);
 
@@ -494,18 +496,21 @@ class Staff extends Controller
 		{
 			$info = "You have to enter the right password before change!";
 			$this->validateFail($info);
+			exit();
 		}
 
 		if($password1 == $password2)
 		{
 			$info = "You entered the same password as before!";
 			$this->validateFail($info);
+			exit();
 		}
 
 		if($password2 !== $password3)
 		{
 			$info = "Passwords have to be the same to change!";
 			$this->validateFail($info);
+			exit();
 		}
 
 		$param1['password'] = sha1(md5($password2));
@@ -517,6 +522,7 @@ class Staff extends Controller
 		{
 			$info = "System Error, please try again!";
 			$this->validateFail($info);
+			exit();
 		}
 		else
 		{
@@ -544,6 +550,8 @@ class Staff extends Controller
 
 	public function manageCategories()
 	{
+		$this->isStaff();
+
 		$info = '';
 
 		if(isset($_POST["addCategorySubmit"]))
@@ -711,6 +719,78 @@ class Staff extends Controller
 		);
 
 		$this->view('page', $data);
+	}
+
+	public function customize()
+	{
+		$this->isStaff();
+
+		$info = '';
+
+		$staffID = $_SESSION['staff']['staffID'];
+		
+		if(isset($_POST['customizeSave']))
+		{
+			unset($_POST['customizeSave']);
+			$style = '';
+			
+			if(isset($_POST['customize-fs']))
+			{
+				$fs = $_POST['customize-fs'];
+				unset($_POST['customize-fs']);
+
+				$style .= $this->setFontSize($fs, $style);
+			}
+
+			if(isset($_POST['customize-bg']))
+			{
+				$bg = $_POST['customize-bg'];
+				unset($_POST['customize-bg']);
+
+				$style .= "body{background:url(../images/theme/$bg)}";
+			}
+
+			$style .= "#wrapper{padding: 20px;}";
+
+			$css = fopen("../public/css/staff".$staffID.".css", 'w+');
+
+			fwrite($css, $style);
+
+			fclose($css);
+		}
+
+		$data = array(
+			'title'     => "SportGear-Staff: manage Categories",
+			'mainView'  => 'customize',
+			'brands'    => $this->_brands,
+			'sportTypes'=> $this->_sports,
+			'gearTypes' => $this->_gears,
+			'user'      => 'staff',
+			'info'      => $info
+		);
+
+		$this->view('page', $data);
+	}
+
+	public function setFontSize($fs, $style)
+	{
+		switch ($fs) {
+			case 'small':
+				$style .= ".staff-management-menu{font-size:18px;}";
+				break;
+			case 'medium':
+				$style .= ".staff-management-menu{font-size:20px;}";
+				break;
+			case 'large':
+				$style .= ".staff-management-menu{font-size:24px;}";
+				break;
+			
+			default:
+				$style .= ".staff-management-menu{font-size:16px;}";
+				break;
+		}
+
+		return $style;
 	}
 }
 

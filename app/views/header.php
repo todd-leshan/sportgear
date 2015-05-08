@@ -11,8 +11,20 @@
 	<link rel="stylesheet" type="text/css" href="/sportsgear/public/css/sportgear.css">	
 
 	<!-- staff customize-->
-	<link rel="stylesheet" type="text/css" href="/sportsgear/public/css/staff.css">	
-	<link rel="stylesheet" type="text/css" href="/sportsgear/public/css/lemon.css">	
+<?php 
+if($user == 'staff' && isset($_SESSION['staff']))
+{
+	$css = 'staff'.$_SESSION['staff']['staffID'].'.css';
+}
+
+if($css)
+{
+?>
+	<link rel="stylesheet" type="text/css" href="/sportsgear/public/css/<?php echo $css; ?>">
+<?php	
+}
+?>
+	
 </head>
 <?php require_once(__DIR__ . "/../core/global.php"); ?>
 <body>
