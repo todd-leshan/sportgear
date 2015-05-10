@@ -32,14 +32,15 @@ $sportTypeName= $sportType->getName();
 		<div class="float-left product-detail">
 			<h3><?php echo $name; ?></h3>
 			<p>Price: $<?php echo $price; ?></p>
-			<form class="addProduct">
+			<form class="addProduct" method="post" action="<?php echo ROOT.'order/addToCart'; ?>">
 				<p>
 					<label for="qty">Qty:</label>
+					<input type="hidden" name="productID" value="<?php echo $productID; ?>">
 					<input type="number" name="qty" id="qty" required value="1">
 					<span class="error">Please enter a valid quantity from 1 to 99!</span>
 				</p>
 				<p>
-					<button type="submit" id="submitButton">Add to Cart</button>
+					<button type="submit" id="addToCartButton">Add to Cart</button>
 				</p>
 			</form>
 		</div>

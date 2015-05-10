@@ -278,19 +278,16 @@ class Product extends Controller
 	/*search by keywords*/
 	public function search($keyword = null, $page = 1)
 	{
-		/*
-		if(isset($_POST["site-search"]))
+		if(isset($_POST['site-search']))
 		{
-			$keyword = $_POST["site-search"];
+			$keyword = $_POST['site-search'];
 		}
-		*/
-
+		
 		if($keyword == null)
 		{
 			$this->message = 'Sorry, We don\'t have any products now.';
 			$this->error($this->message);
 		}
-
 
 		$limit = 6;
 		$products = $this->_productDAO->searchProduct($keyword, $page, $limit);

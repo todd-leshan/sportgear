@@ -12,17 +12,21 @@
 
 	<!-- staff customize-->
 <?php 
-if($user == 'staff' && isset($_SESSION['staff']))
+if(isset($user))
 {
-	$css = 'staff'.$_SESSION['staff']['staffID'].'.css';
+	if($user == 'staff' && isset($_SESSION['staff']))
+	{
+		$css = 'staff'.$_SESSION['staff']['staffID'].'.css';
+		if($css)
+		{
+		?>
+			<link rel="stylesheet" type="text/css" href="/sportsgear/public/css/<?php echo $css; ?>">
+		<?php	
+		}
+	}
 }
 
-if($css)
-{
-?>
-	<link rel="stylesheet" type="text/css" href="/sportsgear/public/css/<?php echo $css; ?>">
-<?php	
-}
+
 ?>
 	
 </head>
@@ -58,7 +62,18 @@ if($css)
 		<ul class="float-right">
 			<li><a href="<?php echo ROOT.'user/signUp'; ?>">Join us</a></li>
 			<li><a href="<?php echo ROOT.'user'; ?>">Sign In</a></li>
-			<li id="shoppingcart"><a href="">Shoppig Cart(0)</a></li>
+			<li id="shoppingcart"><a href="<?php echo ROOT.'order/showCart'; ?>">
+<?php 
+if(isset($_SESSION['cart']))
+{
+	$items = sizeof($_SESSION['cart']);
+}
+else
+{
+	$items = 0;
+}
+?>
+			Shoppig Cart(<?php echo $items; ?>)</a></li>
 		</ul>
 	</nav>
 </div>

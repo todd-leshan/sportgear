@@ -9,7 +9,6 @@ class BrandDAO extends CRUD
 
 	public function __construct()
 	{
-		//$this->_conn = $this->connect();
 		parent::__construct();
 	}
 
