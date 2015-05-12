@@ -49,7 +49,52 @@ class Order extends Controller
 		header('Location: ' . $_SERVER['HTTP_REFERER']);
 	}
 
-	public function showCart()
+	public function updateCart()
+	{
+		if(isset($_POST['updateItem']))
+		{
+			unset($_POST['updateItem']);
+
+			if(!isset($_POST['productID']))
+			{
+				$info = 'No product select, please try again!<br>';
+				$this->showCart($info);
+				exit;
+			}
+
+			if(!isset($_POST['updateItem-qty']) || (int)$_POST['updateItem-qty'] <= 0)
+			{
+				$info = "Please enter a valid quantity to continue!<br>";
+				$this->showCart($info);
+				exit;
+			}
+
+			$productID = $_POST['productID'];
+			$qty       = $_POST['updateItem-qty'];
+
+			$_SESSION['cart'][$productID] = $qty;
+			header('Location: ' . $_SERVER['HTTP_REFERER']);
+		}
+
+		if(isset($_POST['deleteItem']))
+		{
+			unset($_POST['deleteItem']);
+
+			if(!isset($_POST['productID']))
+			{
+				$info = 'No product select, please try again!<br>';
+				$this->showCart($info);
+				exit;
+			}
+
+			$productID = $_POST['productID'];
+
+			unset($_SESSION['cart'][$productID]);
+			header('Location: ' . $_SERVER['HTTP_REFERER']);
+		}
+	}
+
+	public function showCart($info = null)
 	{
 		if(!isset($_SESSION['cart']))
 		{
@@ -59,6 +104,7 @@ class Order extends Controller
 			'brands'    => $this->_brands,
 			'sportTypes'=> $this->_sports,
 			'gearTypes' => $this->_gears,
+			'info'      => $info,
 			'itemsInCart'=> array()
 			);  
 
@@ -88,10 +134,24 @@ class Order extends Controller
 			'brands'    => $this->_brands,
 			'sportTypes'=> $this->_sports,
 			'gearTypes' => $this->_gears,
+			'info'      => $info,
 			'itemsInCart'=> $productsInCart
 			);  
 
-			$this->view('page', $data);
+		$this->view('page', $data);
+	}
+
+	public function checkout()
+	{
+		$data = array(
+			'title'     => "SportGear-Shopping Cart Review",
+			'mainView'  => 'checkout',
+			'brands'    => $this->_brands,
+			'sportTypes'=> $this->_sports,
+			'gearTypes' => $this->_gears
+			);  
+
+		$this->view('page', $data);
 	}
 }
 

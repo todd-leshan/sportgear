@@ -1,6 +1,11 @@
 <div id="wrapper" class="clearFix">
 
-<?php 
+<?php
+if($info)
+{
+	echo '<p class=error_show>'.$info.'</p>';
+}
+
 if(sizeof($itemsInCart) == 0)
 {
 	echo 'No items chosen yet!';
@@ -8,7 +13,7 @@ if(sizeof($itemsInCart) == 0)
 else
 {
 ?>
-<table>
+<table id="shoppingcart">
 <tr>
 	<th>Name</th>
 	<th>Price</th>
@@ -16,13 +21,15 @@ else
 	<th>Image</th>
 	<th>Qty</th>
 	<th>Total</th>
-	<th>Action</th>
 </tr>
-<?php	
+<?php
+	$cartTotal = 0;
+
 	foreach($itemsInCart as $item):
 		$product = $item[0];
 		$qty     = $item[1];
 
+		$productID    = $product->getId();
 		$name         = $product->getName();
 		$price        = $product->getPrice();
 		$description  = $product->getDescription();
@@ -44,16 +51,32 @@ else
 	<td><?php echo $name; ?></td>
 	<td><?php echo $price; ?></td>
 	<td><?php echo $brandName; ?></td>
-	<td><img src="/sportsgear/public/images/product/<?php echo $gearTypeName.'/'.$photoName; ?>" alt="<?php echo $photoAlt;?>" width="120" height="180"></td>
-	<td><?php echo $qty; ?></td>
-	<td><?php echo $price*$qty; ?></td>
-	<td>Comfirm</td>
+	<td><img src="/sportsgear/public/images/product/<?php echo $gearTypeName.'/'.$photoName; ?>" alt="<?php echo $photoAlt;?>" height="240"></td>
+	<td>
+		<form method="post" action="<?php echo ROOT.'order/updateCart'; ?>">
+			<input type="hidden" name="productID" value="<?php echo $productID; ?>">
+			<input type="number" name="updateItem-qty" required value="<?php echo $qty; ?>">
+			<br>
+			<button type="submit" name="updateItem">Update</button>
+			
+			<button type="submit" name="deleteItem">Delete</button>
+		</form>
+	</td>
+	<td>
+		<?php echo $price*$qty; ?>
+		<?php $cartTotal += $price*$qty; ?>
+	</td>
 </tr>
 <?php
 	endforeach;
-}
 ?>
 </table>
 
-<p>Continue to Checkout</p>
+<p id="cartTotal">Total:$<?php echo $cartTotal; ?></p>
+
+<p id="checkout"><a href="<?php echo ROOT.'order/checkout'; ?>">Continue to Checkout</a></p>
+<?php
+}
+?>
+
 </div>
