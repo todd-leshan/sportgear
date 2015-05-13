@@ -74,7 +74,7 @@ else
 
 <p id="cartTotal">Total:$<?php echo $cartTotal; ?></p>
 
-<p id="checkout"><a href="<?php echo ROOT.'order/checkout'; ?>">Continue to Checkout</a></p>
+<p id="checkoutLink"><a href="<?php echo ROOT.'order/checkout'; ?>">Continue to Checkout</a></p>
 <?php
 }
 ?>

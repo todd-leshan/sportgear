@@ -143,12 +143,94 @@ class Order extends Controller
 
 	public function checkout()
 	{
+		$info = null;
+
+		if(isset($_POST['checkoutButton']))
+		{
+			$requiredFields = array("checkout_firstname", "checkout_lastname", "checkout_address", "checkout_phone", "checkout_email", "checkout_ccNo", "checkout_name", "checkout_csv", "checkout_expire");
+
+			foreach($requiredFields as $requiredField)
+			{
+				if(!isset($_POST[$requiredField]))
+				{
+					$info = "Please fill all compulsory fields!";
+					$this->loadCheckoutView($info);
+					exit;
+				}
+
+				${$requiredField} = $_POST[$requiredField];
+			}
+
+			$isValid = true;
+
+			if(!$this->patternMatch($checkout_phone, "/^04[0-9]{2}[ -]?[0-9]{3}[ -]?[0-9]{3}$/") && 
+				!$this->patternMatch($checkout_phone, "/^[3-9]{1}[0-9]{3}[ -]?[0-9]{4}$/") && 
+				!$this->patternMatch($checkout_phone, "/^0[2,3,7,8]{1}[ -]?[3-9]{1}[0-9]{3}[ -]?[0-9]{4}$/")
+				)
+			{
+				$info .= "Please enter a valid Australia phone number!<br>";
+				$isValid = false;
+			}
+
+			if(!$this->patternMatch($checkout_email, "/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/"))
+			{
+				$info .= "Please enter a valid email address.!<br>";
+				$isValid = false;
+			}
+
+			if($this->patternMatch($checkout_ccNo, "/[0-9]*/") || (strlen($checkout_ccNo) != 16))
+			{
+				$info .= "Please enter a valid credit card number!<br>";
+				$isValid = false;
+			}
+
+			if($this->patternMatch($checkout_ccNo, "/[0-9]3/"))
+			{
+				$info .= "Please enter a valid credit card CSV!<br>";
+				$isValid = false;
+			}
+
+			$currentDate = date("Y-m");
+			if($checkout_expire < $currentDate)
+			{
+				$info .= "Your credit card expired!<br>";
+				$isValid = false;
+			}
+
+			if(!$isValid)
+			{
+				$this->loadCheckoutView($info);
+				exit();
+			}
+
+			$orderDAO = $this->model("OrderDAO");
+
+			$order = array(
+				'id'      => date("");
+				);
+
+
+						
+		}
+
+		$this->loadCheckoutView($info);
+	}
+
+	public function patternMatch($field, $pattern)
+	{
+		preg_match($pattern, $field) ? $isValid=true : $isValid=false;
+		return $isValid;
+	}
+
+	public function loadCheckoutView($info = null)
+	{
 		$data = array(
 			'title'     => "SportGear-Shopping Cart Review",
 			'mainView'  => 'checkout',
 			'brands'    => $this->_brands,
 			'sportTypes'=> $this->_sports,
-			'gearTypes' => $this->_gears
+			'gearTypes' => $this->_gears,
+			'info'      => $info
 			);  
 
 		$this->view('page', $data);

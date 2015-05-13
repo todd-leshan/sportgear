@@ -1,52 +1,60 @@
 <div id="wrapper" class="clearFix">
 
-<form id="contact" method="post" action="<?php echo ROOT;?>" class="mainform">
+<?php
+if($info)
+{
+	echo '<p class=error_show>'.$info.'</p>';
+}
+?>
+
+
+<form id="checkout" method="post" action="<?php echo ROOT.'order/checkout';?>" class="mainform">
 	<fieldset>
 		<legend>Please leave your detail here:</legend>
 		<p>You must fill all fields with *.</p>
 		<p>
-			<label for="contact_firstname">*First Name:</label>
-			<input type="text" name="firstname" id="contact_firstname" required pattern="[a-zA-Z0-9_-]*" />
+			<label for="checkout_firstname">*First Name:</label>
+			<input type="text" name="checkout_firstname" id="checkout_firstname" required pattern="[a-zA-Z0-9_-]*" />
 			<span class="error">This field is required!</span>
 		</p>
 		<p>
-			<label for="contact_lastname">*Last Name:</label>
-			<input type="text" name="lastname" id="contact_lastname" required />
+			<label for="checkout_lastname">*Last Name:</label>
+			<input type="text" name="checkout_lastname" id="checkout_lastname" required />
 			<span class="error">This field is required!</span>
 		</p>
 		<p>
-			<label for="">*Address:</label>
-			<input type="text" name="" id="" required pattern="[a-zA-Z0-9/-]*" />
+			<label for="checkout_address">*Address:</label>
+			<input type="text" name="checkout_address" id="checkout_address" required pattern="[a-zA-Z0-9/ -]*" />
 			<span class="error">This field is required!</span>
 		</p>
 		<p>
-			<label for="contact_phone">Contact Number:</label>
-			<input type="text" name="phone" id="contact_phone" />
+			<label for="checkout_phone">*Contact Number:</label>
+			<input type="text" name="checkout_phone" id="checkout_phone" />
 			<span class="error">Please enter a valid australia phone number!</span>
 		</p>
 		<p>
-			<label for="contact_email">*Email:</label>
-			<input type="email" name="email" id="contact_email" required />
+			<label for="checkout_email">*Email:</label>
+			<input type="email" name="checkout_email" id="checkout_email" required />
 			<span class="error">Please enter a valid email address!</span>
 		</p>
 		<p>
-			<label>Credit Card No:</label>
-			<input type="text" maxlength="16" pattern="[0-9]*">
+			<label for="checkout_ccNo">*Credit Card No:</label>
+			<input type="text" name="checkout_ccNo" id="checkout_ccNo" maxlength="16" pattern="[0-9]*">
 		</p>
 		<p>
-			<label>Name on Card:</label>
-			<input type="text">
+			<label for="checkout_name">*Name on Card:</label>
+			<input type="text" name="checkout_name" id="checkout_name">
 		</p>
 		<p>
-			<label>CSV</label>
-			<input type="number" max="999">
+			<label for="checkout_csv">*CSV</label>
+			<input type="text" name="checkout_csv" id="checkout_csv" maxlength="3" pattern="[0-9]*">
 		</p>
 		<p>
-			<label>Expire:</label>
-			<input type="month">
+			<label for="checkout_expire">*Expire:</label>
+			<input type="month" name="checkout_expire" id="checkout_expire">
 		</p>
 		<p class="buttons">
-			<button type="submit" id="submitButton">Submit</button>
+			<button type="submit" name="checkoutButton" id="checkoutButton">Submit</button>
 			<button type="reset" id="resetButton">Reset</button>
 		</p>
 	</fieldset>

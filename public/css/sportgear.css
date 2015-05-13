@@ -845,7 +845,7 @@ table#shoppingcart
 	}
 
 #cartTotal,
-#checkout
+#checkoutLink
 {
 	margin: 10px;
 	font-size: 18px;
@@ -856,7 +856,7 @@ table#shoppingcart
 	font-weight: bold;
 }
 
-#checkout
+#checkoutLink
 {
 	cursor: pointer;
 }
