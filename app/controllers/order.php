@@ -177,19 +177,19 @@ class Order extends Controller
 				$info .= "Please enter a valid email address.!<br>";
 				$isValid = false;
 			}
-
-			if($this->patternMatch($checkout_ccNo, "/[0-9]*/") || (strlen($checkout_ccNo) != 16))
+/*
+			if($this->patternMatch($checkout_ccNo, "/^[0-9]{16}$/"))
 			{
 				$info .= "Please enter a valid credit card number!<br>";
 				$isValid = false;
 			}
 
-			if($this->patternMatch($checkout_ccNo, "/[0-9]3/"))
+			if($this->patternMatch($checkout_csv, "/^[0-9]{3}$/"))
 			{
 				$info .= "Please enter a valid credit card CSV!<br>";
 				$isValid = false;
 			}
-
+*/
 			$currentDate = date("Y-m");
 			if($checkout_expire < $currentDate)
 			{
@@ -204,12 +204,47 @@ class Order extends Controller
 			}
 
 			$orderDAO = $this->model("OrderDAO");
+			$orderID  = $this->randomString(10);
 
 			$order = array(
-				'id'      => date("");
+				'id'        => $orderID,
+				'firstname' => $checkout_firstname,
+				'lastname'  => $checkout_lastname,
+				'address'   => $checkout_address,
+				'phone'     => $checkout_phone,
+				'email'     => $checkout_email,
+				'creditcard'=> $checkout_ccNo,
+				'expiry'    => $checkout_expire,
+				'name'      => $checkout_name,
+				'CSV'       => $checkout_csv
 				);
 
+			//check whether this orderID exists,,skip this now
 
+			$newOrderID = $orderDAO->insert('order', $order);
+
+			if($newOrderID <= 0)
+			{
+				$info = "System Error, please try again later!";
+				$this->loadCheckoutView($info);
+				exit;
+			}
+
+			$itemsInCart = $_SESSION['cart'];
+			$itemDAO = $this->model("OrderedProductDAO");
+
+			foreach($itemsInCart as $productID=>$qty)
+			{
+				$data = array(
+					'productID' => $productID,
+					'orderID'   => $newOrderID,
+					'quantity'  => $qty
+				);
+
+				$itemDAO->insert('orderedproduct', $data);
+			}
+
+			$this->thankyou($checkout_firstname, $checkout_lastname, $newOrderID);
 						
 		}
 
@@ -234,6 +269,33 @@ class Order extends Controller
 			);  
 
 		$this->view('page', $data);
+	}
+
+	public function thankyou($firstname, $lastname, $orderID)
+	{
+		$data = array(
+			'title'     => "SportGear-Shopping Cart Review",
+			'mainView'  => 'thankyou',
+			'brands'    => $this->_brands,
+			'sportTypes'=> $this->_sports,
+			'gearTypes' => $this->_gears,
+			'customer'  => $firstname.' '.$lastname,
+			'orderNo'   => $orderID
+			);  
+
+		$this->view('page', $data);
+	}
+
+	public function randomString($length)
+	{
+		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    	$charactersLength = strlen($characters);
+    	$randomString = '';
+    	for ($i = 0; $i < $length; $i++) 
+    	{
+        	$randomString .= $characters[rand(0, $charactersLength - 1)];
+    	}
+    	return $randomString;
 	}
 }
 

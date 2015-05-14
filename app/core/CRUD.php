@@ -65,15 +65,28 @@ class CRUD
 		$column = implode(',', $columns);
 		$qs     = implode(',', $q);
 
-		$prepare = "INSERT INTO $table($column) VALUES($qs)";
+		$prepare = "INSERT INTO $table ($column) VALUES ($qs)";
 
-		$query = $this->_conn->prepare($prepare);
+		try
+		{
+			$query = $this->_conn->prepare($prepare);
 
-		$query->execute($values);
+			$query->execute($values);
 
-		$newID = $this->_conn->lastInsertId();
+			$newID = $this->_conn->lastInsertId();
 
-		return $newID;		
+			return $newID;	
+		}
+		catch(PDOException $e)
+		{
+			echo '<pre>';
+			var_dump($values);
+			echo '</pre>';
+			echo 'Error 789:'.$e->getMessage();
+			die();
+		}
+
+			
 	}
 
 	/*
