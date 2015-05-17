@@ -221,15 +221,15 @@ class Order extends Controller
 
 			//check whether this orderID exists,,skip this now
 
-			$newOrderID = $orderDAO->insert('order', $order);
-
-			if($newOrderID <= 0)
+			$newOrderID = $orderDAO->insert('sportgear.order', $order);
+/*
+			if($newOrderID != $orderID)
 			{
 				$info = "System Error, please try again later!";
 				$this->loadCheckoutView($info);
 				exit;
 			}
-
+*/
 			$itemsInCart = $_SESSION['cart'];
 			$itemDAO = $this->model("OrderedProductDAO");
 
@@ -237,14 +237,15 @@ class Order extends Controller
 			{
 				$data = array(
 					'productID' => $productID,
-					'orderID'   => $newOrderID,
+					'orderID'   => $orderID,
 					'quantity'  => $qty
 				);
 
 				$itemDAO->insert('orderedproduct', $data);
 			}
 
-			$this->thankyou($checkout_firstname, $checkout_lastname, $newOrderID);
+			unset($_SESSION['cart']);
+			$this->thankyou($checkout_firstname, $checkout_lastname, $orderID);
 						
 		}
 

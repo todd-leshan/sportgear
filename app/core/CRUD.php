@@ -227,9 +227,8 @@ class CRUD
 	/*
 	*check sth's existence
 	*/
-	
 	/*
-	public function isExist($conn, $table, $data)
+	public function exist($conn, $table, $data)
 	{
 		$columns = array();
 		$values  = array();
@@ -242,9 +241,9 @@ class CRUD
 		$column = implode('	AND ', $columns);
 		$qs     = implode(',', $q);
 
-		$prepare = "SELECT * FROM {$table} WHERE {}";
+		$sql = "SELECT * FROM $table WHERE $column";
 	}
-	*/
+*/
 
 	/*
 	*check existense by checking name
@@ -263,6 +262,25 @@ class CRUD
 		if(sizeof($rows) != 0)
 		{
 			$productID = $rows[0]['id'];
+		}
+
+		return $productID;
+	}
+
+	public function exist($table, $id)
+	{
+		$sql = "SELECT *
+				FROM $table
+				WHERE productID=:id";
+
+		$param = array(':id'=>$id);
+
+		$rows = $this->executeSQL($sql, $param);
+
+		$productID = 0;
+		if(sizeof($rows) != 0)
+		{
+			$productID = $rows[0]['productID'];
 		}
 
 		return $productID;

@@ -206,7 +206,7 @@ class Staff extends Controller
 			}
 			*/
 			$gearTypeID = $_POST['newproduct_cate1'];
-			$gearType   = $gearTypes[$gearTypeID]->getName();
+			$gearType   = $this->_gears[$gearTypeID]->getName();
 			$file       = $_FILES['newproduct_photo'];
 			//upload image first to get imageID
 			$photo = array(
@@ -402,6 +402,29 @@ class Staff extends Controller
 		if(isset($_POST['change-delete']))
 		{
 			unset($_POST['change-delete']);
+
+			$isOrdered = $this->_productDAO->exist('orderedproduct', $productID);
+			//die("lalal".$isOrdered);
+
+			if($isOrdered == 0)
+			{
+				$param = array(
+					'id'=> $productID
+					);
+
+				$rowAffected = $this->_productDAO->delete('products', $param);
+
+				if($rowAffected == 0)
+				{
+					$this->message = 'System error, please try again!';
+					$this->error($this->message);
+				}
+			}
+			else
+			{
+				$this->message = 'Sorry, you can not delete any ordered products!';
+				$this->error($this->message);
+			}
 		}
 
 		/************/
@@ -437,6 +460,11 @@ class Staff extends Controller
 			$this->message = 'Sorry, We don\'t have any products now.';
 			$this->error($this->message);
 		}
+	}
+
+	public function loadManageProductsView($info = null)
+	{
+
 	}
 
 	public function passwordValidation($password)
