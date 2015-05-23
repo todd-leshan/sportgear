@@ -12,20 +12,14 @@ class StaffDAO extends CRUD
 	//select staff by username and password to check existense
 	public function signInCheck($username, $password)
 	{
-		$password= sha1(md5($password));
-
-		$sql = "SELECT *
-				FROM staffs
-				WHERE username=:username
-				AND password=:password";
+		$password = sha1(md5($password));
 
 		$param = array(
-			':username'=>$username,
-			':password'=>$password
+			'username'=>$username,
+			'password'=>$password
 			);
 
-		$staffs = $this->executeSQl($sql, $param);
-
+		$staffs = $this->select('staffs', $param);
 
 		if(sizeof($staffs) == 1)
 		{

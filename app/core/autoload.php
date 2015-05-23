@@ -39,27 +39,7 @@ function autoload($className)
             break;
         }
     }
-
-    
-    /*else if(file_exists($_SERVER['DOCUMENT_ROOT']."/sportsgear/app/core/".$fileName))
-    {
-        require $_SERVER['DOCUMENT_ROOT']."/sportsgear/app/core/".$fileName;
-    }
-    else if(file_exists($_SERVER['DOCUMENT_ROOT']."/sportsgear/app/models/DAO/".$fileName))
-    {
-        require $_SERVER['DOCUMENT_ROOT']."/sportsgear/app/models/DAO/".$fileName;
-    }
-    else if(file_exists($_SERVER['DOCUMENT_ROOT']."/sportsgear/app/models/VO/".$fileName))
-    {
-        require $_SERVER['DOCUMENT_ROOT']."/sportsgear/app/models/VO/".$fileName;
-    }
-    else 
-    {
-       // die($_SERVER['DOCUMENT_ROOT']);
-        require $_SERVER['DOCUMENT_ROOT']."/sportsgear/app/core/".$fileName;
-    }*/
-    
-    
+ 
 }
 
 /**

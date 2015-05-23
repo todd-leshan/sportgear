@@ -40,7 +40,7 @@ if(sizeof($products) > 0):
 		<!--need a place to store id-->
 			<div>
 				<a href="<?php echo ROOT.'product/product/'.$productID; ?>">
-					<img src="/sportsgear/public/images/product/<?php echo $gearTypeName.'/'.$photoName; ?>" alt="<?php echo $photoAlt;?>" width="180" height="240">
+					<img src="/sportgear/public/images/product/<?php echo $gearTypeName.'/'.$photoName; ?>" alt="<?php echo $photoAlt;?>" width="180" height="240">
 				</a>
 			</div>
 			<h4><?php echo $name; ?></h4>

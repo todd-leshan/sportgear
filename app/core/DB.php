@@ -8,10 +8,15 @@ final class DB
 		if(self::$_conn == null)
 		{
 			//generate a connect $conn
+			
+			$dsn      = "mysql:host=localhost; dbname=niming5_sportgear; charset=utf8";
+			$username = "niming5_admin";
+			$password = "ToT85726";
+/*			
 			$dsn      = "mysql:host=localhost; dbname=sportgear; charset=utf8";
 			$username = "root";
 			$password = "";
-
+*/
 			try
 			{
 				self::$_conn = new PDO($dsn, $username, $password);
@@ -33,8 +38,4 @@ final class DB
 		self::$_conn = null;
 	}
 
-	private function __construct()
-	{
-
-	}
 }

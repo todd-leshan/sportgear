@@ -33,16 +33,37 @@ class CRUD
 		} 
 		catch (PDOException $e) 
 		{
-			echo $e->getMessage();
+			echo 'Error:'.$prepareSQL.' '.$e->getMessage();
 		}	
 	}
 
-	public function select($table)
+	public function select($table, $data = [])
 	{
 		$sql = "SELECT *
 				FROM $table";
 
-		$rows = $this->executeSQL($sql);
+		$i = 1;
+		$j = sizeof($data);
+		$param = array();
+
+		if($j > 0)
+		{
+			$sql .= " WHERE ";
+
+			foreach ($data as $key => $value) {
+				$sql .= $key.'=:'.$key;
+
+				$param[":$key"] = $value;
+
+				if($i < $j)
+				{
+					$sql .= ' AND ';
+				}
+				$i++;
+			}	
+		}
+
+		$rows = $this->executeSQL($sql, $param);
 
 		return $rows;
 	}
@@ -79,11 +100,7 @@ class CRUD
 		}
 		catch(PDOException $e)
 		{
-			echo '<pre>';
-			var_dump($values);
-			echo '</pre>';
-			echo 'Error 789:'.$e->getMessage();
-			die();
+			echo 'Insert Error:'.$e->getMessage();
 		}
 
 			
@@ -165,9 +182,6 @@ class CRUD
 			}	
 		}
 
-		//die('<hr>'.$sql.'<hr>');
-		
-
 		$stmt = $this->_conn->prepare($sql);
 
 		$stmt->execute($param);
@@ -178,38 +192,8 @@ class CRUD
 	}
 
 	/*
-	*match key value pairs
-	*return an object
+	*
 	*/
-	public function key_value_pairs($data)
-	{
-		$i = 1;
-		$j = sizeof($data);
-		$param = array();
-		$sql = ' ';
-
-		if($j > 0)
-		{
-			foreach ($data as $key => $value) {
-				$sql .= $key.'=:'.$key;
-
-				$param[":$key"] = $value;
-
-				if($i < $j)
-				{
-					$sql .= ' , ';
-				}
-				$i++;
-			}	
-		}
-		$object = new stdClass();
-
-		$object->sql   = $sql;
-		$object->param = $param;
-
-		return $object;
-	}
-
 	public function delete($table, $param)
 	{
 		$sql = "DELETE FROM $table
@@ -223,27 +207,6 @@ class CRUD
 
 		return $rowAffected;
 	}
-
-	/*
-	*check sth's existence
-	*/
-	/*
-	public function exist($conn, $table, $data)
-	{
-		$columns = array();
-		$values  = array();
-		foreach ($data as $key => $value) {
-			array_push($columns, $key);
-			array_push($values, $value);
-			array_push($q,'?');
-		}
-
-		$column = implode('	AND ', $columns);
-		$qs     = implode(',', $q);
-
-		$sql = "SELECT * FROM $table WHERE $column";
-	}
-*/
 
 	/*
 	*check existense by checking name

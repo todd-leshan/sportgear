@@ -1,4 +1,10 @@
 <div id="wrapper" class="clearFix">
+<?php
+if(isset($info))
+{
+	echo '<p class=error_show>'.$info.'</p>';
+}
+?>
 <table>
 	<tr class="manage-products-form-title">
 		<th class="change-name">Product Name</th>
@@ -47,7 +53,7 @@ foreach ($products as $product) :
 		</p>
 
 		<p>
-			<img src="/sportsgear/public/images/product/<?php echo $gearTypeName1.'/'.$photoName; ?>" alt="<?php echo $photoAlt;?>" class='float-left change-image'>
+			<img src="/sportgear/public/images/product/<?php echo $gearTypeName1.'/'.$photoName; ?>" alt="<?php echo $photoAlt;?>" class='float-left change-image'>
 		</p>
 
 		<p>

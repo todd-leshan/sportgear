@@ -1,12 +1,10 @@
 <div id="wrapper" class="clearFix">
-<p class="error_show">
 <?php
-	if($info)
-	{
-		echo $info;
-	} 
+if(isset($info))
+{
+	echo '<p class=error_show>'.$info.'</p>';
+}
 ?>
-</p>
 <table>
 	<tr>
 		<th class="category-name">Name</th>

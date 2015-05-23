@@ -11,7 +11,7 @@ class GearTypeDAO extends CRUD
 
 	public function getGearTypes()
 	{
-		$rows = $this->select("gearTypes");
+		$rows = $this->select("geartypes");
 
 		$gearTypes = array();
 

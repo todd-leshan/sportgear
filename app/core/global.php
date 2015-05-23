@@ -1,8 +1,7 @@
 <?php
 
-define("ROOT", "http://localhost/sportsgear/");
-
-//define("ROOT", "http://www.example.com/sportsgear/");
+//define("ROOT", "http://localhost/sportgear/");
+define("ROOT", "http://nimingli.com/sportgear/");
 
 
 //have no idea where this function should go

@@ -3,9 +3,12 @@
 <form id="addNewProduct" class="mainform" method="post" action="<?php echo ROOT.'staff/addProducts'; ?>" enctype="multipart/form-data">
 	<fieldset>
 		<legend>Add a new product:</legend>
-		<p>
-			<?php echo $message; ?>
-		</p>
+<?php
+if(isset($info))
+{
+	echo '<p class=error_show>'.$info.'</p>';
+}
+?>
 		<p>You must fill all fields with *.</p>
 		<p>
 			<label for="newproduct_name">*Product Name:</label>

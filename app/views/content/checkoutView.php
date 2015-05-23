@@ -1,7 +1,7 @@
 <div id="wrapper" class="clearFix">
 
 <?php
-if($info)
+if(isset($info))
 {
 	echo '<p class=error_show>'.$info.'</p>';
 }

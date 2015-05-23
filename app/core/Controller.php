@@ -9,11 +9,12 @@ class Controller
 	public function __construct()
 	{
 		session_start();
-		define("BASE","http://localhost/sportsgear/");
+		//define("BASE","http://localhost/sportgear/");
+		define("BASE","http://nimingli.com/sportgear/");
 
 		$brandDAO    = $this->model('BrandDAO');
-		$gearTypeDAO = $this->model('gearTypeDAO');
-		$sportTypeDAO= $this->model('sportTypeDAO');
+		$gearTypeDAO = $this->model('GearTypeDAO');
+		$sportTypeDAO= $this->model('SportTypeDAO');
 
 		$this->_brands = $brandDAO->getBrands();
 		$this->_gears  = $gearTypeDAO->getGearTypes();
@@ -30,7 +31,6 @@ class Controller
 		return new $model();
 	}
 
-
 	public function view($view, $data = [])
 	{
 		foreach ($data as $key => $value) 
@@ -41,8 +41,14 @@ class Controller
 		require_once __DIR__ . '/../views/'.$view.'.php';
 	}
 
+	public function loadView($title, $mainView, $info)
+	{
+		$this->view($mainView);
+	}
+
 	/*
 	*load error page, if sth goes wrong
+	*we don't actually need this?
 	*/
 	public function error($message)
 	{

@@ -22,12 +22,12 @@ $sportTypeName= $sportType->getName();
 
 ?>	
 <h4 id="product-page-category-menu">
-	<a href="<?php echo ROOT; ?>">home</a> &gt; <a href="<?php echo ROOT.'product/'.$sportTypeName; ?>"><?php echo $sportTypeName; ?></a> &gt; <a href="<?php echo ROOT.'product/'.$sportTypeName.'/'.$gearTypeName; ?>"><?php echo $gearTypeName; ?></a>
+	<a href="<?php echo ROOT; ?>">home</a> &gt; <a href="<?php echo ROOT.'product/'.$sportTypeName; ?>"><?php echo $sportTypeName; ?></a> &gt; <a href="<?php echo 'product/'.$sportTypeName.'/'.$gearTypeName; ?>"><?php echo $gearTypeName; ?></a>
 </h4>	
 	<article class="clearFix" id="product-detail">
 	<!--need a place to store id-->
 		<div  class="float-left product-image">
-			<img src="/sportsgear/public/images/product/<?php echo $gearTypeName.'/'.$photoName; ?>" alt="<?php echo $photoAlt;?>" width="240" height="320">
+			<img src="/sportgear/public/images/product/<?php echo $gearTypeName.'/'.$photoName; ?>" alt="<?php echo $photoAlt;?>" width="240" height="320">
 		</div>
 		<div class="float-left product-detail">
 			<h3><?php echo $name; ?></h3>

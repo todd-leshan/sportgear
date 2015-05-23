@@ -4,13 +4,13 @@
 <head>
 	<title><?php echo $title; ?></title>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 	
 	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.4.1/slick.css"/>
 	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.4.1/slick-theme.css"/>
-	<link rel="stylesheet" type="text/css" href="/sportsgear/public/css/sportgear.css">	
+	<link rel="stylesheet" type="text/css" href="/sportgear/public/css/sportgear.css">	
 
-	<!-- staff customize-->
 <?php 
 if(isset($user))
 {
@@ -20,7 +20,7 @@ if(isset($user))
 		if($css)
 		{
 		?>
-			<link rel="stylesheet" type="text/css" href="/sportsgear/public/css/<?php echo $css; ?>">
+			<link rel="stylesheet" type="text/css" href="/sportgear/public/css/<?php echo $css; ?>">
 		<?php	
 		}
 	}

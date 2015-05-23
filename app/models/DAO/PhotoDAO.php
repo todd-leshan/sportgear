@@ -30,10 +30,20 @@ class PhotoDAO extends CRUD
 	*/
 	public function addPhoto($photo)
 	{
-		$photoID = $this->isExist('photos', $photo['name']);
+		$param = array(
+			'name' => $photo['name']
+			);
+		$rows = $this->select('photos', $param);
 
-		if($photoID > 0)
+		if(sizeof($rows) > 0)
 		{
+			foreach($rows as $row)
+			{
+				if($row['name'] == $photo['name'])
+				{
+					$photoID = $row['id'];
+				}
+			}
 			return $photoID;
 		}
 

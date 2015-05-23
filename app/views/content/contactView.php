@@ -2,6 +2,12 @@
 <form id="contact" method="post" action="<?php echo ROOT.'contact/sendMail'?>" class="mainform" novalidate>
 	<fieldset>
 		<legend>Please leave your detail here:</legend>
+<?php
+if(isset($info))
+{
+	echo '<p class=error_show>'.$info.'</p>';
+}
+?>
 		<p>You must fill all fields with *.</p>
 		<p>
 			<label for="contact_firstname">*First Name:</label>

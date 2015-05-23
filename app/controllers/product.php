@@ -13,8 +13,8 @@ class Product extends Controller
 
 		$this->_productDAO  = $this->model('ProductDAO');
 		$this->_brandDAO    = $this->model('BrandDAO');
-		$this->_gearTypeDAO = $this->model('gearTypeDAO');
-		$this->_sportTypeDAO= $this->model('sportTypeDAO');
+		$this->_gearTypeDAO = $this->model('GearTypeDAO');
+		$this->_sportTypeDAO= $this->model('SportTypeDAO');
 	}
 
 	public function index()

@@ -3,10 +3,10 @@
 		<article id="payment_method">
 			<h3>We Accept:</h3>
 			<ul>
-				<li><img src="/sportsgear/public/images/payment/Visa.png" alt="visa" width="50" height="31" title="visa"></li>
-				<li><img src="/sportsgear/public/images/payment/Mastercard.png" alt="mastercard" width="50" height="31" title="mastercard"></li>
-				<li><img src="/sportsgear/public/images/payment/American-Express.png" alt="american express" width="50" height="31" title="amex"></li>
-				<li><img src="/sportsgear/public/images/payment/PayPal.png" alt="PayPal" width="50" height="31" title="paypal"></li>
+				<li><img src="/sportgear/public/images/payment/Visa.png" alt="visa" width="50" height="31" title="visa"></li>
+				<li><img src="/sportgear/public/images/payment/Mastercard.png" alt="mastercard" width="50" height="31" title="mastercard"></li>
+				<li><img src="/sportgear/public/images/payment/American-Express.png" alt="american express" width="50" height="31" title="amex"></li>
+				<li><img src="/sportgear/public/images/payment/PayPal.png" alt="PayPal" width="50" height="31" title="paypal"></li>
 			</ul>
 		</article>
 		<article id="brands">
@@ -37,26 +37,26 @@
 		</article>
 		<aside id="social-media">
 			<ul>
-				<li><a href=""><img src="/sportsgear/public/images/social/Facebook.png" alt="facebook" width="48" height="48"></a></li>
-				<li><a href=""><img src="/sportsgear/public/images/social/Twitter2.png" alt="twitter" width="48" height="48"></a></li>
-				<li><a href=""><img src="/sportsgear/public/images/social/YouTube.png" alt="YouTube" width="48" height="48"></a></li>
-				<li><a href=""><img src="/sportsgear/public/images/social/Tumblr.png" alt="Tumblr" width="48" height="48"></a></li>
+				<li><a href=""><img src="/sportgear/public/images/social/Facebook.png" alt="facebook" width="48" height="48"></a></li>
+				<li><a href=""><img src="/sportgear/public/images/social/Twitter2.png" alt="twitter" width="48" height="48"></a></li>
+				<li><a href=""><img src="/sportgear/public/images/social/YouTube.png" alt="YouTube" width="48" height="48"></a></li>
+				<li><a href=""><img src="/sportgear/public/images/social/Tumblr.png" alt="Tumblr" width="48" height="48"></a></li>
 			</ul>
 		</aside>
 		<p id="copyright">Copyright Reserved 2015 Todd</p>
 	</footer>
 </div>
-<script src="/sportsgear/public/js/jquery-2.1.1.min.js"></script>
+<script src="/sportgear/public/js/jquery-2.1.1.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
-<script type="text/javascript" src="/sportsgear/public/js/zoomIn.js"></script>
+<script type="text/javascript" src="/sportgear/public/js/zoomIn.js"></script>
 
-<script src="/sportsgear/public/js/customize.js" type="text/javascript"></script>
+<script src="/sportgear/public/js/customize.js" type="text/javascript"></script>
 
 <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.4.1/slick.min.js"></script>
 
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;signed_in=true&amp;libraries=places"></script>
-<script src="/sportsgear/public/js/map.js"></script>
+<script src="/sportgear/public/js/map.js"></script>
 </body>
 
 </html>

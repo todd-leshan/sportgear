@@ -4,13 +4,11 @@
 	<legend>Sign up to get member special!</legend>
 
 <?php
-	if($info)
-	{
-?>
-	<p class="info"><?php echo $info; ?></p>
-<?php		
-	}
-?>		
+if(isset($info))
+{
+	echo '<p class=error_show>'.$info.'</p>';
+}
+?>	
 		<p>You must fill all fields with *.</p>
 		<p>
 			<label for="signup-username">*Username:</label>

@@ -1,7 +1,7 @@
 <?php 
 if($redirect)
 {
-	header("Refresh:5; url=".ROOT."staff/signOut");
+	header("Refresh:5; url="."staff/signOut");
 }
 ?>
 <div id="wrapper" class="clearFix">
@@ -9,12 +9,10 @@ if($redirect)
 	<fieldset>
 	<legend>Fill all fields:</legend>
 <?php
-	if($info)
-	{
-?>
-	<p class="info"><?php echo $info; ?></p>
-<?php		
-	}
+if(isset($info))
+{
+	echo '<p class=error_show>'.$info.'</p>';
+}
 ?>
 		<p>
 			<label for="change-password1">Old Password:</label>

@@ -1,14 +1,4 @@
 <?php
-
-//require_once __DIR__."/../VO/ProductVO.php";
-
-//require_once __DIR__."/../DAO/PhotoDAO.php";
-//require_once __DIR__."/../DAO/GearTypeDAO.php";
-//require_once __DIR__."/../DAO/SportTypeDAO.php"; 
-//require_once __DIR__."/../DAO/BrandDAO.php";
-
-//require_once dirname(__DIR__)."/../core/autoload.php";
-
 class ProductDAO extends CRUD
 {
 	private $_photoDAO;
@@ -74,9 +64,13 @@ class ProductDAO extends CRUD
 	*/
 	public function addProduct($product)
 	{
-		$oldProductID = $this->isExist('products', $product['name']);
+		//$oldProductID = $this->isExist('products', $product['name']);
+		$param = array(
+			'name' => $product['name']
+			);
+		$rows = $this->select('products', $param);
 
-		if($oldProductID > 0)
+		if(sizeof($rows) > 0)
 		{
 			return 0;
 		}
@@ -138,36 +132,6 @@ class ProductDAO extends CRUD
 		$total = $this->executeSQL($sql, $param);
 
 		return (int)$total[0][0];
-	}
-
-	public function getProductbyId($productID)
-	{
-		$sql = "SELECT *
-				FROM ";
-	}
-	/*
-	*
-	*/
-	public function getProductsByBrand($brandName)
-	{
-
-	}
-
-	public function getProductsByGearType($sportTypeID, $gearTypeID)
-	{
-
-	}
-
-	public function getProductsBySportType($sportTypeID)
-	{
-		$sql = "SELECT *
-				FROM products
-				WHERE sportTypeID=:sport";
-
-		$param = array(':sport'=>$sportTypeID);
-
-		return $products = $this->get($sql, $param);
-	
 	}
 
 	public function get($sql, $param = [])

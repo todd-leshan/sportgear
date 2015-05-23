@@ -18,8 +18,8 @@ class Staff extends Controller
 
 		$this->_productDAO  = $this->model('ProductDAO');
 		$this->_brandDAO    = $this->model('BrandDAO');
-		$this->_gearTypeDAO = $this->model('gearTypeDAO');
-		$this->_sportTypeDAO= $this->model('sportTypeDAO');
+		$this->_gearTypeDAO = $this->model('GearTypeDAO');
+		$this->_sportTypeDAO= $this->model('SportTypeDAO');
 		
 	}
 
@@ -27,50 +27,54 @@ class Staff extends Controller
 	{
 		if(!isset($_SESSION['staff']))
 		{
- 			$data = array(
-				'title'     => "SportGear-Staff Sign In",
-				'mainView'  => 'signIn',
-				'brands'    => $this->_brands,
-				'sportTypes'=> $this->_sports,
-				'gearTypes' => $this->_gears,
-				'user'      => 'staff',
-				'info'      => null
-				);
-			$this->view('page', $data);
+ 			$this->loadSignInView();
 		}
+		else
+		{
+			$staffID  = $_SESSION['staff']['staffID'];
+			$username = $_SESSION['staff']['username'];
+
+			$param = array(
+				'id'      => $staffID,
+				'username'=> $username
+				);
+
+			$isStaff = $this->_staffDAO->select('staffs', $param);
+
+			if(sizeof($isStaff) != 1)
+			{
+				$this->loadSignInView();
+			}
+		}
+	}
+
+	public function loadSignInView($info = null)
+	{
+		$data = array(
+			'title'     => "SportGear-Staff Sign In",
+			'mainView'  => 'signIn',
+			'brands'    => $this->_brands,
+			'sportTypes'=> $this->_sports,
+			'gearTypes' => $this->_gears,
+			'user'      => 'staff',
+			'info'      => $info
+			);
+		$this->view('page', $data);
+		exit();
 	}
 
 	//load staff sign in view
 	public function index()
 	{
 		//if not log in, load log in page
-		//$this->isStaff();
+		$this->isStaff();
 
-		//if loged in
-		if(!isset($_SESSION['staff']))
-		{
-			$data = array(
-				'title'     => "SportGear-Staff Sign In",
-				'mainView'  => 'signIn',
-				'brands'    => $this->_brands,
-				'sportTypes'=> $this->_sports,
-				'gearTypes' => $this->_gears,
-				'user'      => 'staff',
-				'info'      => null
-				);
-			$this->view('page', $data);
+		$staff = $_SESSION['staff'];
 
-		}
-		else
-		{
-			$staff = $_SESSION['staff'];
+		$staffID  = $staff['staffID'];
+		$username = $staff['username'];
 
-			$staffID  = $staff['staffID'];
-			$username = $staff['username'];
-
-			$this->profile($staffID, $username);	
-		}
-		
+		$this->profile($staffID, $username);		
 	}
 
 	/*
@@ -80,62 +84,64 @@ class Staff extends Controller
 	*/
 	public function signIn()
 	{
+		$info = '';
 		if(isset($_POST['username']) && isset($_POST['password']))
 		{
 			//$staff = $this->model('StaffDAO');
 			$username = $_POST['username'];
 			$password = $_POST['password'];
 
-			//log in check, return staff object
-			$staff  = $this->_staffDAO->signInCheck($username, $password);
-			
-			if($staff->getId() != 0)
+			$formValid = true;
+			if(strlen($username) < 4)
 			{
-				//to staff  profile
-				//set session here
-				$id       = $staff->getId();
-				$username = $staff->getUsername();
+				$info .= "Username must be at least 4 characters!<br>";
+				$formValid = false;
+			}
 
-				//echo "id is ".$id."<br>";
-				//echo "name is ".$username."<br>";
-				//die();
+			if(strlen($password) < 8)
+			{
+				$info .= "Password must be at least 8 characters!<br>";
+				$formValid = false;
+			}
 
-				$_SESSION['staff'] = array(
-										'staffID' => $id,
-										'username'=> $username
-										);
-				$this->profile($id, $username);
+			if(!$formValid)
+			{
+				$this->loadSignInView($info);
+			}
+
+			$password = $password = sha1(md5($password));
+
+			$param = array(
+				'username'=>$username,
+				'password'=>$password
+				);
+
+			$isStaff = $this->_staffDAO->select('staffs', $param);
+
+			if(sizeof($isStaff) != 1)
+			{
+				$info = 'Please check your username or password and try again!';
+				$this->loadSignInView($info);
 			}
 			else
 			{
-				//return to sign in view
-				$this->signInFail('staff');
+				$staffID  = $isStaff[0]['id'];
+				$username = $isStaff[0]['username'];
+
+				$_SESSION['staff'] = array(
+					'staffID' => $staffID,
+					'username'=> $username
+					);
+				$this->profile($staffID, $username);
 			}
 		}
 		else
 		{
-			$this->signInFail('staff');
+			$info = 'Please check your username or password and try again!';
+			$this->loadSignInView($info);
 		}
 	}
 
-	/*
-	*if sign in failed, call this function to redirect page
-	*@param = user type
-	*/
-	public function signInFail($user)
-	{
-		$data = array(
-			'title'     => "SportGear-Sign In",
-			'mainView'  => 'signIn',
-			'brands'    => $this->_brands,
-			'sportTypes'=> $this->_sports,
-			'gearTypes' => $this->_gears,
-			'user'      => 'staff',
-			'info'      => 'Please enter valid username and password to sign in!'
-			);
-
-		$this->view('page', $data);
-	}
 
 	/*
 	*sign out, destroy all session
@@ -158,7 +164,7 @@ class Staff extends Controller
 			$this->index();
 		}
 		$data = array(
-			'title'     => "SportGear-user info",
+			'title'     => "SportGear-Staff Manegement System",
 			'mainView'  => 'staff',
 			'brands'    => $this->_brands,
 			'sportTypes'=> $this->_sports,
@@ -170,19 +176,28 @@ class Staff extends Controller
 		$this->view('page', $data);
 	}
 
-	/**********************************************************/
-	//product management
+	public function loadAddProductView($info = null)
+	{
+		$data = array(
+			'title'     => "SportGear-Add new products",
+			'mainView'  => 'addNewProduct',
+			'brands'    => $this->_brands,
+			'sportTypes'=> $this->_sports,
+			'gearTypes' => $this->_gears,
+			'user'      => 'staff', 
+			'info'      => $info
+		);
+
+			$this->view('page', $data);
+			exit();
+	}
+
 	/*
 	*add new products
 	*/
 	public function addProducts()
 	{
 		$this->isStaff();
-		//check all data passed here
-		//if data detected, load model
-		//$brands    = $this->_brandDAO->getBrands();
-		//$gearTypes = $this->_gearTypeDAO->getGearTypes();
-		//$sportTypes= $this->_sportTypeDAO->getSportTypes();
 
 		//photo upload
 		if( 
@@ -197,75 +212,67 @@ class Staff extends Controller
 			isset($_POST['photo_description'])
 			)
 		{
-			//$isProductExist = $this->_productDAO->isExist($_POST['newproduct_name']);
-			/*
-			if($isProductExist > 0)
+			$formValid = true;
+			$param = array(
+				'name' => $_POST['newproduct_name']
+				);
+			$isProductExist = $this->_productDAO->select('products', $param);
+			if(sizeof($isProductExist) != 0)
 			{
-				$this->message = 'Add new products failed!<br>You can not have the same product name!';	
-				$this->error($this->message);
+				$info = "Please change product name!<br>";
+				$formValid = false;
 			}
-			*/
+
+			if(is_numeric($_POST['newproduct_price']))
+			{
+				$info = "Please enter a valid price!<br>";
+				$formValid = false;
+			}
+
+			if(!$formValid)
+			{
+				$this->loadAddProductView($info);
+			}
+
 			$gearTypeID = $_POST['newproduct_cate1'];
 			$gearType   = $this->_gears[$gearTypeID]->getName();
 			$file       = $_FILES['newproduct_photo'];
 			//upload image first to get imageID
 			$photo = array(
-					'name'        => $_FILES['newproduct_photo']['name'],
-					'alt'         => $_POST['photo_alt'],
-					'description' => $_POST['photo_description']
+				'name'        => $_FILES['newproduct_photo']['name'],
+				'alt'         => $_POST['photo_alt'],
+				'description' => $_POST['photo_description']
 				);
 			
 			$photoID = $this->uploadImage($file, $photo, $gearType);			
 
 			//then insert new product
 			$product = array(
-					'name'        => $_POST['newproduct_name'],
-					'price'       => $_POST['newproduct_price'],
-					'description' => $_POST['newproduct_description'],
-					'brandID'     => $_POST['newproduct_brand'],
-					'gearTypeID'  => $gearTypeID,
-					'sportTypeID' => $_POST['newproduct_cate2'],
-					'photoID'     => $photoID
-					);
-			$newProductID = $this->_productDAO->addProduct($product);
+				'name'        => $_POST['newproduct_name'],
+				'price'       => $_POST['newproduct_price'],
+				'description' => $_POST['newproduct_description'],
+				'brandID'     => $_POST['newproduct_brand'],
+				'gearTypeID'  => $gearTypeID,
+				'sportTypeID' => $_POST['newproduct_cate2'],
+				'photoID'     => $photoID
+				);
+			$newProductID = $this->_productDAO->insert('products', $product);
 			//die("error: ".$newProductID);
+			$info = null;
 			if($newProductID == 0)
 			{
-				$this->message = 'Add new products failed!<br>You can not have the same product name!';
+				$info = 'Add new products failed!<br>You can not have the same product name!';
 			}
 			else
 			{
-				$this->message = "You've added a new product!";
+				$info = "You've added a new product!";
 			}
-			//**************************************
-
-		// $_FILES['newproduct_photo'] is an array ;
+			
+			$this->loadAddProductView($info);
 		}
 
-		//if not, go back to the view; or when error found, go back the view with error
-		//if(1!=1){}
-		//always load the add form
-		//if($brands && $gearTypes && $sportTypes)
-		//{
-			$data = array(
-				'title'     => "SportGear-Add new products",
-				'mainView'  => 'addNewProduct',
-				'brands'    => $this->_brands,
-				'sportTypes'=> $this->_sports,
-				'gearTypes' => $this->_gears,
-				'user'      => 'staff', 
-				'message'   =>$this->message
-			);
-
-			$this->view('page', $data);
-			/*
-		}
-		else
-		{
-			$this->message = 'Sorry, We are trying to fix this. Please try again!!!';
-			$this->error($this->message);
-		}
-		*/
+		$info = "Please fill this form to add new products!";
+		$this->loadAddProductView($info);
 	}
 
 	/*
@@ -275,73 +282,74 @@ class Staff extends Controller
 	*/
 	public function uploadImage($file, $photo, $gearType)
 	{
-			$target_dir = "../public/images/product/$gearType/";
-			$target_file= $target_dir.basename($file['name']);
+		$info = null;
+		$target_dir = "../public/images/product/$gearType/";
+		$target_file= $target_dir.basename($file['name']);
 
-			$uploadOK = 1;
-			//better $fileType = $file['type']; => 'image/jpeg'
-			$fileType = pathinfo($target_file, PATHINFO_EXTENSION);
-			//add sth to make sure an image is uploaded
-			$isImage = getimagesize($file['tmp_name']);
-			if($isImage === false)
-			{
-				$this->message .= "Sorry, please upload a real image!<br>";
-				$uploadOK = 0;
-			}
+		$uploadOK = 1;
+		//better $fileType = $file['type']; => 'image/jpeg'
+		$fileType = pathinfo($target_file, PATHINFO_EXTENSION);
+		//add sth to make sure an image is uploaded
+		$isImage = getimagesize($file['tmp_name']);
+		if($isImage === false)
+		{
+			$info .= "Sorry, please upload a real image!<br>";
+			$uploadOK = 0;
+		}
 
-			if(file_exists($target_file))
-			{
-				$this->message .= "Sorry, Image exists!<br>";
-				//$uploadOK = 0;
-			}
+		if($file['size'] > 2000000)//2mb
+		{
+			$info .= "Sorry, Your file is too big!<br>";
+			$uploadOK = 0;
+		}
 
-			if($file['size'] > 2000000)//2mb
-			{
-				$this->message .= "Sorry, Your file is too big!<br>";
-				$uploadOK = 0;
-			}
+		$allowedType = array('jpg','gif','jpeg','png');
+		if(!in_array($fileType, $allowedType))
+		{
+			$info .= "Sorry, only ".implode(', ', $allowedType)." files are allowed!<br>";
+			$uploadOK = 0;
+		}
+		  
+		if($uploadOK == 0)
+		{
+			$this->loadAddProductView($info);
+		}
 
-			$allowedType = array('jpg','gif','jpeg','png');
-			if(!in_array($fileType, $allowedType))
-			{
-				$this->message .= "Sorry, only ".implode(', ', $allowedType)." files are allowed!<br>";
-				$uploadOK = 0;
-			}
-			  
-			if($uploadOK == 0)
-			{
-				$this->error($this->message);
-			}
+		$info = '';
 
-			$this->message = '';
-
-			//move file to the target directory
-			if(!move_uploaded_file($file['tmp_name'], $target_file))
+		//move file to the target directory
+		if(!move_uploaded_file($file['tmp_name'], $target_file))
+		{
+			$info = "Photo upload failed!";
+			$this->loadAddProductView($info);
+		}
+		else
+		{
+			$photoDAO = $this->model('PhotoDAO');
+			$photoID  = $photoDAO->addPhoto($photo);
+			if($photoID == false)
 			{
-				$this->message = "Photo upload failed!";
-				$this->error($this->message);
-				//do we need to do sth to stop 
+				$info = "Can not insert photo infomation into Database!!!";
+				$this->loadAddProductView($info);
 			}
-			else
-			{
-				$photoDAO = $this->model('PhotoDAO');
-				$photoID  = $photoDAO->addPhoto($photo);
-				if($photoID == false)
-				{
-					$this->message = "Can not insert photo infomation into Database!!!";
-					$this->error($this->message);
-				}
-				return $photoID;
-			}
+			return $photoID;
+		}
 	}
 
 	public function manageProducts($selector = null, $page = 1, $limit = 6)
 	{
 		$this->isStaff();
 
+		$info = null;
+
 		if(isset($_POST['productID']))
 		{
 			$productID = $_POST['productID'];
+		}
+		else
+		{
+			$info = "System Error, please try again!";
+			$this->loadManageProductsView($page, $limit, $info);
 		}
 
 		if(isset($_POST['change-update']))
@@ -352,22 +360,33 @@ class Staff extends Controller
 
 			if(!isset($_POST['change-name']) || strlen($_POST['change-name']) < 10)
 			{
-				$this->message .= "Product name must be filled with at least 10 characters!<br>";
+				$info .= "Product name must be filled with at least 10 characters!<br>";
 				$formValid = false; 
 			}
 
 			if(!isset($_POST['change-price']))
 			{
-				$this->message .= "Price must be filled!<br>";
+				$info .= "Price must be filled!<br>";
 				$formValid = false; 
 			}
 
 			if(!$formValid)
 			{
-				$this->error($this->message);
+				$this->loadManageProductsView($page, $limit, $info);
 			}
 			else
 			{
+				$param = array(
+					'name' => $_POST['change-name']
+					);
+				$isExist = $this->_productDAO->select('product', $param);
+
+				if(sizeof($isExist) != 0)
+				{
+					$info = 'Sorry,please change your product name!';
+					$this->loadManageProductsView($page, $limit, $info);
+				}
+
 				$_POST['change-status']==1 ? $status=true: $status=false;
 
 				$columns = array(
@@ -388,12 +407,12 @@ class Staff extends Controller
 
 				if($rowAffected != 1)
 				{
-					$this->message = 'Sorry, system error, please try again!';
-					$this->error($this->message);
+					$info = 'Sorry, system error, please try again!';
+					$this->loadManageProductsView($page, $limit, $info);
 				}
 				else
 				{
-					$this->manageProducts();
+					$this->loadManageProductsView($page, $limit, $info);
 				}
 			}
 
@@ -403,10 +422,13 @@ class Staff extends Controller
 		{
 			unset($_POST['change-delete']);
 
-			$isOrdered = $this->_productDAO->exist('orderedproduct', $productID);
-			//die("lalal".$isOrdered);
+			//$isOrdered = $this->_productDAO->exist('orderedproduct', $productID);
+			$param = array(
+				'productID'=>$productID
+				);
+			$isOrdered = $this->_productDAO->select('orderedproduct', $param);
 
-			if($isOrdered == 0)
+			if(sizeof($isOrdered) == 0)
 			{
 				$param = array(
 					'id'=> $productID
@@ -416,23 +438,32 @@ class Staff extends Controller
 
 				if($rowAffected == 0)
 				{
-					$this->message = 'System error, please try again!';
-					$this->error($this->message);
+					$info = 'System error, please try again!';
+					$this->loadManageProductsView($page, $limit, $info);
+				}
+				else
+				{
+					$info = 'Successfully delete obne product!';
+					$this->loadManageProductsView($page, $limit, $info);
 				}
 			}
 			else
 			{
-				$this->message = 'Sorry, you can not delete any ordered products!';
-				$this->error($this->message);
+				$info = 'Sorry, you can not delete any ordered products!';
+				$this->loadManageProductsView($page, $limit, $info);
 			}
 		}
+		$this->loadManageProductsView($page, $limit, $info);
+	}
 
-		/************/
+	public function loadManageProductsView($page, $limit, $info = null)
+	{
 		$param = array();
 		$products = $this->_productDAO->paginator($page, $limit, $param);
 
-		/*******************/
-		$total = $this->_productDAO->total('products', $param);
+		//$total = $this->_productDAO->total('products', $param);
+		$rows  = $this->_productDAO->select('products', $param);
+		$total = sizeof($rows);
 
 		$param1 = 'all';
 
@@ -450,21 +481,17 @@ class Staff extends Controller
 				'products'  => $products,
 				'pagination'=> $pagination,
 				'user'      => 'staff',
-				'message'   => $this->message
+				'info'      => $info
 			);
 
 			$this->view('page', $data);
 		}
 		else
 		{
-			$this->message = 'Sorry, We don\'t have any products now.';
-			$this->error($this->message);
+			$info = 'Sorry, We don\'t have any products now.';
+			$this->error($info);
 		}
-	}
-
-	public function loadManageProductsView($info = null)
-	{
-
+		exit;
 	}
 
 	public function passwordValidation($password)
@@ -499,7 +526,7 @@ class Staff extends Controller
 		if(!isset($_POST['change-password1']) || !isset($_POST['change-password2']) || !isset($_POST['change-password3']))
 		{
 			$info = "All fields must be filled!";
-			$this->validateFail($info);
+			$this->loadChangePasswordView($info);
 		}
 		else
 		{
@@ -514,31 +541,35 @@ class Staff extends Controller
 
 		if($info)
 		{
-			$this->validateFail($info);
+			$this->loadChangePasswordView($info);
 		}
 
 		$username = $_SESSION['staff']['username'];
-		$staff  = $this->_staffDAO->signInCheck($username, $password1);
-		
-		if($staff->getId() == 0)
+		$password = sha1(md5($password1));
+
+		$param = array(
+			'username'=>$username,
+			'password'=>$password
+			);
+		//$staff  = $this->_staffDAO->signInCheck($username, $password1);
+		$isStaff = $this->_staffDAO->select('staff', $param);
+
+		if(sizeof($isStaff) != 1)
 		{
 			$info = "You have to enter the right password before change!";
-			$this->validateFail($info);
-			exit();
+			$this->loadChangePasswordView($info);
 		}
 
 		if($password1 == $password2)
 		{
 			$info = "You entered the same password as before!";
-			$this->validateFail($info);
-			exit();
+			$this->loadChangePasswordView($info);
 		}
 
 		if($password2 !== $password3)
 		{
 			$info = "Passwords have to be the same to change!";
-			$this->validateFail($info);
-			exit();
+			$this->loadChangePasswordView($info);
 		}
 
 		$param1['password'] = sha1(md5($password2));
@@ -549,18 +580,17 @@ class Staff extends Controller
 		if($rowAffected != 1)
 		{
 			$info = "System Error, please try again!";
-			$this->validateFail($info);
-			exit();
+			$this->loadChangePasswordView($info);
 		}
 		else
 		{
 			$info  = "Password changed! You need to log in again!<br>";
 			$info .= "You will be redirected to log in in 5 seconds!";
-			$this->validateFail($info, true);
+			$this->loadChangePasswordView($info, true);
 		}
 	}
 
-	public function validateFail($info, $redirect = false)
+	public function loadChangePasswordView($info, $redirect = false)
 	{
 		$data = array(
 			'title'     => "SportGear-Staff: change password",
@@ -574,6 +604,7 @@ class Staff extends Controller
 		);
 
 		$this->view('page', $data);
+		exit;
 	}
 
 	public function manageCategories()
@@ -606,30 +637,32 @@ class Staff extends Controller
 
 			if(!$isValid)
 			{
-				$this->manageCategoriesLoadView(false, $info);
+				$this->loadManageCategoriesView(false, $info);
 			}
 			else
 			{
+				//$isExist = $this->_gearTypeDAO->isExist('geartypes', $newCate);
+				$param = array(
+					'name'   => $newCate
+					);
+				$isExist = $this->_gearTypeDAO->select('geartypes', $param);
+				if(sizeof($isExist) != 0)
+				{
+					$info .= "You've aleady have a category called $newCate.<br>";
+					$this->loadManageCategoriesView(false, $info);
+				}
+
 				$param = array(
 					'name'   => $newCate,
 					'status' => true
 					);
-
-				$isExist = $this->_gearTypeDAO->isExist('geartypes', $newCate);
-				if($isExist > 0)
-				{
-					$info .= "You've aleady have a category called $newCate.<br>";
-					$this->manageCategoriesLoadView(false, $info);
-					exit();
-				}
 
 				$id = $this->_gearTypeDAO->insert('geartypes', $param);
 
 				if($id > 0)
 				{
 					$info = "You've added a new category - $newCate successfully.";
-					$this->manageCategoriesLoadView(true, $info);
-					exit();
+					$this->loadManageCategoriesView(true, $info);
 				}
 			}
 		}
@@ -642,12 +675,12 @@ class Staff extends Controller
 			$param = array(
 				'gearTypeID'=>$id
 				);
-			$products = $this->_productDAO->getProductBy($param);
+			//$products = $this->_productDAO->getProductBy($param);
+			$products = $this->_productDAO->select('geartypes', $param);
 			if(sizeof($products) > 0)
 			{
 				$info .= "You can not delete a category with products belong to it!<br>";
-				$this->manageCategoriesLoadView(false, $info);
-				exit();
+				$this->loadManageCategoriesView(false, $info);
 			}
 			else
 			{
@@ -658,14 +691,12 @@ class Staff extends Controller
 				if($rowAffected == 0)
 				{
 					$info = "Error, please try later!<br>";
-					$this->manageCategoriesLoadView(false, $info);
-					exit();
+					$this->loadManageCategoriesView(false, $info);
 				}
 				else
 				{
 					$info = "You've deleted a category - $newCate successfully.";
-					$this->manageCategoriesLoadView(true, $info);
-					exit();
+					$this->loadManageCategoriesView(true, $info);
 				}
 			}
 		}
@@ -678,21 +709,26 @@ class Staff extends Controller
 			$name   = $_POST['category-name'];
 			$_POST['category-status']==1 ? $status=true : $status=false;
 
-			$isExist = $this->_gearTypeDAO->isExist('geartypes', $name);
-			if($isExist > 0)
+			//$isExist = $this->_gearTypeDAO->isExist('geartypes', $name);
+			$param = array(
+					'name'   => $newCate
+					);
+			$isExist = $this->_gearTypeDAO->select('geartypes', $param);
+
+			if(sizeof($isExist) > 0)
 			{
 				$param = array(
 					'name'   => $name,
 					'status' => !$status
 					);
 
-				$isUpdateStatus = $this->_gearTypeDAO->total('geartypes', $param);
+				//$isUpdateStatus = $this->_gearTypeDAO->total('geartypes', $param);
+				$isUpdateStatus = $this->_gearTypeDAO->select('geartypes', $param);
 
-				if($isUpdateStatus != 1)
+				if(sizeof($isUpdateStatus) != 1)
 				{
 					$info .= "You've aleady have a category called $name.<br>";
-					$this->manageCategoriesLoadView(false, $info);
-					exit();
+					$this->loadManageCategoriesView(false, $info);
 				}
 
 				
@@ -711,21 +747,19 @@ class Staff extends Controller
 			if($rowAffected != 1)
 			{
 				$info = 'Failed to update categories!<br>';
-				$this->manageCategoriesLoadView(false, $info);
-				exit();
+				$this->loadManageCategoriesView(false, $info);
 			}
 			else
 			{
 				$info = 'Update category successfully!<br>';
-				$this->manageCategoriesLoadView(true, $info);
-				exit();
+				$this->loadManageCategoriesView(true, $info);
 			}
 		}
 
-		$this->manageCategoriesLoadView(false, $info);
+		$this->loadManageCategoriesView(false, $info);
 	}
 
-	public function manageCategoriesLoadView($loadNewGearTypes, $info = null)
+	public function loadManageCategoriesView($loadNewGearTypes, $info = null)
 	{
 		if($loadNewGearTypes)
 		{
@@ -747,6 +781,7 @@ class Staff extends Controller
 		);
 
 		$this->view('page', $data);
+		exit();
 	}
 
 	public function customize()

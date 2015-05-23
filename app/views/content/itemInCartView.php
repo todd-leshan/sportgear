@@ -51,7 +51,7 @@ else
 	<td><?php echo $name; ?></td>
 	<td><?php echo $price; ?></td>
 	<td><?php echo $brandName; ?></td>
-	<td><img src="/sportsgear/public/images/product/<?php echo $gearTypeName.'/'.$photoName; ?>" alt="<?php echo $photoAlt;?>" height="240"></td>
+	<td><img src="/sportgear/public/images/product/<?php echo $gearTypeName.'/'.$photoName; ?>" alt="<?php echo $photoAlt;?>" height="240"></td>
 	<td>
 		<form method="post" action="<?php echo ROOT.'order/updateCart'; ?>">
 			<input type="hidden" name="productID" value="<?php echo $productID; ?>">

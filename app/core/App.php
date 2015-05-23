@@ -38,11 +38,6 @@ class App
 		}
 
 		//set param
-		/*
-		$this->params = $url?array_values($url) : [];
-		
-		call_user_func_array([$this->controller, $this->method], $this->params);
-		*/
 
 		if(isset($url[2]))
 		{

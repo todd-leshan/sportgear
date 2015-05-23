@@ -54,7 +54,7 @@ $headers .= 'From: SportGear Contact Board' . "\r\n";
 // Mail it
 if(mail($toAddress, $subject, $message, $headers))
 {
-	header("Location:http://localhost/sportsgear");
+	header("Location:http://localhost/sportgear");
 }
 else
 {

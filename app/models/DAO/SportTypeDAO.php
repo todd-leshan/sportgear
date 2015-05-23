@@ -11,7 +11,7 @@ class SportTypeDAO extends CRUD
 
 	public function getSportTypes()
 	{
-		$rows = $this->select("sportTypes");
+		$rows = $this->select("sporttypes");
 
 		$sportTypes = array();
 
