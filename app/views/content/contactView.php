@@ -1,4 +1,4 @@
-<div id="wrapper" class="clearFix">
+<div id="wrapper" class="clearFix container">
 <form id="contact" method="post" action="<?php echo ROOT.'contact/sendMail'?>" class="mainform" novalidate>
 	<fieldset>
 		<legend>Please leave your detail here:</legend>

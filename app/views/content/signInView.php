@@ -1,4 +1,4 @@
-<div id="wrapper" class="clearFix">
+<div id="wrapper" class="clearFix container">
 <form id="signin" method="post" action="<?php echo ROOT.$user.'/signIn'; ?>" class="mainform">
 	<fieldset>
 <?php

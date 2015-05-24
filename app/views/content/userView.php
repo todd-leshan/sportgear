@@ -1,4 +1,4 @@
-<div id="wrapper" class="clearFix">
+<div id="wrapper" class="clearFix container">
 
 <?php
 if($user == 'staff')

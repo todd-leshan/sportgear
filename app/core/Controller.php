@@ -9,8 +9,8 @@ class Controller
 	public function __construct()
 	{
 		session_start();
-		//define("BASE","http://localhost/sportgear/");
-		define("BASE","http://nimingli.com/sportgear/");
+		define("BASE","http://localhost/sportgear/");
+		//define("BASE","http://nimingli.com/sportgear/");
 
 		$brandDAO    = $this->model('BrandDAO');
 		$gearTypeDAO = $this->model('GearTypeDAO');

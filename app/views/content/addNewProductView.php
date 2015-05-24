@@ -1,4 +1,4 @@
-<div id="wrapper" class="clearFix">
+<div id="wrapper" class="clearFix container">
 
 <form id="addNewProduct" class="mainform" method="post" action="<?php echo ROOT.'staff/addProducts'; ?>" enctype="multipart/form-data">
 	<fieldset>

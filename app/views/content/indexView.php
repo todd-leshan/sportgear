@@ -1,4 +1,4 @@
-<div id="wrapper" class="clearFix">
+<div id="wrapper" class="clearFix container">
 
 <section id="myCarousel" class="carousel slide" data-ride="carousel">
 

@@ -1,5 +1,5 @@
-<div id="footer-container" class="clearFix">
-	<footer class="clearFix">
+<div id="footer-container" class="clearFix ">
+	<footer class="clearFix container">
 		<article id="payment_method">
 			<h3>We Accept:</h3>
 			<ul>

@@ -1,4 +1,4 @@
-<div id="wrapper" class="clearFix">
+<div id="wrapper" class="clearFix container">
 <form id="signup" method="post" action="<?php echo ROOT.'user/signUpProcess'; ?>" class="mainform">
 	<fieldset>
 	<legend>Sign up to get member special!</legend>

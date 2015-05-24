@@ -4,7 +4,7 @@ if($redirect)
 	header("Refresh:5; url="."staff/signOut");
 }
 ?>
-<div id="wrapper" class="clearFix">
+<div id="wrapper" class="clearFix container">
 <form id="signin" method="post" action="<?php echo ROOT.$user.'/changePassword'; ?>" class="mainform">
 	<fieldset>
 	<legend>Fill all fields:</legend>

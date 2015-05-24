@@ -1,4 +1,4 @@
-<div id="wrapper" class="clearFix">
+<div id="wrapper" class="clearFix container">
 
 <p>Dear <?php echo $customer; ?>:</p>
 <p>Thanks for shopping with us!</p>

@@ -1,4 +1,4 @@
-<div id="wrapper" class="clearFix">
+<div id="wrapper" class="clearFix container">
 
 <h4 id="product-page-category-menu">
 <?php if($sport == 'tennis' || $sport == 'badminton'): ?>
