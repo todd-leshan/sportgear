@@ -48,20 +48,20 @@ if(isset($user))
 				$items = 0;
 			}
 			?>
-			<img src="/sportgear/public/images/cart.jpg" width="20" height="20">Shoppig Cart(<?php echo $items; ?>)</a></li>
+			<img src="/sportgear/public/images/cart.png" width="20" height="20">Shoppig Cart(<?php echo $items; ?>)</a></li>
 			<li><a href="<?php echo ROOT.'user/signUp'; ?>">&nbsp;Join us&nbsp;</a></li>
 			<li><a href="<?php echo ROOT.'user'; ?>">&nbsp;Sign In&nbsp;</a></li>
 	</ul>
 	
 	<div class="centre container clearFix" id="header-search-time">
-		<h1 class="col-lg-4 col-md-4 col-xs-4 col-sm-12"><a href="<?php echo ROOT; ?>">SportGear</a></h1>
+		<h1 class="col-lg-4 col-md-4 col-xs-4 col-sm-12"><a href="<?php echo ROOT; ?>"><span class="float-left">Sport</span><span class="float-left rotate">G</span><span class="float-left">ear</span></a></h1>
 		<section class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
 			
 		</section>		
-		<time id="clock" class="col-lg-4 col-md-4 col-xs-4 col-sm-12" datetime="2008-02-14 20:00">Now</time>
+		
 	</div>
 <div class="header-row2 container">
-	<nav id="top-menu" class="container clearFix centre col-lg-8 col-md-8 col-xs-8 col-sm-12">
+	<nav id="top-menu" class="container clearFix centre col-lg-7 col-md-7 col-xs-7 col-sm-12">
 		<ul id="top-menu-left">
 			<li><a href="<?php echo ROOT; ?>">HOME</a></li>
 			<?php foreach($sportTypes as $sportType): ?>
@@ -84,14 +84,12 @@ if(isset($user))
 				?>
 				</ul>
 			</li>
-		<?php endforeach; ?>
-				
+			<?php endforeach; ?>
 		</ul>	
 	</nav>
-	<form id="site-search" class="col-lg-4 col-md-4 col-xs-4 col-sm-12" action="<?php echo ROOT.'product/search'; ?>" method="post">
-		<input type="search" id="site-search" name="site-search" placeholder="Search SportGear" />
-		<button class="close-icon" type="reset"></button>
-		<button type="submit" id="searchButton">Go</button>
+	<form id="site-search" class="col-lg-3 col-md-3 col-xs-3 col-sm-6" action="<?php echo ROOT.'product/search'; ?>" method="post">
+		<input type="search" id="site-search" name="site-search" placeholder="Search SportGear" /><button class="close-icon" type="reset"></button><button type="submit" id="searchButton">Go</button>
 	</form>
+	<time id="clock" class="col-lg-2 col-md-2 col-xs-2 col-sm-6" datetime="2008-02-14 20:00">Now</time>
 </div>
 </header>

@@ -208,46 +208,6 @@ class CRUD
 		return $rowAffected;
 	}
 
-	/*
-	*check existense by checking name
-	*/
-	public function isExist($table, $name)
-	{
-		$sql = "SELECT *
-				FROM $table
-				WHERE name=:name";
-
-		$param = array(':name'=>$name);
-
-		$rows = $this->executeSQL($sql, $param);
-
-		$productID = 0;
-		if(sizeof($rows) != 0)
-		{
-			$productID = $rows[0]['id'];
-		}
-
-		return $productID;
-	}
-
-	public function exist($table, $id)
-	{
-		$sql = "SELECT *
-				FROM $table
-				WHERE productID=:id";
-
-		$param = array(':id'=>$id);
-
-		$rows = $this->executeSQL($sql, $param);
-
-		$productID = 0;
-		if(sizeof($rows) != 0)
-		{
-			$productID = $rows[0]['productID'];
-		}
-
-		return $productID;
-	}
 
 	/*
 More functions need to be defined here

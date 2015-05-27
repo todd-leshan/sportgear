@@ -29,7 +29,7 @@ class Test extends Controller
 	{
 		$photo = $this->model("PhotoDAO");
 
-		$isExist = $photo->isExist("xhead-championship-4-ball-can.jpg");
+		//$isExist = $photo->isExist("xhead-championship-4-ball-can.jpg");
 
 		if($isExist)
 		{
