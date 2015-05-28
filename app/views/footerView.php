@@ -1,6 +1,6 @@
-<div id="footer-container" class="clearFix ">
-	<footer class="clearFix container">
-		<article id="payment_method">
+<div id="footer-container" class="clearFix  container-fluid">
+	<footer class="clearFix center">
+		<article id="payment_method" class="float-left">
 			<h3>We Accept:</h3>
 			<ul>
 				<li><img src="/sportgear/public/images/payment/Visa.png" alt="visa" width="50" height="31" title="visa"></li>
@@ -9,7 +9,7 @@
 				<li><img src="/sportgear/public/images/payment/PayPal.png" alt="PayPal" width="50" height="31" title="paypal"></li>
 			</ul>
 		</article>
-		<article id="brands">
+		<article id="brands" class="float-left">
 			<h3>Brands</h3>
 			<ul>
 				<?php foreach($brands as $brand): ?>
@@ -17,7 +17,7 @@
 				<?php endforeach; ?>
 			</ul>
 		</article>
-		<article id="information">
+		<article id="information" class="float-left">
 			<h3>Information</h3>
 			<ul>
 				<li>Overview</li>
@@ -27,7 +27,7 @@
 				<li>FAQs</li>
 			</ul>
 		</article>
-		<article id="customer">
+		<article id="customer" class="float-left">
 			<h3>Customer</h3>
 			<ul>
 				<li><a href="<?php echo ROOT.'contact'; ?>" title="Contact us">Contact us</a></li>
@@ -43,7 +43,7 @@
 				<li><a href=""><img src="/sportgear/public/images/social/Tumblr.png" alt="Tumblr" width="48" height="48"></a></li>
 			</ul>
 		</aside>
-		<p id="copyright">Copyright Reserved 2015 Todd</p>
+		<p id="copyright">Copyright Reserved <?php echo date("Y"); ?> Todd</p>
 	</footer>
 </div>
 <script src="/sportgear/public/js/jquery-2.1.1.min.js"></script>

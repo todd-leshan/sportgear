@@ -1,0 +1,103 @@
+/********************************************************************/
+/*home page*/
+#myCarousel
+{
+	background-color: #f4f4f4;
+}
+
+#myCarousel img
+{
+	max-height: 360px;
+	width: 100%;
+	text-align: center;
+}
+
+#video
+{
+	height: 540px;
+	margin: 5px 0;
+}
+
+	#video iframe,
+	#video article
+	{
+		width: 50%;
+		height: 50%;
+		float: left;
+	}
+
+	#video article
+	{
+		padding: 20px;
+		overflow: hidden;
+	}
+
+		#video article h2
+		{
+			margin-bottom: 15px;
+		}
+
+#category
+{
+	max-height: 240px;
+	min-height: 120px;
+	margin: 10px 0;
+}
+
+	#category a
+	{
+		color: #242424;
+	}
+
+	#category h2
+	{
+		max-height: 240px;
+	   min-height: 120px;
+		text-align: center;
+		background: rgba(255,255,255,0.1);
+		border-radius: 10px;
+	}
+
+		#category h2:hover ,
+		#category h2:active 
+		{
+			color: #fff;
+			background: rgba(0,0,0,0.3);
+		}
+
+	#category .category
+	{
+		width: 19%;
+		min-width: 90px;
+		height: 100%;
+		margin: 0 0.5%;
+		border: 2px solid #fff;
+		border-radius: 10px;
+		float: left;
+	}
+
+	#category .category_racquet
+	{
+		background: url(../images/cate/racquet.jpg) no-repeat center center;
+	}
+
+	#category .category_ball
+	{
+		background: url(../images/cate/ball.jpg) no-repeat center center;
+	}
+
+	#category .category_footwear
+	{
+		background: url(../images/cate/footwear.jpg) no-repeat center center;
+	}
+
+	#category .category_clothing
+	{
+		background:url(../images/cate/clothing.jpg) no-repeat center center;
+	}
+
+	#category .category_accessory
+	{
+		background: url(../images/cate/accessory.jpg) no-repeat center center;
+	}
+	

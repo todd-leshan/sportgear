@@ -64,7 +64,13 @@ header
 	line-height: 40px;
 	font-weight: bold;
 	color: #fff;
-	background-color: #242424;
+	background: #242424;
+	/*background-color: rgba(36,36,36,0.75);*/
+}
+
+header:hover
+{
+	background-color: rgba(36,36,36,1);
 }
 
 	header a
@@ -95,6 +101,7 @@ header
 	header h1
 	{
 		letter-spacing: 2px;
+		font-family: "Arial Black";
 	}
 
 		header h1 span.rotate
@@ -122,20 +129,20 @@ header
 
 	header .header-row2
 	{
-		padding: 0;
+		padding-left: 0;
 	}
 
 	header nav #top-menu-left li
 	{
 		position: relative;
 		display: block;
-		float: left;
 	}
 
 		header nav ul li a
 		{
 			display: block;
 			background: #242424;
+			background-color: rgba(36,36,36,0.75);
 			padding: 0 10px;
 			white-space: nowrap;
 			color: #fff;
@@ -194,10 +201,12 @@ header
 				display: block;
 				width: 20px;
 				height: 20px;
+				line-height: 20px;
+				font-size: 20px;
 				position: absolute;
 				background-color: #FA9595;
 				z-index:1;
-				right: 95px;
+				right: 40px;
 				top: 0;
 				bottom: 0;
 				margin: auto;
@@ -229,13 +238,87 @@ header
 				{
 					background: #f6f6f6;
 				}
+
+		#clock
+		{
+			width: 25%;
+			text-align: right;
+		}
 /**********************************************************************/
 /*wrapper*/
 #wrapper
 {
 	margin-top: 140px;
 	border-radius: 20px;
+	min-height: 480px;
 }
 
 /*********************************************************************/
 /*footer*/
+#footer-container
+{
+	position: relative;
+	color: #fff;
+	background: #242424;
+	background-color: rgba(36,36,36,0.75);
+}
+
+#footer-container:hover
+{
+	background: #242424;
+}
+
+footer
+{
+	padding: 20px;
+}
+footer article
+{
+	width: 25%;
+}
+
+	footer article a
+	{
+		color: #fff;
+	}
+
+footer #social-media
+{
+	position: fixed;
+	top: 150;
+	left: 20;
+}
+
+@media screen and (max-width: 640px) {
+   #social-media
+	{
+		position: fixed;
+		z-index: 20000;
+		top: 0;
+		left: 0;
+	}
+
+		#social-media li
+		{
+			float: left;
+		}
+}
+
+footer #copyright
+{
+	clear: both;
+	padding-top: 30px;
+	text-align: center;
+}
+
+/*********************************************/
+header ul,
+header #header,
+header div.header-row2,
+#wrapper,
+footer
+{
+	max-width: 960px;
+	margin-left:auto;
+	margin-right: auto;
+}
