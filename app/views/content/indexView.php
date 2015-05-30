@@ -110,7 +110,6 @@
   <div><h4>On Sale Now!</h4><img src="images/product/clothing/adidas_women_skort1.jpg" alt="asd"></div>
   <div><h4>On Sale Now!</h4><img src="images/product/clothing/46013801-zoom.jpg" alt="asd"></div>
   <div><h4>Clearance!</h4><img src="images/product/accessory/wilson_racquet_bag.jpg" alt="asd"></div>
-  <div><h4>On Sale Now!</h4><img src="images/product/accessory/xhead-djokovic-dampener-2014-30.jpg" alt="asd"></div>
   <div><h4>On Sale Now!</h4><img src="images/product/racquet/yonex-arcsaber-11-badminton-racquet-30.jpg" alt="asd"></div>
 
 </section>

@@ -22,6 +22,13 @@ class Order extends Controller
 			$productID = $_POST['productID'];
 			$qty       = (int)$_POST['qty'];
 
+			//may need error message here
+			if($qty <= 0)
+			{
+				header('Location: ' . $_SERVER['HTTP_REFERER']);
+				exit();
+			}
+
 			unset($_POST['productID']);
 			unset($_POST['qty']);
 

@@ -249,6 +249,7 @@ header:hover
 #wrapper
 {
 	margin-top: 140px;
+	margin-bottom: 15px;
 	border-radius: 20px;
 	min-height: 480px;
 }
@@ -321,4 +322,6 @@ footer
 	max-width: 960px;
 	margin-left:auto;
 	margin-right: auto;
+	padding-left: 0;
+	padding-right:0;
 }
