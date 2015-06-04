@@ -47,7 +47,7 @@ if(isset($user))
 				$items = 0;
 			}
 			?>
-			<img src="/sportgear/public/images/cart.png" width="20" height="20">Shoppig Cart(<?php echo $items; ?>)</a></li>
+			Shoppig Cart(<?php echo $items; ?>)</a></li>
 			<!--
 			<li><a href="<?php echo ROOT.'user/signUp'; ?>">&nbsp;Join us&nbsp;</a></li>
 			<li><a href="<?php echo ROOT.'user'; ?>">&nbsp;Sign In&nbsp;</a></li>

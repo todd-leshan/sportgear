@@ -1,4 +1,4 @@
-<div id="wrapper" class="clearFix container">
+<div id="staff-wrapper" class="clearFix container">
 
 <form method="post" action="<?php echo ROOT.'staff/customize'; ?>">
 	<fieldset>
@@ -36,8 +36,8 @@
 			Large
 		</label>
 	</fieldset>
-	<button type="submit" name="customizeSave">Save</button>
+	<button type="submit" name="customizeSave" id="customizeSave">Save</button>
 </form>
-<p class="goBack"><a href="<?php echo ROOT.'staff'; ?>">Back to Menu</a></p>
-<p class="logout"><a href="<?php echo ROOT.'staff/signOut'; ?>">Sign Out</a></p>
+<p class="goBack staff-management-menu"><a href="<?php echo ROOT.'staff'; ?>">Back to Menu</a></p>
+<p class="logout staff-management-menu"><a href="<?php echo ROOT.'staff/signOut'; ?>">Sign Out</a></p>
 </div>

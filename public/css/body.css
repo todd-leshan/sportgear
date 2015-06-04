@@ -254,6 +254,19 @@ header:hover
 	min-height: 480px;
 }
 
+#staff-wrapper
+{
+	margin-top: 140px;
+	margin-bottom: 15px;
+	max-width: 960px;
+	margin-left:auto;
+	margin-right: auto;
+	border-radius: 20px;
+	min-height: 480px;
+	padding: 5px;
+	background: rgba(255,255,255,0.9);
+}
+
 /*********************************************************************/
 /*footer*/
 #footer-container
@@ -272,6 +285,7 @@ header:hover
 footer
 {
 	padding: 20px;
+	position: relative;
 }
 footer article
 {
@@ -291,7 +305,7 @@ footer #social-media
 }
 
 @media screen and (max-width: 640px) {
-   #social-media
+   footer #social-media
 	{
 		position: fixed;
 		z-index: 20000;
@@ -299,7 +313,7 @@ footer #social-media
 		left: 0;
 	}
 
-		#social-media li
+		footer #social-media li
 		{
 			float: left;
 		}

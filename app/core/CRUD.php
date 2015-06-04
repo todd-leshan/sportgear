@@ -53,7 +53,8 @@ class CRUD
 			foreach ($data as $key => $value) {
 				$sql .= $key.'=:'.$key;
 
-				$param[":$key"] = $value;
+				//$param[":$key"] = $value;
+
 
 				if($i < $j)
 				{
@@ -63,15 +64,36 @@ class CRUD
 			}	
 		}
 
-		$rows = $this->executeSQL($sql, $param);
+		try
+		{
+			$stmt = $this->_conn->prepare($sql);
+			$i = 1;
+			$j = sizeof($data);
+			$param = array();
 
-		return $rows;
+			if($j > 0)
+			{
+				foreach ($data as $key => $value) {
+					$stmt->bindValue(":$key", $value);
+				}	
+			}
+
+			$stmt->execute();
+			$rows = $stmt->fetchAll();
+
+			return $rows;
+		}
+		catch (PDOException $e) 
+		{
+			echo 'Error:'.$sql.' '.$e->getMessage();
+		}	
 	}
 
 	/*
 	*insert into CRUD and return the last insert ID
 	*@param: $conn, $prepareSQL, $param
 	*/
+
 	public function insert($table, $data)
 	{
 		$columns = array();
@@ -106,6 +128,45 @@ class CRUD
 			
 	}
 
+	/*
+	public function insert($table, $data)
+	{
+		$columns = array();
+		$values  = array();
+		$q       = array();
+		foreach ($data as $key => $value) {
+			array_push($columns, $key);
+			array_push($values, $value);
+			array_push($q,":$key");
+		}
+
+		$column = implode(',', $columns);
+		$qs     = implode(',', $q);
+
+		$prepare = "INSERT INTO $table ($column) VALUES ($qs)";
+
+		try
+		{
+			$stmt = $this->_conn->prepare($prepare);
+
+			foreach ($data as $key => $value) 
+			{
+				$stmt->bindValue(":$key", $value);
+			}
+			$stmt->execute($values);
+
+			$newID = $this->_conn->lastInsertId();
+
+			return $newID;	
+		}
+		catch(PDOException $e)
+		{
+			echo 'Insert Error:'.$e->getMessage();
+		}
+
+			
+	}
+*/
 	/*
 	*return total number of records of a table
 	*/

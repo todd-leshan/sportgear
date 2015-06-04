@@ -1,4 +1,4 @@
-<div id="wrapper" class="clearFix container">
+<div id="staff-wrapper" class="clearFix container">
 <?php
 if(isset($info))
 {
@@ -145,8 +145,8 @@ endforeach;
 ?>
 
 <?php paginationLinks($pagination); ?>
-
-<p class="goBack"><a href="<?php echo ROOT.'staff'; ?>">Back to Menu</a></p>
-<p class="logout"><a href="<?php echo ROOT.'staff/signOut'; ?>">Sign Out</a></p>
+<br>
+<p class="goBack staff-management-menu"><a href="<?php echo ROOT.'staff'; ?>">Back to Menu</a></p>
+<p class="logout staff-management-menu"><a href="<?php echo ROOT.'staff/signOut'; ?>">Sign Out</a></p>
 
 </div>

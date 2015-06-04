@@ -4,7 +4,7 @@ if($redirect)
 	header("Refresh:5; url="."staff/signOut");
 }
 ?>
-<div id="wrapper" class="clearFix container">
+<div id="staff-wrapper" class="clearFix container">
 <form id="signin" method="post" action="<?php echo ROOT.$user.'/changePassword'; ?>" class="mainform">
 	<fieldset>
 	<legend>Fill all fields:</legend>
@@ -37,8 +37,8 @@ if(isset($info))
 	</fieldset>
 </form>
 
-<p class="goBack"><a href="<?php echo ROOT.'staff'; ?>">Back to Menu</a></p>
-<p class="logout"><a href="<?php echo ROOT.'staff/signOut'; ?>">Sign Out</a></p>
+<p class="goBack staff-management-menu"><a href="<?php echo ROOT.'staff'; ?>">Back to Menu</a></p>
+<p class="logout staff-management-menu"><a href="<?php echo ROOT.'staff/signOut'; ?>">Sign Out</a></p>
 
 </div>
 
