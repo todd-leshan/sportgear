@@ -595,8 +595,7 @@ class Staff extends Controller
 		}
 		else
 		{
-			$info  = "Password changed! You need to log in again!<br>";
-			$info .= "You will be redirected to log in in 5 seconds!";
+			$info  = "Password changed!";
 			$this->loadChangePasswordView($info, true);
 		}
 	}

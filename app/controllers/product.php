@@ -152,6 +152,11 @@ class Product extends Controller
 		$param['id'] = $productID;
 
 		$results = $this->_productDAO->getProductBy($param);
+		if(sizeof($results) < 1)
+		{
+			//do sth here
+		}
+
 		$product = $results[$productID];
 
 		$data = array(

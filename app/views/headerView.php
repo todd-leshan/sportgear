@@ -17,7 +17,7 @@ if(isset($user))
 {
 	if($user == 'staff' && isset($_SESSION['staff']))
 	{
-		$css = 'staff'.$_SESSION['staff']['staffID'].'.css';
+		$css = 'staff'.$_SESSION['staff']['staffID'].'.css?'.rand();
 		if($css)
 		{
 		?>
