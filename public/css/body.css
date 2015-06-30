@@ -116,8 +116,9 @@ header:hover
 
 		header h1 a
 		{
-			font-size: 36px;
-			
+			font-size: 64px;
+			position: absolute;
+			top: 0;
 		}
 
 		header h1 a:hover,
@@ -129,6 +130,7 @@ header:hover
 
 	header .header-row2
 	{
+		margin-top: 40px;
 		padding-left: 0;
 	}
 
@@ -220,7 +222,7 @@ header:hover
 				cursor: pointer;
 			}
 
-			#site-search:not(:focus) ~ .close-icon 
+			#site-search:not(:focus) ~ .close-icon
 			{
 				display: none;
 			}
@@ -254,6 +256,19 @@ header:hover
 	min-height: 480px;
 }
 
+#staff-wrapper
+{
+	margin-top: 140px;
+	margin-bottom: 15px;
+	max-width: 960px;
+	margin-left:auto;
+	margin-right: auto;
+	border-radius: 20px;
+	min-height: 480px;
+	padding: 5px;
+	background: rgba(255,255,255,0.9);
+}
+
 /*********************************************************************/
 /*footer*/
 #footer-container
@@ -272,6 +287,7 @@ header:hover
 footer
 {
 	padding: 20px;
+	position: relative;
 }
 footer article
 {
@@ -286,20 +302,19 @@ footer article
 footer #social-media
 {
 	position: fixed;
-	top: 150;
-	left: 20;
+	top: 150px;
+	left: 20px;
 }
 
 @media screen and (max-width: 640px) {
-   #social-media
+   footer #social-media
 	{
 		position: fixed;
-		z-index: 20000;
 		top: 0;
 		left: 0;
 	}
 
-		#social-media li
+		footer #social-media li
 		{
 			float: left;
 		}

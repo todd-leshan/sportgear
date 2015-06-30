@@ -1,5 +1,5 @@
-<div id="footer-container" class="clearFix  container-fluid">
-	<footer class="clearFix center">
+<div id="footer-container" class="clearfix  container-fluid">
+	<footer class="container  clearfix center">
 		<article id="payment_method" class="float-left">
 			<h3>We Accept:</h3>
 			<ul>
@@ -54,9 +54,10 @@
 <script src="/sportgear/public/js/customize.js" type="text/javascript"></script>
 
 <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.4.1/slick.min.js"></script>
-
+<!--
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;signed_in=true&amp;libraries=places"></script>
 <script src="/sportgear/public/js/map.js"></script>
+-->
 </body>
 
 </html>

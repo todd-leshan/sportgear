@@ -184,19 +184,19 @@ class Order extends Controller
 				$info .= "Please enter a valid email address.!<br>";
 				$isValid = false;
 			}
-/*
-			if($this->patternMatch($checkout_ccNo, "/^[0-9]{16}$/"))
+
+			if(!$this->patternMatch($checkout_ccNo, "/^[0-9]{16}$/"))
 			{
 				$info .= "Please enter a valid credit card number!<br>";
 				$isValid = false;
 			}
 
-			if($this->patternMatch($checkout_csv, "/^[0-9]{3}$/"))
+			if(!$this->patternMatch($checkout_csv, "/^[0-9]{3}$/"))
 			{
 				$info .= "Please enter a valid credit card CSV!<br>";
 				$isValid = false;
 			}
-*/
+
 			$currentDate = date("Y-m");
 			if($checkout_expire < $currentDate)
 			{
@@ -222,8 +222,7 @@ class Order extends Controller
 				'email'     => $checkout_email,
 				'creditcard'=> $checkout_ccNo,
 				'expiry'    => $checkout_expire,
-				'name'      => $checkout_name,
-				'CSV'       => $checkout_csv
+				'name'      => $checkout_name
 				);
 
 			//check whether this orderID exists,,skip this now
@@ -252,7 +251,7 @@ class Order extends Controller
 			}
 
 			unset($_SESSION['cart']);
-			$this->thankyou($checkout_firstname, $checkout_lastname, $orderID);
+			$this->thankyou($checkout_firstname, $checkout_lastname, $orderID, $order);
 						
 		}
 
@@ -279,7 +278,7 @@ class Order extends Controller
 		$this->view('page', $data);
 	}
 
-	public function thankyou($firstname, $lastname, $orderID)
+	public function thankyou($firstname, $lastname, $orderID, $order)
 	{
 		$data = array(
 			'title'     => "SportGear-Shopping Cart Review",
@@ -288,9 +287,10 @@ class Order extends Controller
 			'sportTypes'=> $this->_sports,
 			'gearTypes' => $this->_gears,
 			'customer'  => $firstname.' '.$lastname,
-			'orderNo'   => $orderID
+			'orderNo'   => $orderID,
+			'order'     => $order
 			);  
-
+		
 		$this->view('page', $data);
 	}
 

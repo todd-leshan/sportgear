@@ -1,6 +1,6 @@
-<div id="wrapper" class="clearFix container centre">
+<div id="staff-wrapper" class="clearFix container centre">
 
-<form id="addNewProduct" class="mainform" method="post" action="<?php echo ROOT.'staff/addProducts'; ?>" enctype="multipart/form-data">
+<form id="addNewProduct" class="mainform" method="post" action="<?php echo ROOT.'staff/addProducts'; ?>" enctype="multipart/form-data" novalidate>
 	<fieldset>
 		<legend>Add a new product:</legend>
 <?php
@@ -110,7 +110,7 @@ if(isset($info))
 	</fieldset>
 </form>
 
-<p class="goBack"><a href="<?php echo ROOT.'staff'; ?>">Back to Menu</a></p>
-<p class="logout"><a href="<?php echo ROOT.'staff/signOut'; ?>">Sign Out</a></p>
+<p class="goBack staff-management-menu"><a href="<?php echo ROOT.'staff'; ?>">Back to Menu</a></p>
+<p class="logout staff-management-menu"><a href="<?php echo ROOT.'staff/signOut'; ?>">Sign Out</a></p>
 
 </div>

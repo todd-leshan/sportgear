@@ -53,7 +53,7 @@ else
 	<td><?php echo $brandName; ?></td>
 	<td><img src="/sportgear/public/images/product/<?php echo $gearTypeName.'/'.$photoName; ?>" alt="<?php echo $photoAlt;?>" height="240"></td>
 	<td>
-		<form method="post" action="<?php echo ROOT.'order/updateCart'; ?>">
+		<form method="post" action="<?php echo ROOT.'order/updateCart'; ?>" novalidate>
 			<input type="hidden" name="productID" value="<?php echo $productID; ?>">
 			<input type="number" name="updateItem-qty" required value="<?php echo $qty; ?>" min="1">
 			<br>

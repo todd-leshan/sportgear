@@ -1,4 +1,4 @@
-<div id="wrapper" class="clearFix container">
+<div id="staff-wrapper" class="clearFix container">
 <?php
 if(isset($info))
 {
@@ -19,7 +19,7 @@ foreach($gearTypes as $gear):
 	$name   = $gear->getName();
 	$status = $gear->getStatus();
 ?>
-<form method="post" class="manage-categories clearFix" action="<?php echo ROOT.'staff/manageCategories'; ?>">
+<form method="post" class="manage-categories clearFix" action="<?php echo ROOT.'staff/manageCategories'; ?>" novalidate>
 	<input type="hidden" name="categoryID" value="<?php echo $id ;?>">
 
 	<input type="text" name="category-name" class="category-name float-left" required value="<?php echo $name ;?>">
@@ -58,7 +58,7 @@ endforeach;
 	</fieldset>
 </form>
 
-<p class="goBack"><a href="<?php echo ROOT.'staff'; ?>">Back to Menu</a></p>
-<p class="logout"><a href="<?php echo ROOT.'staff/signOut'; ?>">Sign Out</a></p>
+<p class="goBack staff-management-menu"><a href="<?php echo ROOT.'staff'; ?>">Back to Menu</a></p>
+<p class="logout staff-management-menu"><a href="<?php echo ROOT.'staff/signOut'; ?>">Sign Out</a></p>
 
 </div>

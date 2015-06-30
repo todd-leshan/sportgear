@@ -1,6 +1,6 @@
-<div id="wrapper" class="clearFix">
+<div id="wrapper" class="container centre clearfix">
 
-<section id="myCarousel" class="carousel slide clearFix" data-ride="carousel">
+<section id="myCarousel" class="carousel slide clearfix hidden-xs" data-ride="carousel">
 
   <ol class="carousel-indicators">
     <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -12,7 +12,7 @@
   <!-- Wrapper for slides -->
   <div class="carousel-inner" role="listbox">
     <div class="item active">
-      <img src="images/JS1/4.jpg" alt="Chania" class="img-responsive">
+      <img src="images/JS1/4.png" alt="Chania" class="img-responsive">
       <div class="carousel-caption">
         <h3>New Head technology</h3>
         <p>Try our 2015 new season products!!!</p>
@@ -20,7 +20,7 @@
     </div>
 
     <div class="item">
-      <img src="images/JS1/2.jpg" alt="Flower"  class="img-responsive">
+      <img src="images/JS1/2.png" alt="Flower"  class="img-responsive">
       <div class="carousel-caption">
         <h3>Novak Djokovic</h3>
         <p>Now on sale to celebrate the fourth Australia Open Grand Slam</p>
@@ -28,7 +28,7 @@
     </div>
 
     <div class="item">
-      <img src="images/JS1/3.jpg" alt="Flower"  class="img-responsive">
+      <img src="images/JS1/3.png" alt="Flower"  class="img-responsive">
       <div class="carousel-caption">
         <h3>Babolat</h3>
         <p>With Tsonga and Rafeal!!!</p>
@@ -51,7 +51,7 @@
 	<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/7gBUAsGzUQM?showinfo=0"></iframe>
 </section>
 -->
-<section id="video" class="clearFix">
+<section id="video" class="clearfix hidden-xs">
   <iframe src="https://www.youtube.com/embed/7gBUAsGzUQM?showinfo=0"></iframe>
   <article>
     <h2>New Season!!!</h2>
@@ -107,9 +107,10 @@
   <div><h4>Buy two get one FREE!</h4><img src="images/product/ball/xhead-championship-4-ball-can.jpg" alt="asd"></div>
   <div><h4>Buy two get one FREE!</h4><img src="images/product/ball/xwilson-australian-open-4-ball-can-30.jpg" alt="asd"></div>
   <div><h4>On Sale Now!</h4><img src="images/product/clothing/37467301-zoom.jpg" alt="asd"></div>
-  <div><h4>On Sale Now!</h4><img src="images/product/clothing/adidas_women_skort1.jpg" alt="asd"></div>
+
   <div><h4>On Sale Now!</h4><img src="images/product/clothing/46013801-zoom.jpg" alt="asd"></div>
   <div><h4>Clearance!</h4><img src="images/product/accessory/wilson_racquet_bag.jpg" alt="asd"></div>
+  <div><h4>On Sale Now!</h4><img src="images/product/clothing/adidas_women_skort1.jpg" alt="asd"></div>
   <div><h4>On Sale Now!</h4><img src="images/product/racquet/yonex-arcsaber-11-badminton-racquet-30.jpg" alt="asd"></div>
 
 </section>

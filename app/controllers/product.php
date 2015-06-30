@@ -149,7 +149,13 @@ class Product extends Controller
 	//display a product
 	public function product($productID)
 	{
+		if(!is_numeric($productID))
+		{
+			$this->tennis();
+		}
+
 		$param['id'] = $productID;
+
 
 		$results = $this->_productDAO->getProductBy($param);
 		$product = $results[$productID];

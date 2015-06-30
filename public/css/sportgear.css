@@ -525,5 +525,27 @@ table#shoppingcart
 .pagination-sm
 {
 	float: left;
-	clear: left;
+	clear: both;
+}
+
+/****************************************************/
+/**staff menu**/
+#customizeSave
+{
+	padding: 5px 10px;
+	border-radius: 10px;
+	margin-top: 20px;
+}
+
+	#customizeSave:hover,
+	#customizeSave:active
+	{
+		color: #fff;
+		background-color: #999;
+	}
+
+.goBack,
+.logout
+{
+	clear:both;
 }

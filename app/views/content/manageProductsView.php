@@ -1,4 +1,4 @@
-<div id="wrapper" class="clearFix container">
+<div id="staff-wrapper" class="clearFix container">
 <?php
 if(isset($info))
 {
@@ -39,7 +39,7 @@ foreach ($products as $product) :
 
 	$status       = $product->getStatus();
 ?>	
-	<form method="post" class="manage-products clearFix" action="<?php echo ROOT.'staff/manageProducts'; ?>">
+	<form method="post" class="manage-products clearFix" action="<?php echo ROOT.'staff/manageProducts'; ?>" novalidate>
 	<input type="hidden" name="productID" value="<?php echo $productID ;?>">
 		<p>
 			<textarea name="change-name" class="change-name float-left" required><?php echo $name; ?></textarea>
@@ -145,8 +145,8 @@ endforeach;
 ?>
 
 <?php paginationLinks($pagination); ?>
-
-<p class="goBack"><a href="<?php echo ROOT.'staff'; ?>">Back to Menu</a></p>
-<p class="logout"><a href="<?php echo ROOT.'staff/signOut'; ?>">Sign Out</a></p>
+<br>
+<p class="goBack staff-management-menu"><a href="<?php echo ROOT.'staff'; ?>">Back to Menu</a></p>
+<p class="logout staff-management-menu"><a href="<?php echo ROOT.'staff/signOut'; ?>">Sign Out</a></p>
 
 </div>

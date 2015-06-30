@@ -8,7 +8,7 @@ if(isset($info))
 ?>
 
 
-<form id="checkout" method="post" action="<?php echo ROOT.'order/checkout';?>" class="mainform">
+<form id="checkout" method="post" action="<?php echo ROOT.'order/checkout';?>" class="mainform" novalidate>
 	<fieldset>
 		<legend>Please leave your detail here:</legend>
 		<p>You must fill all fields with *.</p>

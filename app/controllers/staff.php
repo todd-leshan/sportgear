@@ -149,7 +149,9 @@ class Staff extends Controller
 	public function signOut()
 	{
 		$_SESSION['staff'] = null;
-		$this->index();
+		$this->loadSignInView();
+		exit();
+		//$this->index();
 	}
 
 	/*
@@ -223,7 +225,7 @@ class Staff extends Controller
 				$formValid = false;
 			}
 
-			if(is_numeric($_POST['newproduct_price']))
+			if(!is_numeric($_POST['newproduct_price']))
 			{
 				$info = "Please enter a valid price!<br>";
 				$formValid = false;
@@ -552,7 +554,7 @@ class Staff extends Controller
 			'password'=>$password
 			);
 		//$staff  = $this->_staffDAO->signInCheck($username, $password1);
-		$isStaff = $this->_staffDAO->select('staff', $param);
+		$isStaff = $this->_staffDAO->select('staffs', $param);
 
 		if(sizeof($isStaff) != 1)
 		{
@@ -812,8 +814,6 @@ class Staff extends Controller
 
 				$style .= "body{background:url(../images/theme/$bg)}";
 			}
-
-			$style .= "#wrapper{padding: 20px;}";
 
 			$css = fopen("../public/css/staff".$staffID.".css", 'w+');
 

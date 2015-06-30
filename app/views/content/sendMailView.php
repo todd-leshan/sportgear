@@ -25,7 +25,6 @@ $message = "
 </head>
 
 <body>
-	<p>Specials for persons born in August</p>
 	<table>
 		<tr>
 			<th>Name</th>
@@ -58,6 +57,6 @@ if(mail($toAddress, $subject, $message, $headers))
 }
 else
 {
-	echo "Bad!";
+	echo "System Error - Send Mail Failed!";
 }
 ?>

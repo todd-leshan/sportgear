@@ -1,5 +1,5 @@
 <div id="wrapper" class="clearFix container">
-<form id="signin" method="post" action="<?php echo ROOT.$user.'/signIn'; ?>" class="mainform">
+<form id="signin" method="post" action="<?php echo ROOT.$user.'/signIn'; ?>" class="mainform" novalidate>
 	<fieldset>
 <?php
 	if($user == 'staff')
@@ -31,7 +31,7 @@ if(isset($info))
 		</p>
 		<p>
 			<label for="signin-password">*Password:</label>
-			<input type="password" name="password" id="signin-password" required maxlength="12" pattern="[a-zA-Z0-9_-]*" />
+			<input type="password" name="password" id="signin-password" required maxlength="12" pattern="[a-zA-Z0-9_-]*" AUTOCOMPLETE='OFF'/>
 			<span class="error">This field is required!</span>
 		</p>
 

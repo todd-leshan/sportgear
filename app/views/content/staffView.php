@@ -1,4 +1,4 @@
-<div id="wrapper" class="clearFix container">
+<div id="staff-wrapper" class="clearFix container">
 
 <h2 class="page-title">Welcome to Management System - Dear <?php echo $username; ?></h2>
 

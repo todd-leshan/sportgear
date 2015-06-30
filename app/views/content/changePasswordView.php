@@ -1,11 +1,11 @@
 <?php 
 if($redirect)
 {
-	header("Refresh:5; url="."staff/signOut");
+	header("Refresh:5; url="."signOut");
 }
 ?>
-<div id="wrapper" class="clearFix container">
-<form id="signin" method="post" action="<?php echo ROOT.$user.'/changePassword'; ?>" class="mainform">
+<div id="staff-wrapper" class="clearFix container">
+<form id="signin" method="post" action="<?php echo ROOT.$user.'/changePassword'; ?>" class="mainform" novalidate>
 	<fieldset>
 	<legend>Fill all fields:</legend>
 <?php
@@ -16,17 +16,17 @@ if(isset($info))
 ?>
 		<p>
 			<label for="change-password1">Old Password:</label>
-			<input type="password" name="change-password1" id="change-password1" required maxlength="12" pattern="[a-zA-Z0-9_-]*" />
+			<input type="password" name="change-password1" id="change-password1" required maxlength="12" pattern="[a-zA-Z0-9_-]*" AUTOCOMPLETE='OFF'/>
 			<span class="error">This field is required!</span>
 		</p>
 		<p>
 			<label for="change-password2">New Password:</label>
-			<input type="password" name="change-password2" id="change-password2" required maxlength="12" pattern="[a-zA-Z0-9_-]*" />
+			<input type="password" name="change-password2" id="change-password2" required maxlength="12" pattern="[a-zA-Z0-9_-]*" AUTOCOMPLETE='OFF'/>
 			<span class="error">This field is required!</span>
 		</p>
 		<p>
 			<label for="change-password3">Confirm:</label>
-			<input type="password" name="change-password3" id="change-password3" required maxlength="12" pattern="[a-zA-Z0-9_-]*" />
+			<input type="password" name="change-password3" id="change-password3" required maxlength="12" pattern="[a-zA-Z0-9_-]*" AUTOCOMPLETE='OFF'/>
 			<span class="error">This field is required!</span>
 		</p>
 
@@ -37,8 +37,8 @@ if(isset($info))
 	</fieldset>
 </form>
 
-<p class="goBack"><a href="<?php echo ROOT.'staff'; ?>">Back to Menu</a></p>
-<p class="logout"><a href="<?php echo ROOT.'staff/signOut'; ?>">Sign Out</a></p>
+<p class="goBack staff-management-menu"><a href="<?php echo ROOT.'staff'; ?>">Back to Menu</a></p>
+<p class="logout staff-management-menu"><a href="<?php echo ROOT.'staff/signOut'; ?>">Sign Out</a></p>
 
 </div>
 
