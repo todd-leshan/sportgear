@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php 
 if($redirect)
 {
@@ -6,6 +7,10 @@ if($redirect)
 ?>
 <div id="staff-wrapper" class="clearFix container">
 <form id="signin" method="post" action="<?php echo ROOT.$user.'/changePassword'; ?>" class="mainform" novalidate>
+=======
+<div id="staff-wrapper" class="clearFix container">
+<form id="signin" method="post" action="<?php echo ROOT.$user.'/changePassword'; ?>" class="mainform">
+>>>>>>> origin/master
 	<fieldset>
 	<legend>Fill all fields:</legend>
 <?php

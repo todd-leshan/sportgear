@@ -150,7 +150,10 @@ class Staff extends Controller
 	{
 		$_SESSION['staff'] = null;
 		$this->loadSignInView();
+<<<<<<< HEAD
 		exit();
+=======
+>>>>>>> origin/master
 		//$this->index();
 	}
 
@@ -221,13 +224,13 @@ class Staff extends Controller
 			$isProductExist = $this->_productDAO->select('products', $param);
 			if(sizeof($isProductExist) != 0)
 			{
-				$info = "Please change product name!<br>";
+				$info .= "Please change product name!<br>";
 				$formValid = false;
 			}
 
 			if(!is_numeric($_POST['newproduct_price']))
 			{
-				$info = "Please enter a valid price!<br>";
+				$info .= "Please enter a valid price!<br>";
 				$formValid = false;
 			}
 
@@ -344,18 +347,18 @@ class Staff extends Controller
 
 		$info = null;
 
-		if(isset($_POST['productID']))
-		{
-			$productID = $_POST['productID'];
-		}
-		else
-		{
-			$info = "System Error, please try again!";
-			$this->loadManageProductsView($page, $limit, $info);
-		}
-
 		if(isset($_POST['change-update']))
 		{
+			if(isset($_POST['productID']))
+			{
+				$productID = $_POST['productID'];
+			}
+			else
+			{
+				$info = "System Error, please try again!";
+				$this->loadManageProductsView($page, $limit, $info);
+			}
+
 			unset($_POST['change-update']);
 
 			$formValid = true;
@@ -422,6 +425,16 @@ class Staff extends Controller
 
 		if(isset($_POST['change-delete']))
 		{
+			if(isset($_POST['productID']))
+			{
+				$productID = $_POST['productID'];
+			}
+			else
+			{
+				$info = "System Error, please try again!";
+				$this->loadManageProductsView($page, $limit, $info);
+			}
+
 			unset($_POST['change-delete']);
 
 			//$isOrdered = $this->_productDAO->exist('orderedproduct', $productID);
@@ -445,7 +458,7 @@ class Staff extends Controller
 				}
 				else
 				{
-					$info = 'Successfully delete obne product!';
+					$info = 'Successfully delete one product!';
 					$this->loadManageProductsView($page, $limit, $info);
 				}
 			}
@@ -586,8 +599,7 @@ class Staff extends Controller
 		}
 		else
 		{
-			$info  = "Password changed! You need to log in again!<br>";
-			$info .= "You will be redirected to log in in 5 seconds!";
+			$info  = "Password changed!";
 			$this->loadChangePasswordView($info, true);
 		}
 	}
@@ -675,7 +687,7 @@ class Staff extends Controller
 			unset($_POST['category-delete']);
 
 			$param = array(
-				'gearTypeID'=>$id
+				'id'=>$id
 				);
 			//$products = $this->_productDAO->getProductBy($param);
 			$products = $this->_productDAO->select('geartypes', $param);
@@ -713,7 +725,7 @@ class Staff extends Controller
 
 			//$isExist = $this->_gearTypeDAO->isExist('geartypes', $name);
 			$param = array(
-					'name'   => $newCate
+					'name' => $name
 					);
 			$isExist = $this->_gearTypeDAO->select('geartypes', $param);
 

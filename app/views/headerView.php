@@ -34,6 +34,7 @@ if(isset($user))
 <?php require_once(__DIR__ . "/../core/global.php"); ?>
 <body>
 
+<<<<<<< HEAD
 <header class="container-fluid clearfix">
 	<div class="container centre">
 		<h1 class="col-xs-12 col-md-6">
@@ -56,6 +57,31 @@ if(isset($user))
 				View Cart(<?php echo $items; ?>)
 				</a>
 		</div>
+=======
+<header class="clearFix container-fluid">
+	<ul id="top-menu-right" class="centre clearFix">
+			<li id="shoppingcart"><a href="<?php echo ROOT.'order/showCart'; ?>">
+			<?php 
+			if(isset($_SESSION['cart']))
+			{
+				$items = sizeof($_SESSION['cart']);
+			}
+			else
+			{
+				$items = 0;
+			}
+			?>
+			Shoppig Cart(<?php echo $items; ?>)</a></li>
+			<!--
+			<li><a href="<?php echo ROOT.'user/signUp'; ?>">&nbsp;Join us&nbsp;</a></li>
+			<li><a href="<?php echo ROOT.'user'; ?>">&nbsp;Sign In&nbsp;</a></li>
+			-->
+	</ul>
+	
+	<div class="centre clearFix" id="header">
+		<h1><a href="<?php echo ROOT; ?>"><span class="float-left">Sport</span><span class="float-left rotate">G</span><span class="float-left">ear</span></a></h1>
+
+>>>>>>> origin/master
 	</div>
 
 	<div class="container centre clearfix">
