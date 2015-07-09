@@ -150,10 +150,7 @@ class Staff extends Controller
 	{
 		$_SESSION['staff'] = null;
 		$this->loadSignInView();
-<<<<<<< HEAD
-		exit();
-=======
->>>>>>> origin/master
+
 		//$this->index();
 	}
 

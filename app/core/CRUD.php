@@ -124,9 +124,7 @@ class CRUD
 		catch(PDOException $e)
 		{
 			echo 'Insert Error:'.$e->getMessage();
-		}
-
-			
+		}		
 	}
 
 	/*
